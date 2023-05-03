@@ -1,0 +1,66 @@
+// Trusted Digial Web Project
+// Hyperonomy Digital Identity Lab
+// Parallelspace Corporation
+// (c) Copyright 2021 Parallelspace Corporation. All Rights Reserved
+
+//////////////////////////////////////////////////////////////////////////////
+
+// https://www.graphengine.io/docs/manual/TSL/tsl-basics.html
+
+// https://www.w3.org/TR/did-core/#dfn-publickeyjwk plus examples
+struct JSONKeyMap
+{
+	optional string crv;
+	optional string e;
+	optional string n;
+	optional string x;
+	optional string y;
+	optional string kty;
+	optional string kid;
+}
+
+
+// https://www.w3.org/TR/did-core/#verification-method-properties
+struct VerificationMethodMap
+{
+	optional string comment;
+	string id;
+	string controller;
+	string type_;
+	optional string publicKeyMultibase;
+	optional JSONKeyMap publicKeyJwk;
+	optional string publicKeyBase58; // OKAPI
+	optional string privateKeyBase58; // OKAPI
+}
+
+// https://www.w3.org/TR/did-core/#service-properties
+struct ServiceMap
+{
+	optional string comment;
+	string id;
+	List<string> type_;												// type
+	List<string> serviceEndpoint;
+}
+
+
+// https://www.w3.org/TR/did-core/#did-document-properties
+struct DIDDocument
+{
+	string id;														// DIDID
+	optional string purpose;										// DUDPUR		Web 3.0
+	optional string comment;										// DIDCOMM		Web 3.0
+
+	optional List<string> context;									// DIDCTXT
+	optional List<string> alsoKnownAs;								// DIDAKA
+	optional List<string> controller;								// DIDCTLR
+
+	optional List<VerificationMethodMap> verificationMethod;		// DIDVM
+	optional List<VerificationMethodMap> authentication;			// DIDAUTH
+	optional List<VerificationMethodMap> assertionMethod;			// DIDAM
+	optional List<VerificationMethodMap> keyAgreement;				// DIDKA
+	optional List<VerificationMethodMap> capabilityInvocation;		// DIDCI
+	optional List<VerificationMethodMap> capabilityDelegation;		// DIDCD
+
+	optional List<ServiceMap> service;								// DIDSVC
+	optional List<ServiceMap> relationship;							// DIDREL		Web 3.0
+}
