@@ -14,6 +14,10 @@
     <Version>5.2</Version>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.ByteTree\TechnitiumLibrary.ByteTree.csproj" />
     <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Database\TechnitiumLibrary.Database.csproj" />

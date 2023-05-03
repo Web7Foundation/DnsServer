@@ -1,3 +1,5 @@
+Setup Script Compiler: https://jrsoftware.org/isinfo.php -runs against DnsServerSetup.iss script
+
 did:neonation:0A5CCD13-8AFF-4643-BE13-2175D31D1951
 did:sov:0A5CCD13-8AFF-4643-BE13-2175D31D1951
 
