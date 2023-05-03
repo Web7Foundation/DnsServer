@@ -24,33 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.ByteTree\TechnitiumLibrary.ByteTree.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Database\TechnitiumLibrary.Database.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.IO\TechnitiumLibrary.IO.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.BitTorrent\TechnitiumLibrary.Net.BitTorrent.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Firewall\TechnitiumLibrary.Net.Firewall.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Mail\TechnitiumLibrary.Net.Mail.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Tor\TechnitiumLibrary.Net.Tor.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.UPnP\TechnitiumLibrary.Net.UPnP.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net\TechnitiumLibrary.Net.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Security.Cryptography\TechnitiumLibrary.Security.Cryptography.csproj" />
-		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary\TechnitiumLibrary.csproj" />
 		<ProjectReference Include="..\DnsServerCore.ApplicationCommon\DnsServerCore.ApplicationCommon.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="TechnitiumLibrary">
-			<HintPath>..\..\TechnitiumLibrary\bin\TechnitiumLibrary.dll</HintPath>
-		</Reference>
-		<Reference Include="TechnitiumLibrary.ByteTree">
-			<HintPath>..\..\TechnitiumLibrary\bin\TechnitiumLibrary.ByteTree.dll</HintPath>
-		</Reference>
-		<Reference Include="TechnitiumLibrary.IO">
-			<HintPath>..\..\TechnitiumLibrary\bin\TechnitiumLibrary.IO.dll</HintPath>
-		</Reference>
-		<Reference Include="TechnitiumLibrary.Net">
-			<HintPath>..\..\TechnitiumLibrary\bin\TechnitiumLibrary.Net.dll</HintPath>
-		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -243,6 +217,21 @@
 		<Content Include="www\robots.txt">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="TechnitiumLibrary">
+	    <HintPath>..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.dll</HintPath>
+	  </Reference>
+	  <Reference Include="TechnitiumLibrary.ByteTree">
+	    <HintPath>..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.ByteTree.dll</HintPath>
+	  </Reference>
+	  <Reference Include="TechnitiumLibrary.IO">
+	    <HintPath>..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.IO.dll</HintPath>
+	  </Reference>
+	  <Reference Include="TechnitiumLibrary.Net">
+	    <HintPath>..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.Net.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 </Project>

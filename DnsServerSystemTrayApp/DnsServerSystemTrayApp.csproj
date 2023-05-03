@@ -22,15 +22,6 @@
   <PropertyGroup>
     <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
   </PropertyGroup>
-  
-  <ItemGroup>
-    <Reference Include="TechnitiumLibrary.IO">
-      <HintPath>..\..\TechnitiumLibrary\bin\TechnitiumLibrary.IO.dll</HintPath>
-    </Reference>
-    <Reference Include="TechnitiumLibrary.Net">
-      <HintPath>..\..\TechnitiumLibrary\bin\TechnitiumLibrary.Net.dll</HintPath>
-    </Reference>
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -46,17 +37,12 @@
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.ByteTree\TechnitiumLibrary.ByteTree.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Database\TechnitiumLibrary.Database.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.IO\TechnitiumLibrary.IO.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.BitTorrent\TechnitiumLibrary.Net.BitTorrent.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Firewall\TechnitiumLibrary.Net.Firewall.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Mail\TechnitiumLibrary.Net.Mail.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Tor\TechnitiumLibrary.Net.Tor.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.UPnP\TechnitiumLibrary.Net.UPnP.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net\TechnitiumLibrary.Net.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Security.Cryptography\TechnitiumLibrary.Security.Cryptography.csproj" />
-    <ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary\TechnitiumLibrary.csproj" />
+    <Reference Include="TechnitiumLibrary.IO">
+      <HintPath>..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="TechnitiumLibrary.Net">
+      <HintPath>..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
