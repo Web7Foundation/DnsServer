@@ -1,0 +1,97 @@
+{
+    "id": "did:person:1",
+    "purpose": [ "trustRegistration", "method-ecosystem" ],
+    "comment": "Person DID Method Ecosystem Trust Registration (TrustReg DID Document)",
+    "context": [ "https://www.w3.org/ns/did/v1" ],
+    "verificationMethod": [
+        {
+            "comment": "Person DID Method Ecosystem verificationMethod",
+            "id": "did:person:1#verificationMethod",
+            "controller": "did:person:1",
+            "type": "X25519KeyAgreementKey2019",
+            "publicKeyBase58": "FrCyA2gsnFfGf4PcfxkKPmRZJKuXmMPn746ksA7vzXvC"
+        }
+    ],
+    "keyAgreement": [
+        {
+            "comment": "Person DID Method Ecosystem keyAgreement",
+            "id": "did:person:1#verificationMethod"
+        }
+    ],
+    "service": [
+        {
+            "comment": "Person DID Method Ecosystem Default serviceEndpoint",
+            "id": "did:person:1#default",
+            "type": [ "default" ],
+            "serviceEndpoint": [
+                "http://localhost:8081/DIDCommEndpoint/"
+            ]
+        }
+    ],
+    "relationship": [
+        {
+            "comment": "Person DID Method Ecosystem Methods Accepted",
+            "id": "did:person:1#methods",
+            "type": [ "methods-accepted" ],
+            "serviceEndpoint": [
+                "did:person:0"
+            ]
+        },
+        {
+            "comment": "Person DID Method Ecosystem Issuers Accepted",
+            "id": "did:person:1#issuers-accepted",
+            "type": [ "issuers-accepted" ],
+            "serviceEndpoint": [
+                "did:org:1111"
+            ]
+        },
+        {
+            "comment": "Person DID Method Ecosystem Verifiers Accepted",
+            "id": "did:person:1#verifiers-accepted",
+            "type": [ "verifiers-accepted" ],
+            "serviceEndpoint": [
+                "did:org:4444", "did:org:6666"
+            ]
+        },
+        {
+            "comment": "Person DID Method Ecosystem VDRs Accepted",
+            "id": "did:person:1#vdrs-accepted",
+            "type": [ "vdrs-accepted" ],
+            "serviceEndpoint": [
+                "did:vdr:001002003"
+            ]
+        },
+        {
+            "comment": "Person DID Method Ecosystem Ecosystems Accepted",
+            "id": "did:person:1#ecosystems-accepted",
+            "type": [ "ecosystems-accepted" ],
+            "serviceEndpoint": [
+                "did:ca:sovronia:1"
+            ]
+        },
+        {
+            "comment": "Person DID Method Ecosystem Wallets Accepted",
+            "id": "did:person:1#wallets-accepted",
+            "type": [ "wallets-accepted" ],
+            "serviceEndpoint": [
+                "did:walletimpl:13579"
+            ]
+        },
+        {
+            "comment": "Person DID Method Ecosystem Roles Accepted",
+            "id": "did:person:1:1#roles-accepted",
+            "type": [ "roles-accepted" ],
+            "serviceEndpoint": [
+                "*"
+            ]
+        },
+        {
+            "comment": "Person DID Method Ecosystem Credential Definitions Accepted",
+            "id": "did:person:1:1#credentialdef-accepted",
+            "type": [ "credentialdef-accepted" ],
+            "serviceEndpoint": [
+                "*"
+            ]
+        }
+    ]
+}

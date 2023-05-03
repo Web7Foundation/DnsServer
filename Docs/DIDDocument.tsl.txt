@@ -47,7 +47,7 @@ struct ServiceMap
 struct DIDDocument
 {
 	string id;														// DIDID
-	optional string purpose;										// DUDPUR		Web 3.0
+	optional string purpose;										// DUDPURP		Web 3.0
 	optional string comment;										// DIDCOMM		Web 3.0
 
 	optional List<string> context;									// DIDCTXT

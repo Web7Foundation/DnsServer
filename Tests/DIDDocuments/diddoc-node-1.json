@@ -1,0 +1,39 @@
+{
+    "id": "did:node:201",
+    "comment": "DIDComm Network Message Router Agent 201 DID Document",
+    "context": [ "https://www.w3.org/ns/did/v1" ],
+    "verificationMethod": [
+        {
+            "id": "did:node:201#verificationMethod",
+            "controller": "did:node:201",
+            "type": "X25519KeyAgreementKey2019",
+            "publicKeyBase58": "FrCyA2gsnFfGf4PcfxkKPmRZJKuXmMPn746ksA7vzXvC"
+        }
+    ],
+    "keyAgreement": [
+        {
+            "id": "did:node:201#verificationMethod"
+        }
+    ],
+    "service": [
+        {
+            "id": "did:node:201#default",
+            "type": [ "default"],
+            "serviceEndpoint": [
+                "http://localhost1:8081/DIDCommEndpoint/"
+            ]
+        }
+    ],
+    "relationship": [
+        {
+            "id": "did:node:201#neighbors",
+            "type": [ "neighbors" ],
+            "serviceEndpoint": [
+                "did:node:3",
+                "did:node:5",
+                "did:node:7",
+                "did:person:1234"
+            ]
+        }
+    ]
+}

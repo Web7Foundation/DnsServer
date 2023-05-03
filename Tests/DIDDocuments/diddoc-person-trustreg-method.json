@@ -1,0 +1,41 @@
+{
+    "id": "did:person:0",
+    "purpose": [ "trustRegistration", "method" ],
+    "comment": "Person DID Method Trust Registration (TrustReg DID Document)",
+    "context": [ "https://www.w3.org/ns/did/v1" ],
+    "verificationMethod": [
+        {
+            "comment": "Person DID Method verificationMethod",
+            "id": "did:person:0#verificationMethod",
+            "controller": "did:person:0",
+            "type": "X25519KeyAgreementKey2019",
+            "publicKeyBase58": "FrCyA2gsnFfGf4PcfxkKPmRZJKuXmMPn746ksA7vzXvC"
+        }
+    ],
+    "keyAgreement": [
+        {
+            "comment": "Person DID Method keyAgreement",
+            "id": "did:person:0#verificationMethod"
+        }
+    ],
+    "service": [
+        {
+            "comment": "Person DID Method Default serviceEndpoint",
+            "id": "did:person:0#default",
+            "type": [ "default" ],
+            "serviceEndpoint": [
+                "http://localhost:8084/DIDCommEndpoint/"
+            ]
+        }
+    ],
+    "relationship": [
+        {
+            "comment": "Person DID Method Ecosystems Accepted",
+            "id": "did:person:0#ecosystems-accepted",
+            "type": [ "ecosystems-accepted" ],
+            "serviceEndpoint": [
+                "did:person:1", "did:ca:sovronia:1"
+            ]
+        }
+    ]
+}

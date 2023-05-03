@@ -1,0 +1,95 @@
+{
+    "id": "did:professionals:1",
+    "purpose": [ "trustRegistration", "trust-ecosystem" ],
+    "comment": "Professionals Ecosystem Trust Registration (TrustReg DID Document)",
+    "context": [ "https://www.w3.org/ns/did/v1" ],
+    "verificationMethod": [
+        {
+            "comment": "Professionals Ecosystem verificationMethod",
+            "id": "did:professionals:1#verificationMethod",
+            "controller": "did:professionals:1",
+            "type": "X25519KeyAgreementKey2019",
+            "publicKeyBase58": "FrCyA2gsnFfGf4PcfxkKPmRZJKuXmMPn746ksA7vzXvC"
+        }
+    ],
+    "keyAgreement": [
+        {
+            "comment": "Professionals Ecosystem keyAgreement",
+            "id": "did:professionals:1#verificationMethod"
+        }
+    ],
+    "service": [
+        {
+            "comment": "Professionals Ecosystem Default serviceEndpoint",
+            "id": "did:professionals:1#default",
+            "type": [ "default" ],
+            "serviceEndpoint": [
+                "http://localhost:8082/DIDCommEndpoint/"
+            ]
+        }
+    ],
+    "relationship": [
+        {
+            "comment": "Professionals Ecosystem Methods Accepted",
+            "id": "did:professionals:1#methods-accepted",
+            "type": [ "methods-accepted" ],
+            "serviceEndpoint": [
+                "did:gamestar:1", "did:sportsperson:1", "did:professional:1"
+            ]
+        },
+        {
+            "comment": "Professionals Ecosystem Issuers Accepted",
+            "id": "did:professionals:1#issuers-accepted",
+            "type": [ "issuers-accepted" ],
+            "serviceEndpoint": [
+                "did:org:1111", "did:org:3333"
+            ]
+        },
+        {
+            "comment": "Professionals Ecosystem Verifiers Accepted",
+            "id": "did:professionals:1#verifiers-accepted",
+            "type": [ "verifiers-accepted" ],
+            "serviceEndpoint": [
+                "did:org:6666", "did:org:8888"
+            ]
+        },
+        {
+            "comment": "Professionals Ecosystem Verifiable Data Registries Accepted",
+            "id": "did:professionals:1#vdrs-accepted",
+            "type": [ "vdrs-accepted" ],
+            "serviceEndpoint": [
+                "did:vdr:001002003"
+            ]
+        },
+        {
+            "comment": "Professionals Ecosystem Wallets Accepted",
+            "id": "did:professionals:1#wallets-accepted",
+            "type": [ "wallets-accepted" ],
+            "serviceEndpoint": [
+                "did:walletimpl:13579"
+            ]
+        },
+        {
+            "comment": "Professionals Ecosystem DID Registry Accepted",
+            "id": "did:professionals:1#didregistry-accepted",
+            "type": [ "didregistry-accepted" ],
+            "serviceEndpoint": [
+                "did:registry:0000"
+            ]
+        },
+        {
+            "comment": "Professionals Ecosystem Roles Accepted",
+            "id": "did:professionals:1#roles-accepted",
+            "type": [ "roles-accepted" ],
+            "serviceEndpoint": [
+            ]
+        },
+        {
+            "comment": "Professionals Ecosystem Crednetial Definitions Accepted",
+            "id": "did:professionals:1#credentialdef-accepted",
+            "type": [ "credentialdef-accepted" ],
+            "serviceEndpoint": [
+            ]
+        }
+    ]
+}

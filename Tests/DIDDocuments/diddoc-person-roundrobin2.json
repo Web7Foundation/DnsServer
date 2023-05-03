@@ -1,0 +1,42 @@
+{
+    "id": "did:person:1234",
+    "comment": "Person 1234 DID Document",
+    "context": [ "https://www.w3.org/ns/did/v1" ],
+    "verificationMethod": [
+        {
+            "id": "did:person:1234#verificationMethod",
+            "controller": "did:person:1234",
+            "type": "X25519KeyAgreementKey2019",
+            "publicKeyBase58": "FrCyA2gsnFfGf4PcfxkKPmRZJKuXmMPn746ksA7vzXvC"
+        }
+    ],
+    "keyAgreement": [
+        {
+            "id": "did:person:1234#verificationMethod"
+        }
+    ],
+    "service": [
+        {
+            "id": "did:person:1234#default",
+            "type": [ "default", "loadbalanced", "roundrobin" ],
+            "serviceEndpoint": [
+                "http://localhost1:8081/DIDCommEndpoint/",
+                "http://localhost2:8082/DIDCommEndpoint/",
+                "http://localhost3:8083/DIDCommEndpoint/",
+                "http://localhost4:8084/DIDCommEndpoint/"
+            ]
+        }
+    ],
+    "relationship": [
+        {
+            "id": "did:person:1234#default2",
+            "type": [ "service", "default", "loadbalanced", "roundrobin" ],
+            "serviceEndpoint": [
+                "http://localhost1:8081/DIDCommEndpoint/",
+                "http://localhost2:8082/DIDCommEndpoint/",
+                "http://localhost3:8083/DIDCommEndpoint/",
+                "http://localhost4:8084/DIDCommEndpoint/"
+            ]
+        }
+    ]
+}

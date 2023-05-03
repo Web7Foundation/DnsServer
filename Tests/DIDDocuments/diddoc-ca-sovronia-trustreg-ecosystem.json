@@ -1,0 +1,82 @@
+{
+    "id": "did:ca:sovronia:1",
+    "purpose": [ "trustRegistration", "trust-ecosystem" ],
+    "comment": "Sovronia.ca Ecosystem Trust Registration (TrustReg DID Document)",
+    "context": [ "https://www.w3.org/ns/did/v1" ],
+    "verificationMethod": [
+        {
+            "id": "did:ca:sovronia:1#verificationMethod",
+            "controller": "did:ca:sovronia:1",
+            "type": "X25519KeyAgreementKey2019",
+            "publicKeyBase58": "FrCyA2gsnFfGf4PcfxkKPmRZJKuXmMPn746ksA7vzXvC"
+        }
+    ],
+    "keyAgreement": [
+        {
+            "id": "did:ca:sovronia:1#verificationMethod"
+        }
+    ],
+    "service": [
+        {
+            "id": "did:ca:sovronia:1#default",
+            "type": [ "default" ],
+            "serviceEndpoint": [
+                "http://localhost:8083/DIDCommEndpoint/"
+            ]
+        }
+    ],
+    "relationship": [
+        {
+            "id": "did:ca:sovronia:1#methods-accepted",
+            "type": [ "methods-accepted" ],
+            "serviceEndpoint": [
+                "did:person:1"
+            ]
+        },
+        {
+            "id": "did:ca:sovronia:1#issuers-accepted",
+            "type": [ "issuers-accepted" ],
+            "serviceEndpoint": [
+                "did:org:1111"
+            ]
+        },
+        {
+            "id": "did:ca:sovronia:1#verifiers-accepted",
+            "type": [ "verifiers-accepted" ],
+            "serviceEndpoint": [
+                "did:org:4444", "did:org:6666"
+            ]
+        },
+        {
+            "id": "did:ca:sovronia:1#vdrs-accepted",
+            "type": [ "vdrs-accepted" ],
+            "serviceEndpoint": [
+                "did:vdr:001002003"
+            ]
+        },
+        {
+            "id": "did:ca:sovronia:1#wallets-accepted",
+            "type": [ "wallets-accepted" ],
+            "serviceEndpoint": [
+                "did:walletimpl:111-222-333"
+            ]
+        },
+        {
+            "id": "did:ca:sovronia:1#didregistry-accepted",
+            "type": [ "didregistry-accepted" ],
+            "serviceEndpoint": [
+                "did:registry:0000"
+            ]
+        },
+        {
+            "id": "did:ca:sovronia:1#roles-accepted",
+            "type": [ "roles-accepted" ],
+            "serviceEndpoint": [ "*" ]
+        },
+        {
+            "id": "did:ca:sovronia:1#credentialdef-accepted",
+            "type": [ "credentialdef-accepted" ],
+            "serviceEndpoint": [ "*" ]
+        }
+    ]
+}
