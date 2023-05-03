@@ -29,6 +29,7 @@
 		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.IO\TechnitiumLibrary.IO.csproj" />
 		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.BitTorrent\TechnitiumLibrary.Net.BitTorrent.csproj" />
 		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Firewall\TechnitiumLibrary.Net.Firewall.csproj" />
+		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Mail\TechnitiumLibrary.Net.Mail.csproj" />
 		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.Tor\TechnitiumLibrary.Net.Tor.csproj" />
 		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net.UPnP\TechnitiumLibrary.Net.UPnP.csproj" />
 		<ProjectReference Include="..\..\TechnitiumLibrary\TechnitiumLibrary.Net\TechnitiumLibrary.Net.csproj" />
