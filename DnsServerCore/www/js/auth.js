@@ -33,7 +33,7 @@ $(function () {
                 localStorage.setItem("token", sessionData.token);
 
                 $("#mnuUserDisplayName").text(sessionData.displayName);
-                document.title = sessionData.info.dnsServerDomain + " - " + "Technitium DNS Server v" + sessionData.info.version;
+                document.title = sessionData.info.dnsServerDomain + " - " + "Web 7.0 DID Registry v" + sessionData.info.version;
                 $("#lblAboutVersion").text(sessionData.info.version);
                 $("#lblDnsServerDomain").text(" - " + sessionData.info.dnsServerDomain);
                 $("#txtAddEditRecordTtl").attr("placeholder", sessionData.info.defaultRecordTtl);
@@ -207,7 +207,7 @@ function login(username, password) {
             localStorage.setItem("token", sessionData.token);
 
             $("#mnuUserDisplayName").text(sessionData.displayName);
-            document.title = sessionData.info.dnsServerDomain + " - " + "Technitium DNS Server v" + sessionData.info.version;
+            document.title = sessionData.info.dnsServerDomain + " - " + "Web 7.0 DID Registry v" + sessionData.info.version;
             $("#lblAboutVersion").text(sessionData.info.version);
             $("#lblDnsServerDomain").text(" - " + sessionData.info.dnsServerDomain);
             $("#txtAddEditRecordTtl").attr("placeholder", sessionData.info.defaultRecordTtl);

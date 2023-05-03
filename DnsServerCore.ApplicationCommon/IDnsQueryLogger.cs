@@ -153,10 +153,10 @@ namespace DnsServerCore.ApplicationCommon
         /// <param name="timestamp">The time stamp of the log entry.</param>
         /// <param name="clientIpAddress">The client IP address of the request.</param>
         /// <param name="protocol">The DNS transport protocol of the request.</param>
-        /// <param name="responseType">The type of response sent by the DNS server.</param>
-        /// <param name="rcode">The response code sent by the DNS server.</param>
+        /// <param name="responseType">The type of response sent by the Web 7.0 DID Registry.</param>
+        /// <param name="rcode">The response code sent by the Web 7.0 DID Registry.</param>
         /// <param name="question">The question section in the request.</param>
-        /// <param name="answer">The answer in text format sent by the DNS server.</param>
+        /// <param name="answer">The answer in text format sent by the Web 7.0 DID Registry.</param>
         public DnsLogEntry(long rowNumber, DateTime timestamp, IPAddress clientIpAddress, DnsTransportProtocol protocol, DnsServerResponseType responseType, DnsResponseCode rcode, DnsQuestionRecord question, string answer)
         {
             _rowNumber = rowNumber;
@@ -209,13 +209,13 @@ namespace DnsServerCore.ApplicationCommon
         { get { return _protocol; } }
 
         /// <summary>
-        /// The type of response sent by the DNS server.
+        /// The type of response sent by the Web 7.0 DID Registry.
         /// </summary>
         public DnsServerResponseType ResponseType
         { get { return _responseType; } }
 
         /// <summary>
-        /// The response code sent by the DNS server.
+        /// The response code sent by the Web 7.0 DID Registry.
         /// </summary>
         public DnsResponseCode RCODE
         { get { return _rcode; } }
@@ -227,7 +227,7 @@ namespace DnsServerCore.ApplicationCommon
         { get { return _question; } }
 
         /// <summary>
-        /// The answer in text format sent by the DNS server.
+        /// The answer in text format sent by the Web 7.0 DID Registry.
         /// </summary>
         public string Answer
         { get { return _answer; } }

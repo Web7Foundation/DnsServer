@@ -91,7 +91,7 @@ namespace DnsServerCore
                         if (_dnsWebService.DnsServer.DnsApplicationManager.Applications.Count < 1)
                             return;
 
-                        _dnsWebService._log.Write("DNS Server has started automatic update check for DNS Apps.");
+                        _dnsWebService._log.Write("Web 7.0 DID Registry has started automatic update check for DNS Apps.");
 
                         string storeAppsJsonData = await GetStoreAppsJsonData(true);
                         using JsonDocument jsonDocument = JsonDocument.Parse(storeAppsJsonData);

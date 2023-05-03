@@ -997,7 +997,7 @@ namespace DnsServerCore.Dns
             {
                 if (!request.VerifySignedRequest(_tsigKeys, out DnsDatagram unsignedRequest, out DnsDatagram errorResponse))
                 {
-                    _log?.Write(remoteEP, protocol, "DNS Server received a request that failed TSIG signature verification (RCODE: " + errorResponse.RCODE + "; TSIG Error: " + errorResponse.TsigError + ")");
+                    _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry received a request that failed TSIG signature verification (RCODE: " + errorResponse.RCODE + "; TSIG Error: " + errorResponse.TsigError + ")");
 
                     errorResponse.Tag = DnsServerResponseType.Authoritative;
                     return errorResponse;
@@ -1161,12 +1161,12 @@ namespace DnsServerCore.Dns
 
             if (!remoteVerified)
             {
-                _log?.Write(remoteEP, protocol, "DNS Server refused a NOTIFY request since the request IP address was not recognized by the secondary zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a NOTIFY request since the request IP address was not recognized by the secondary zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                 return new DnsDatagram(request.Identifier, true, DnsOpcode.Notify, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.Refused, request.Question) { Tag = DnsServerResponseType.Authoritative };
             }
 
-            _log?.Write(remoteEP, protocol, "DNS Server received a NOTIFY request for secondary zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+            _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry received a NOTIFY request for secondary zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
             if ((request.Answer.Count > 0) && (request.Answer[0].Type == DnsResourceRecordType.SOA))
             {
@@ -1195,7 +1195,7 @@ namespace DnsServerCore.Dns
             if ((authZoneInfo is null) || authZoneInfo.Disabled)
                 return new DnsDatagram(request.Identifier, true, DnsOpcode.Update, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.NotAuth, request.Question) { Tag = DnsServerResponseType.Authoritative };
 
-            _log?.Write(remoteEP, protocol, "DNS Server received a zone UPDATE request for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+            _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry received a zone UPDATE request for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
             async Task<bool> IsZoneNameServerAllowedAsync()
             {
@@ -1257,7 +1257,7 @@ namespace DnsServerCore.Dns
 
                 if (!isUpdateAllowed)
                 {
-                    _log?.Write(remoteEP, protocol, "DNS Server refused a zone UPDATE request since the request IP address is not allowed by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                    _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a zone UPDATE request since the request IP address is not allowed by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                     return false;
                 }
@@ -1267,7 +1267,7 @@ namespace DnsServerCore.Dns
                 {
                     if ((tsigAuthenticatedKeyName is null) || !authZoneInfo.UpdateSecurityPolicies.TryGetValue(tsigAuthenticatedKeyName.ToLower(), out IReadOnlyDictionary<string, IReadOnlyList<DnsResourceRecordType>> policyMap))
                     {
-                        _log?.Write(remoteEP, protocol, "DNS Server refused a zone UPDATE request since the request is missing TSIG auth required by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                        _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a zone UPDATE request since the request is missing TSIG auth required by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                         return false;
                     }
@@ -1432,7 +1432,7 @@ namespace DnsServerCore.Dns
                         //check for permissions
                         if (!await IsUpdatePermittedAsync())
                         {
-                            _log?.Write(remoteEP, protocol, "DNS Server refused a zone UPDATE request due to Dynamic Updates Security Policy for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                            _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a zone UPDATE request due to Dynamic Updates Security Policy for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                             return new DnsDatagram(request.Identifier, true, DnsOpcode.Update, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.Refused, request.Question) { Tag = DnsServerResponseType.Authoritative };
                         }
@@ -1674,7 +1674,7 @@ namespace DnsServerCore.Dns
 
                         _authZoneManager.SaveZoneFile(authZoneInfo.Name);
 
-                        _log?.Write(remoteEP, protocol, "DNS Server successfully processed a zone UPDATE request for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                        _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry successfully processed a zone UPDATE request for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                         //NOERROR
                         return new DnsDatagram(request.Identifier, true, DnsOpcode.Update, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.NoError, request.Question) { Tag = DnsServerResponseType.Authoritative };
@@ -1730,7 +1730,7 @@ namespace DnsServerCore.Dns
                         TsigKey key = null;
 
                         if (!string.IsNullOrEmpty(tsigAuthenticatedKeyName) && ((_tsigKeys is null) || !_tsigKeys.TryGetValue(tsigAuthenticatedKeyName, out key)))
-                            throw new DnsServerException("DNS Server does not have TSIG key '" + tsigAuthenticatedKeyName + "' configured to authenticate dynamic updates for secondary zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                            throw new DnsServerException("Web 7.0 DID Registry does not have TSIG key '" + tsigAuthenticatedKeyName + "' configured to authenticate dynamic updates for secondary zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                         DnsClient dnsClient = new DnsClient(primaryNameServers);
 
@@ -1765,7 +1765,7 @@ namespace DnsServerCore.Dns
             AuthZoneInfo authZoneInfo = _authZoneManager.GetAuthZoneInfo(request.Question[0].Name);
             if ((authZoneInfo is null) || authZoneInfo.Disabled || authZoneInfo.IsExpired)
             {
-                _log?.Write(remoteEP, protocol, "DNS Server refused a zone transfer request due to zone not found, zone disabled, or zone expired reasons for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a zone transfer request due to zone not found, zone disabled, or zone expired reasons for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                 return new DnsDatagram(request.Identifier, true, DnsOpcode.StandardQuery, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.Refused, request.Question) { Tag = DnsServerResponseType.Authoritative };
             }
@@ -1777,7 +1777,7 @@ namespace DnsServerCore.Dns
                     break;
 
                 default:
-                    _log?.Write(remoteEP, protocol, "DNS Server refused a zone transfer request since the DNS server is not authoritative for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                    _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a zone transfer request since the Web 7.0 DID Registry is not authoritative for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                     return new DnsDatagram(request.Identifier, true, DnsOpcode.StandardQuery, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.Refused, request.Question) { Tag = DnsServerResponseType.Authoritative };
             }
@@ -1838,7 +1838,7 @@ namespace DnsServerCore.Dns
 
             if (!isZoneTransferAllowed)
             {
-                _log?.Write(remoteEP, protocol, "DNS Server refused a zone transfer request since the request IP address is not allowed by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a zone transfer request since the request IP address is not allowed by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                 return new DnsDatagram(request.Identifier, true, DnsOpcode.StandardQuery, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.Refused, request.Question) { Tag = DnsServerResponseType.Authoritative };
             }
@@ -1847,13 +1847,13 @@ namespace DnsServerCore.Dns
             {
                 if ((tsigAuthenticatedKeyName is null) || !authZoneInfo.ZoneTransferTsigKeyNames.ContainsKey(tsigAuthenticatedKeyName.ToLower()))
                 {
-                    _log?.Write(remoteEP, protocol, "DNS Server refused a zone transfer request since the request is missing TSIG auth required by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+                    _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry refused a zone transfer request since the request is missing TSIG auth required by the zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
                     return new DnsDatagram(request.Identifier, true, DnsOpcode.StandardQuery, false, false, request.RecursionDesired, false, false, false, DnsResponseCode.Refused, request.Question) { Tag = DnsServerResponseType.Authoritative };
                 }
             }
 
-            _log?.Write(remoteEP, protocol, "DNS Server received zone transfer request for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
+            _log?.Write(remoteEP, protocol, "Web 7.0 DID Registry received zone transfer request for zone: " + (authZoneInfo.Name == "" ? "<root>" : authZoneInfo.Name));
 
             IReadOnlyList<DnsResourceRecord> xfrRecords;
 
@@ -2929,7 +2929,7 @@ namespace DnsServerCore.Dns
                         break;
 
                     default:
-                        throw new DnsServerException("DNS Server received a response for '" + question.ToString() + "' with RCODE=" + response.RCODE.ToString() + " from: " + (response.Metadata is null ? "unknown" : response.Metadata.NameServer));
+                        throw new DnsServerException("Web 7.0 DID Registry received a response for '" + question.ToString() + "' with RCODE=" + response.RCODE.ToString() + " from: " + (response.Metadata is null ? "unknown" : response.Metadata.NameServer));
                 }
             }
             catch (Exception ex)
@@ -2961,7 +2961,7 @@ namespace DnsServerCore.Dns
                         }
                     }
 
-                    _log.Write("DNS Server failed to resolve the request '" + question.ToString() + "'" + (strForwarders is null ? "" : " using forwarders: " + strForwarders) + ".\r\n" + ex.ToString());
+                    _log.Write("Web 7.0 DID Registry failed to resolve the request '" + question.ToString() + "'" + (strForwarders is null ? "" : " using forwarders: " + strForwarders) + ".\r\n" + ex.ToString());
                 }
 
                 if (_serveStale)
@@ -3822,10 +3822,10 @@ namespace DnsServerCore.Dns
                     foreach (IPAddress localAddress in localAddresses)
                     {
                         if (_enableDnsOverHttp)
-                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpPort), "Http", "DNS Server was bound successfully.");
+                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpPort), "Http", "Web 7.0 DID Registry was bound successfully.");
 
                         if (_enableDnsOverHttps && (_certificate is not null))
-                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpsPort), "Https", "DNS Server was bound successfully.");
+                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpsPort), "Https", "Web 7.0 DID Registry was bound successfully.");
                     }
                 }
             }
@@ -3838,10 +3838,10 @@ namespace DnsServerCore.Dns
                     foreach (IPAddress localAddress in localAddresses)
                     {
                         if (_enableDnsOverHttp)
-                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpPort), "Http", "DNS Server failed to bind.");
+                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpPort), "Http", "Web 7.0 DID Registry failed to bind.");
 
                         if (_enableDnsOverHttps && (_certificate is not null))
-                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpsPort), "Https", "DNS Server failed to bind.");
+                            _log?.Write(new IPEndPoint(localAddress, _dnsOverHttpsPort), "Https", "Web 7.0 DID Registry failed to bind.");
                     }
 
                     _log?.Write(ex);
@@ -3951,7 +3951,7 @@ namespace DnsServerCore.Dns
                 throw new ObjectDisposedException("DnsServer");
 
             if (_state != ServiceState.Stopped)
-                throw new InvalidOperationException("DNS Server is already running.");
+                throw new InvalidOperationException("Web 7.0 DID Registry is already running.");
 
             _state = ServiceState.Starting;
 
@@ -3984,11 +3984,11 @@ namespace DnsServerCore.Dns
 
                     _udpListeners.Add(udpListener);
 
-                    _log?.Write(localEP, DnsTransportProtocol.Udp, "DNS Server was bound successfully.");
+                    _log?.Write(localEP, DnsTransportProtocol.Udp, "Web 7.0 DID Registry was bound successfully.");
                 }
                 catch (Exception ex)
                 {
-                    _log?.Write(localEP, DnsTransportProtocol.Udp, "DNS Server failed to bind.\r\n" + ex.ToString());
+                    _log?.Write(localEP, DnsTransportProtocol.Udp, "Web 7.0 DID Registry failed to bind.\r\n" + ex.ToString());
 
                     udpListener?.Dispose();
                 }
@@ -4004,11 +4004,11 @@ namespace DnsServerCore.Dns
 
                     _tcpListeners.Add(tcpListener);
 
-                    _log?.Write(localEP, DnsTransportProtocol.Tcp, "DNS Server was bound successfully.");
+                    _log?.Write(localEP, DnsTransportProtocol.Tcp, "Web 7.0 DID Registry was bound successfully.");
                 }
                 catch (Exception ex)
                 {
-                    _log?.Write(localEP, DnsTransportProtocol.Tcp, "DNS Server failed to bind.\r\n" + ex.ToString());
+                    _log?.Write(localEP, DnsTransportProtocol.Tcp, "Web 7.0 DID Registry failed to bind.\r\n" + ex.ToString());
 
                     tcpListener?.Dispose();
                 }
@@ -4027,11 +4027,11 @@ namespace DnsServerCore.Dns
 
                         _tlsListeners.Add(tlsListener);
 
-                        _log?.Write(tlsEP, DnsTransportProtocol.Tls, "DNS Server was bound successfully.");
+                        _log?.Write(tlsEP, DnsTransportProtocol.Tls, "Web 7.0 DID Registry was bound successfully.");
                     }
                     catch (Exception ex)
                     {
-                        _log?.Write(tlsEP, DnsTransportProtocol.Tls, "DNS Server failed to bind.\r\n" + ex.ToString());
+                        _log?.Write(tlsEP, DnsTransportProtocol.Tls, "Web 7.0 DID Registry failed to bind.\r\n" + ex.ToString());
 
                         tlsListener?.Dispose();
                     }
@@ -4073,11 +4073,11 @@ namespace DnsServerCore.Dns
 
                         _quicListeners.Add(quicListener);
 
-                        _log?.Write(quicEP, DnsTransportProtocol.Quic, "DNS Server was bound successfully.");
+                        _log?.Write(quicEP, DnsTransportProtocol.Quic, "Web 7.0 DID Registry was bound successfully.");
                     }
                     catch (Exception ex)
                     {
-                        _log?.Write(quicEP, DnsTransportProtocol.Quic, "DNS Server failed to bind.\r\n" + ex.ToString());
+                        _log?.Write(quicEP, DnsTransportProtocol.Quic, "Web 7.0 DID Registry failed to bind.\r\n" + ex.ToString());
 
                         if (quicListener is not null)
                             await quicListener.DisposeAsync();
@@ -4244,7 +4244,7 @@ namespace DnsServerCore.Dns
                     DnsClient.IsDomainNameValid(value, true);
 
                     if (IPAddress.TryParse(value, out _))
-                        throw new DnsServerException("Invalid domain name [" + value + "]: IP address cannot be used for DNS server domain name.");
+                        throw new DnsServerException("Invalid domain name [" + value + "]: IP address cannot be used for Web 7.0 DID Registry domain name.");
 
                     _serverDomain = value.ToLower();
 

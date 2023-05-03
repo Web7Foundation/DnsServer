@@ -18,7 +18,7 @@ echo "" > $installLog
 
 echo ""
 echo "==============================="
-echo "Technitium DNS Server Installer"
+echo "Web 7.0 DID Registry Installer"
 echo "==============================="
 
 if dotnet --list-runtimes 2> /dev/null | grep -q "Microsoft.AspNetCore.App 7.0."; 
@@ -106,7 +106,7 @@ then
 		fi
 	
 		echo ""
-		echo "Technitium DNS Server was installed successfully!"
+		echo "Web 7.0 DID Registry was installed successfully!"
 		echo "Open http://$(hostname):5380/ to access the web console."
 		echo ""
 		echo "Donate! Make a contribution by becoming a Patron: https://www.patreon.com/technitium"

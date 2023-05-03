@@ -52,7 +52,7 @@ namespace DnsServerCore.ApplicationCommon
         /// <param name="request">The incoming DNS request.</param>
         /// <param name="remoteEP">The end point (IP address and port) of the client making the request.</param>
         /// <param name="protocol">The protocol using which the request was received.</param>
-        /// <returns>The action that must be taken by the DNS server i.e. if the request must be allowed or dropped.</returns>
+        /// <returns>The action that must be taken by the Web 7.0 DID Registry i.e. if the request must be allowed or dropped.</returns>
         Task<DnsRequestControllerAction> GetRequestActionAsync(DnsDatagram request, IPEndPoint remoteEP, DnsTransportProtocol protocol);
     }
 }

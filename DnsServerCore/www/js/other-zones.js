@@ -33,7 +33,7 @@ function flushDnsCache(objBtn) {
             $("#preCachedZoneViewerBody").hide();
 
             btn.button('reset');
-            showAlert("success", "Flushed!", "DNS Server cache was flushed successfully.");
+            showAlert("success", "Flushed!", "Web 7.0 DID Registry cache was flushed successfully.");
         },
         error: function () {
             btn.button('reset');

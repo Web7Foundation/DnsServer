@@ -24,7 +24,7 @@ using TechnitiumLibrary.Net.Dns;
 namespace DnsServerCore.ApplicationCommon
 {
     /// <summary>
-    /// Allows a DNS App to handle incoming DNS requests for configured APP records in the DNS server zones.
+    /// Allows a DNS App to handle incoming DNS requests for configured APP records in the Web 7.0 DID Registry zones.
     /// </summary>
     public interface IDnsAppRecordRequestHandler
     {
@@ -34,7 +34,7 @@ namespace DnsServerCore.ApplicationCommon
         /// <param name="request">The incoming DNS request to be processed.</param>
         /// <param name="remoteEP">The end point (IP address and port) of the client making the request.</param>
         /// <param name="protocol">The protocol using which the request was received.</param>
-        /// <param name="isRecursionAllowed">Tells if the DNS server is configured to allow recursion for the client making this request.</param>
+        /// <param name="isRecursionAllowed">Tells if the Web 7.0 DID Registry is configured to allow recursion for the client making this request.</param>
         /// <param name="zoneName">The name of the application zone that the APP record belongs to.</param>
         /// <param name="appRecordName">The domain name of the APP record.</param>
         /// <param name="appRecordTtl">The TTL value set in the APP record.</param>

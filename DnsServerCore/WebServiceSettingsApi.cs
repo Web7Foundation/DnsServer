@@ -125,7 +125,7 @@ namespace DnsServerCore
                     }
                     catch (Exception ex)
                     {
-                        _dnsWebService._log.Write("DNS Server encountered an error while updating block lists.\r\n" + ex.ToString());
+                        _dnsWebService._log.Write("Web 7.0 DID Registry encountered an error while updating block lists.\r\n" + ex.ToString());
                     }
 
                 }, null, BLOCK_LIST_UPDATE_TIMER_INITIAL_INTERVAL, BLOCK_LIST_UPDATE_TIMER_PERIODIC_INTERVAL);

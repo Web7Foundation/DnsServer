@@ -11,7 +11,7 @@ fi
 
 echo ""
 echo "================================="
-echo "Technitium DNS Server Uninstaller"
+echo "Web 7.0 DID Registry Uninstaller"
 echo "================================="
 echo ""
 echo "Uninstalling Technitium DNS Server..."

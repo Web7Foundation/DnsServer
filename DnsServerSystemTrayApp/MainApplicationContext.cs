@@ -135,7 +135,7 @@ namespace DnsServerSystemTrayApp
                         catch
                         { }
 
-                        if (!usingLoopbackAsDns && MessageBox.Show("Do you want to update this computer's network connections to use the locally running Technitium DNS Server?\r\n\r\nNote! It is recommended that you use the locally running Technitium DNS Server unless you explicitly want to keep using your existing network DNS configuration.", "Switch Network DNS? - Technitium DNS Server", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (!usingLoopbackAsDns && MessageBox.Show("Do you want to update this computer's network connections to use the locally running Web 7.0 DID Registry?\r\n\r\nNote! It is recommended that you use the locally running Web 7.0 DID Registry unless you explicitly want to keep using your existing network DNS configuration.", "Switch Network DNS? - Web 7.0 DID Registry", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             SetNetworkDns(new DnsProvider("Technitium", new IPAddress[] { IPAddress.Loopback, IPAddress.IPv6Loopback }));
 
                         break;
@@ -287,7 +287,7 @@ namespace DnsServerSystemTrayApp
                             break;
 
                         default:
-                            throw new NotSupportedException("DNS Server System Tray App config file format is not supported.");
+                            throw new NotSupportedException("Web 7.0 DID Registry System Tray App config file format is not supported.");
                     }
                 }
             }
@@ -347,11 +347,11 @@ namespace DnsServerSystemTrayApp
                         SetNameServer(nic, dnsProvider.Addresses);
                 }
 
-                MessageBox.Show("The network DNS servers were set to " + dnsProvider.Name + " successfully.", dnsProvider.Name + " Configured - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("The network Web 7.0 DID Registries were set to " + dnsProvider.Name + " successfully.", dnsProvider.Name + " Configured - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error occured while setting " + dnsProvider.Name + " as network DNS server. " + ex.Message, "Error - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error occured while setting " + dnsProvider.Name + " as network Web 7.0 DID Registry. " + ex.Message, "Error - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -597,7 +597,7 @@ namespace DnsServerSystemTrayApp
                     BinaryReader bR = new BinaryReader(fS);
 
                     if (Encoding.ASCII.GetString(bR.ReadBytes(2)) != "DS") //format
-                        throw new InvalidDataException("DNS Server config file format is invalid.");
+                        throw new InvalidDataException("Web 7.0 DID Registry config file format is invalid.");
 
                     int version = bR.ReadByte();
 
@@ -669,12 +669,12 @@ namespace DnsServerSystemTrayApp
                 }
 
                 if (!silent)
-                    MessageBox.Show("The network DNS servers were set to default successfully.", "Default DNS Set - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("The network Web 7.0 DID Registries were set to default successfully.", "Default DNS Set - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 if (!silent)
-                    MessageBox.Show("Error occured while setting default network DNS servers. " + ex.Message, "Error - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error occured while setting default network Web 7.0 DID Registries. " + ex.Message, "Error - " + Resources.ServiceName, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

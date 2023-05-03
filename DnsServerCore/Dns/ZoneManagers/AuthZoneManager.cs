@@ -740,11 +740,11 @@ namespace DnsServerCore.Dns.ZoneManagers
                             _zoneIndex.Add(zoneInfo);
                         }
 
-                        _dnsServer.LogManager?.Write("DNS Server successfully loaded zone file: " + zoneFile);
+                        _dnsServer.LogManager?.Write("Web 7.0 DID Registry successfully loaded zone file: " + zoneFile);
                     }
                     catch (Exception ex)
                     {
-                        _dnsServer.LogManager?.Write("DNS Server failed to load zone file: " + zoneFile + "\r\n" + ex.ToString());
+                        _dnsServer.LogManager?.Write("Web 7.0 DID Registry failed to load zone file: " + zoneFile + "\r\n" + ex.ToString());
                     }
                 }
 

@@ -633,7 +633,7 @@ namespace DnsServerCore
                         }
                         catch (Exception ex)
                         {
-                            _log.Write("DNS Server encountered an error while updating Web Service TLS Certificate: " + _webServiceTlsCertificatePath + "\r\n" + ex.ToString());
+                            _log.Write("Web 7.0 DID Registry encountered an error while updating Web Service TLS Certificate: " + _webServiceTlsCertificatePath + "\r\n" + ex.ToString());
                         }
                     }
 
@@ -648,7 +648,7 @@ namespace DnsServerCore
                         }
                         catch (Exception ex)
                         {
-                            _log.Write("DNS Server encountered an error while updating DNS Server TLS Certificate: " + _dnsTlsCertificatePath + "\r\n" + ex.ToString());
+                            _log.Write("Web 7.0 DID Registry encountered an error while updating DNS Server TLS Certificate: " + _dnsTlsCertificatePath + "\r\n" + ex.ToString());
                         }
                     }
 
@@ -686,15 +686,15 @@ namespace DnsServerCore
             FileInfo fileInfo = new FileInfo(tlsCertificatePath);
 
             if (!fileInfo.Exists)
-                throw new ArgumentException("DNS Server TLS certificate file does not exists: " + tlsCertificatePath);
+                throw new ArgumentException("Web 7.0 DID Registry TLS certificate file does not exists: " + tlsCertificatePath);
 
             if (Path.GetExtension(tlsCertificatePath) != ".pfx")
-                throw new ArgumentException("DNS Server TLS certificate file must be PKCS #12 formatted with .pfx extension: " + tlsCertificatePath);
+                throw new ArgumentException("Web 7.0 DID Registry TLS certificate file must be PKCS #12 formatted with .pfx extension: " + tlsCertificatePath);
 
             _dnsServer.Certificate = new X509Certificate2(tlsCertificatePath, tlsCertificatePassword);
             _dnsTlsCertificateLastModifiedOn = fileInfo.LastWriteTimeUtc;
 
-            _log.Write("DNS Server TLS certificate was loaded: " + tlsCertificatePath);
+            _log.Write("Web 7.0 DID Registry TLS certificate was loaded: " + tlsCertificatePath);
         }
 
         internal void SelfSignedCertCheck(bool generateNew, bool throwException)
@@ -720,7 +720,7 @@ namespace DnsServerCore
                     }
                     catch (Exception ex)
                     {
-                        _log.Write("DNS Server encountered an error while loading self signed Web Service TLS certificate: " + selfSignedCertificateFilePath + "\r\n" + ex.ToString());
+                        _log.Write("Web 7.0 DID Registry encountered an error while loading self signed Web Service TLS certificate: " + selfSignedCertificateFilePath + "\r\n" + ex.ToString());
 
                         if (throwException)
                             throw;
@@ -766,15 +766,15 @@ namespace DnsServerCore
                     version = ReadConfigFrom(new BinaryReader(fS));
                 }
 
-                _log.Write("DNS Server config file was loaded: " + configFile);
+                _log.Write("Web 7.0 DID Registry config file was loaded: " + configFile);
 
                 if (version <= 27)
                     SaveConfigFile(); //save as new config version to avoid loading old version next time
             }
             catch (FileNotFoundException)
             {
-                _log.Write("DNS Server config file was not found: " + configFile);
-                _log.Write("DNS Server is restoring default config file.");
+                _log.Write("Web 7.0 DID Registry config file was not found: " + configFile);
+                _log.Write("Web 7.0 DID Registry is restoring default config file.");
 
                 //general
                 string serverDomain = Environment.GetEnvironmentVariable("DNS_SERVER_DOMAIN");
@@ -905,7 +905,7 @@ namespace DnsServerCore
             }
             catch (Exception ex)
             {
-                _log.Write("DNS Server encountered an error while loading config file: " + configFile + "\r\n" + ex.ToString());
+                _log.Write("Web 7.0 DID Registry encountered an error while loading config file: " + configFile + "\r\n" + ex.ToString());
                 _log.Write("Note: You may try deleting the config file to fix this issue. However, you will lose DNS settings but, zone data wont be affected.");
                 throw;
             }
@@ -949,7 +949,7 @@ namespace DnsServerCore
                 }
             }
 
-            _log.Write("DNS Server config file was saved: " + configFile);
+            _log.Write("Web 7.0 DID Registry config file was saved: " + configFile);
         }
 
         internal void InspectAndFixZonePermissions()
@@ -991,7 +991,7 @@ namespace DnsServerCore
         private int ReadConfigFrom(BinaryReader bR)
         {
             if (Encoding.ASCII.GetString(bR.ReadBytes(2)) != "DS") //format
-                throw new InvalidDataException("DNS Server config file format is invalid.");
+                throw new InvalidDataException("Web 7.0 DID Registry config file format is invalid.");
 
             int version = bR.ReadByte();
 
@@ -1008,7 +1008,7 @@ namespace DnsServerCore
             }
             else
             {
-                throw new InvalidDataException("DNS Server config version not supported.");
+                throw new InvalidDataException("Web 7.0 DID Registry config version not supported.");
             }
 
             return version;
@@ -1052,7 +1052,7 @@ namespace DnsServerCore
                     }
                     catch (Exception ex)
                     {
-                        _log.Write("DNS Server encountered an error while loading Web Service TLS certificate: " + _webServiceTlsCertificatePath + "\r\n" + ex.ToString());
+                        _log.Write("Web 7.0 DID Registry encountered an error while loading Web Service TLS certificate: " + _webServiceTlsCertificatePath + "\r\n" + ex.ToString());
                     }
 
                     StartTlsCertificateUpdateTimer();
@@ -1183,7 +1183,7 @@ namespace DnsServerCore
                     }
                     catch (Exception ex)
                     {
-                        _log.Write("DNS Server encountered an error while loading DNS Server TLS certificate: " + _dnsTlsCertificatePath + "\r\n" + ex.ToString());
+                        _log.Write("Web 7.0 DID Registry encountered an error while loading DNS Server TLS certificate: " + _dnsTlsCertificatePath + "\r\n" + ex.ToString());
                     }
 
                     StartTlsCertificateUpdateTimer();
@@ -1414,7 +1414,7 @@ namespace DnsServerCore
                     }
                     catch (Exception ex)
                     {
-                        _log.Write("DNS Server encountered an error while loading Web Service TLS certificate: " + _webServiceTlsCertificatePath + "\r\n" + ex.ToString());
+                        _log.Write("Web 7.0 DID Registry encountered an error while loading Web Service TLS certificate: " + _webServiceTlsCertificatePath + "\r\n" + ex.ToString());
                     }
 
                     StartTlsCertificateUpdateTimer();
@@ -1797,7 +1797,7 @@ namespace DnsServerCore
                     }
                     catch (Exception ex)
                     {
-                        _log.Write("DNS Server encountered an error while loading DNS Server TLS certificate: " + _dnsTlsCertificatePath + "\r\n" + ex.ToString());
+                        _log.Write("Web 7.0 DID Registry encountered an error while loading DNS Server TLS certificate: " + _dnsTlsCertificatePath + "\r\n" + ex.ToString());
                     }
 
                     StartTlsCertificateUpdateTimer();
@@ -2269,7 +2269,7 @@ namespace DnsServerCore
                 await _dnsServer.StartAsync();
                 _dhcpServer.Start();
 
-                _log.Write("DNS Server (v" + _currentVersion.ToString() + ") was started successfully.");
+                _log.Write("Web 7.0 DID Registry (v" + _currentVersion.ToString() + ") was started successfully.");
             }
             catch (Exception ex)
             {
@@ -2316,7 +2316,7 @@ namespace DnsServerCore
                     }
                 }
 
-                _log?.Write("DNS Server (v" + _currentVersion.ToString() + ") was stopped successfully.");
+                _log?.Write("Web 7.0 DID Registry (v" + _currentVersion.ToString() + ") was stopped successfully.");
                 _dnsServer = null;
             }
             catch (Exception ex)

@@ -119,7 +119,7 @@ namespace DnsServerCore.Dns.ZoneManagers
 
             try
             {
-                _dnsServer.LogManager?.Write("DNS Server is reading " + (isAllowList ? "allow" : "block") + " list from: " + listUrl.AbsoluteUri);
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry is reading " + (isAllowList ? "allow" : "block") + " list from: " + listUrl.AbsoluteUri);
 
                 using (FileStream fS = new FileStream(GetBlockListFilePath(listUrl), FileMode.Open, FileAccess.Read))
                 {
@@ -237,11 +237,11 @@ namespace DnsServerCore.Dns.ZoneManagers
                     }
                 }
 
-                _dnsServer.LogManager?.Write("DNS Server read " + (isAllowList ? "allow" : "block") + " list file (" + domains.Count + " domains) from: " + listUrl.AbsoluteUri);
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry read " + (isAllowList ? "allow" : "block") + " list file (" + domains.Count + " domains) from: " + listUrl.AbsoluteUri);
             }
             catch (Exception ex)
             {
-                _dnsServer.LogManager?.Write("DNS Server failed to read " + (isAllowList ? "allow" : "block") + " list from: " + listUrl.AbsoluteUri + "\r\n" + ex.ToString());
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry failed to read " + (isAllowList ? "allow" : "block") + " list from: " + listUrl.AbsoluteUri + "\r\n" + ex.ToString());
             }
 
             return domains;
@@ -364,7 +364,7 @@ namespace DnsServerCore.Dns.ZoneManagers
             _allowListZone = allowListZone;
             _blockListZone = blockListZone;
 
-            _dnsServer.LogManager?.Write("DNS Server block list zone was loaded successfully.");
+            _dnsServer.LogManager?.Write("Web 7.0 DID Registry block list zone was loaded successfully.");
         }
 
         public void Flush()
@@ -423,7 +423,7 @@ namespace DnsServerCore.Dns.ZoneManagers
 
                                     LogManager log = _dnsServer.LogManager;
                                     if (log != null)
-                                        log.Write("DNS Server successfully downloaded " + (isAllowList ? "allow" : "block") + " list (" + WebUtilities.GetFormattedSize(new FileInfo(listFilePath).Length) + "): " + listUrl.AbsoluteUri);
+                                        log.Write("Web 7.0 DID Registry successfully downloaded " + (isAllowList ? "allow" : "block") + " list (" + WebUtilities.GetFormattedSize(new FileInfo(listFilePath).Length) + "): " + listUrl.AbsoluteUri);
                                 }
                                 break;
 
@@ -433,7 +433,7 @@ namespace DnsServerCore.Dns.ZoneManagers
 
                                     LogManager log = _dnsServer.LogManager;
                                     if (log != null)
-                                        log.Write("DNS Server successfully checked for a new update of the " + (isAllowList ? "allow" : "block") + " list: " + listUrl.AbsoluteUri);
+                                        log.Write("Web 7.0 DID Registry successfully checked for a new update of the " + (isAllowList ? "allow" : "block") + " list: " + listUrl.AbsoluteUri);
                                 }
                                 break;
 
@@ -446,7 +446,7 @@ namespace DnsServerCore.Dns.ZoneManagers
                 {
                     LogManager log = _dnsServer.LogManager;
                     if (log != null)
-                        log.Write("DNS Server failed to download " + (isAllowList ? "allow" : "block") + " list and will use previously downloaded file (if available): " + listUrl.AbsoluteUri + "\r\n" + ex.ToString());
+                        log.Write("Web 7.0 DID Registry failed to download " + (isAllowList ? "allow" : "block") + " list and will use previously downloaded file (if available): " + listUrl.AbsoluteUri + "\r\n" + ex.ToString());
                 }
             }
 

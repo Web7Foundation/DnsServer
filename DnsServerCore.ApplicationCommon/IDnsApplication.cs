@@ -30,7 +30,7 @@ namespace DnsServerCore.ApplicationCommon
         /// <summary>
         /// Allows initializing the DNS application with a config. This function is also called when the config is updated to allow reloading.
         /// </summary>
-        /// <param name="dnsServer">The DNS server interface object that allows access to DNS server properties.</param>
+        /// <param name="dnsServer">The Web 7.0 DID Registry interface object that allows access to Web 7.0 DID Registry properties.</param>
         /// <param name="config">The DNS application config stored in the <c>dnsApp.config</c> file.</param>
         Task InitializeAsync(IDnsServer dnsServer, string config);
 

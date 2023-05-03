@@ -234,7 +234,7 @@ namespace DnsServerCore.Dns.Zones
 
                         LogManager log = dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server failed to notify name server '" + nameServerHost + "' due to failure in resolving its IP address for zone: " + (_name == "" ? "<root>" : _name));
+                            log.Write("Web 7.0 DID Registry failed to notify name server '" + nameServerHost + "' due to failure in resolving its IP address for zone: " + (_name == "" ? "<root>" : _name));
                     }
                 }
             }
@@ -350,7 +350,7 @@ namespace DnsServerCore.Dns.Zones
 
                             LogManager log = dnsServer.LogManager;
                             if (log is not null)
-                                log.Write("DNS Server successfully notified name server '" + nameServerHost + "' for zone: " + (_name == "" ? "<root>" : _name));
+                                log.Write("Web 7.0 DID Registry successfully notified name server '" + nameServerHost + "' for zone: " + (_name == "" ? "<root>" : _name));
                         }
                         break;
 
@@ -365,7 +365,7 @@ namespace DnsServerCore.Dns.Zones
 
                             LogManager log = dnsServer.LogManager;
                             if (log is not null)
-                                log.Write("DNS Server failed to notify name server '" + nameServerHost + "' (RCODE=" + response.RCODE.ToString() + ") for zone : " + (_name == "" ? "<root>" : _name));
+                                log.Write("Web 7.0 DID Registry failed to notify name server '" + nameServerHost + "' (RCODE=" + response.RCODE.ToString() + ") for zone : " + (_name == "" ? "<root>" : _name));
                         }
                         break;
                 }
@@ -378,7 +378,7 @@ namespace DnsServerCore.Dns.Zones
                         _notifyFailed.Add(nameServerHost);
                 }
 
-                dnsServer.LogManager?.Write("DNS Server failed to notify name server '" + nameServerHost + "' for zone: " + (_name == "" ? "<root>" : _name) + "\r\n" + ex.ToString());
+                dnsServer.LogManager?.Write("Web 7.0 DID Registry failed to notify name server '" + nameServerHost + "' for zone: " + (_name == "" ? "<root>" : _name) + "\r\n" + ex.ToString());
             }
             finally
             {

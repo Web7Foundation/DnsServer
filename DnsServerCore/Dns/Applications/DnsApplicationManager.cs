@@ -186,13 +186,13 @@ namespace DnsServerCore.Dns.Applications
 
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server successfully loaded DNS application: " + Path.GetFileName(applicationFolder));
+                            log.Write("Web 7.0 DID Registry successfully loaded DNS application: " + Path.GetFileName(applicationFolder));
                     }
                     catch (Exception ex)
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server failed to load DNS application: " + Path.GetFileName(applicationFolder) + "\r\n" + ex.ToString());
+                            log.Write("Web 7.0 DID Registry failed to load DNS application: " + Path.GetFileName(applicationFolder) + "\r\n" + ex.ToString());
                     }
                 });
             }

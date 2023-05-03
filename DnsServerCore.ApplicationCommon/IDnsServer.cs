@@ -30,7 +30,7 @@ namespace DnsServerCore.ApplicationCommon
     public interface IDnsServer : IDnsClient
     {
         /// <summary>
-        /// Allows querying the DNS server core directly. This call supports recursion even if its not enabled in the DNS server configuration. The request wont be routed to any of the installed DNS Apps except for processing APP records. The request and its response are not counted in any stats or logged.
+        /// Allows querying the Web 7.0 DID Registry core directly. This call supports recursion even if its not enabled in the Web 7.0 DID Registry configuration. The request wont be routed to any of the installed DNS Apps except for processing APP records. The request and its response are not counted in any stats or logged.
         /// </summary>
         /// <param name="question">The question record containing the details to query.</param>
         /// <param name="timeout">The timeout value in milliseconds to wait for response.</param>
@@ -39,7 +39,7 @@ namespace DnsServerCore.ApplicationCommon
         Task<DnsDatagram> DirectQueryAsync(DnsQuestionRecord question, int timeout = 4000);
 
         /// <summary>
-        /// Allows querying the DNS server core directly. This call supports recursion even if its not enabled in the DNS server configuration. The request wont be routed to any of the installed DNS Apps except for processing APP records. The request and its response are not counted in any stats or logged.
+        /// Allows querying the Web 7.0 DID Registry core directly. This call supports recursion even if its not enabled in the Web 7.0 DID Registry configuration. The request wont be routed to any of the installed DNS Apps except for processing APP records. The request and its response are not counted in any stats or logged.
         /// </summary>
         /// <param name="request">The DNS request to query.</param>
         /// <param name="timeout">The timeout value in milliseconds to wait for response.</param>
@@ -48,13 +48,13 @@ namespace DnsServerCore.ApplicationCommon
         Task<DnsDatagram> DirectQueryAsync(DnsDatagram request, int timeout = 4000);
 
         /// <summary>
-        /// Writes a log entry to the DNS server log file.
+        /// Writes a log entry to the Web 7.0 DID Registry log file.
         /// </summary>
         /// <param name="message">The message to log.</param>
         void WriteLog(string message);
 
         /// <summary>
-        /// Writes a log entry to the DNS server log file.
+        /// Writes a log entry to the Web 7.0 DID Registry log file.
         /// </summary>
         /// <param name="ex">The exception to log.</param>
         void WriteLog(Exception ex);
@@ -75,17 +75,17 @@ namespace DnsServerCore.ApplicationCommon
         string ServerDomain { get; }
 
         /// <summary>
-        /// The DNS cache object which provides direct access to the DNS server cache.
+        /// The DNS cache object which provides direct access to the Web 7.0 DID Registry cache.
         /// </summary>
         IDnsCache DnsCache { get; }
 
         /// <summary>
-        /// The proxy server setting on the DNS server to be used when required to make any outbound network connection.
+        /// The proxy server setting on the Web 7.0 DID Registry to be used when required to make any outbound network connection.
         /// </summary>
         NetProxy Proxy { get; }
 
         /// <summary>
-        /// Tells if the DNS server prefers using IPv6 as per the settings.
+        /// Tells if the Web 7.0 DID Registry prefers using IPv6 as per the settings.
         /// </summary>
         bool PreferIPv6 { get; }
 

@@ -76,7 +76,7 @@ namespace DnsServerCore.Dns.ZoneManagers
 
             try
             {
-                _dnsServer.LogManager?.Write("DNS Server is loading allowed zone file: " + allowedZoneFile);
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry is loading allowed zone file: " + allowedZoneFile);
 
                 using (FileStream fS = new FileStream(allowedZoneFile, FileMode.Open, FileAccess.Read))
                 {
@@ -103,17 +103,17 @@ namespace DnsServerCore.Dns.ZoneManagers
                             break;
 
                         default:
-                            throw new InvalidDataException("DnsServer allowed zone file version not supported.");
+                            throw new InvalidDataException("Web 7.0 DID Registry allowed zone file version not supported.");
                     }
                 }
 
-                _dnsServer.LogManager?.Write("DNS Server allowed zone file was loaded: " + allowedZoneFile);
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry allowed zone file was loaded: " + allowedZoneFile);
             }
             catch (FileNotFoundException)
             { }
             catch (Exception ex)
             {
-                _dnsServer.LogManager?.Write("DNS Server encountered an error while loading allowed zone file: " + allowedZoneFile + "\r\n" + ex.ToString());
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry encountered an error while loading allowed zone file: " + allowedZoneFile + "\r\n" + ex.ToString());
             }
         }
 
@@ -177,7 +177,7 @@ namespace DnsServerCore.Dns.ZoneManagers
                     bW.WriteShortString(zone.Name);
             }
 
-            _dnsServer.LogManager?.Write("DNS Server allowed zone file was saved: " + allowedZoneFile);
+            _dnsServer.LogManager?.Write("Web 7.0 DID Registry allowed zone file was saved: " + allowedZoneFile);
         }
 
         public bool IsAllowed(DnsDatagram request)

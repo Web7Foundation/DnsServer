@@ -68,7 +68,7 @@ namespace DnsServerSystemTrayApp
             {
                 if (args.Length == 0)
                 {
-                    MessageBox.Show("Technitium DNS Server system tray app is already running.", "Already Running!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Web 7.0 DID Registry system tray app is already running.", "Already Running!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 else

@@ -66,7 +66,7 @@ namespace DnsServerApp
                     exitHandle.WaitOne();
                 };
 
-                Console.WriteLine("Technitium DNS Server was started successfully.");
+                Console.WriteLine("Web 7.0 DID Registry was started successfully.");
                 Console.WriteLine("Using config folder: " + service.ConfigFolder);
                 Console.WriteLine("");
                 Console.WriteLine("Note: Open http://" + Environment.MachineName.ToLowerInvariant() + ":" + service.WebServiceHttpPort + "/ in web browser to access web console.");
@@ -82,12 +82,12 @@ namespace DnsServerApp
             finally
             {
                 Console.WriteLine("");
-                Console.WriteLine("Technitium DNS Server is stopping...");
+                Console.WriteLine("Web 7.0 DID Registry is stopping...");
 
                 if (service != null)
                     service.Dispose();
 
-                Console.WriteLine("Technitium DNS Server was stopped successfully.");
+                Console.WriteLine("Web 7.0 DID Registry was stopped successfully.");
                 exitHandle.Set();
             }
         }

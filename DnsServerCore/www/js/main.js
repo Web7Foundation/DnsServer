@@ -226,8 +226,8 @@ function showPageMain() {
 $(function () {
     var headerHtml = $("#header").html();
 
-    $("#header").html("<div class=\"title\"><a href=\"/\"><img src=\"/img/logo25x25.png\" alt=\"Technitium Logo\" /><span class=\"text\" style=\"color: #ffffff;\">Technitium</span></a>" + headerHtml + "</div>");
-    $("#footer").html("<div class=\"content\"><a href=\"https://technitium.com/\" target=\"_blank\">Technitium</a> | <a href=\"https://blog.technitium.com/\" target=\"_blank\">Blog</a> | <a href=\"https://go.technitium.com/?id=35\" target=\"_blank\">Donate</a> | <a href=\"https://dnsclient.net/\" target=\"_blank\">DNS Client</a> | <a href=\"https://github.com/TechnitiumSoftware/DnsServer\" target=\"_blank\"><i class=\"fa fa-github\"></i>&nbsp;GitHub</a> | <a href=\"https://technitium.com/aboutus.html\" target=\"_blank\">About</a></div>");
+    $("#header").html("<div class=\"title\"><a href=\"/\"><img src=\"/img/logo25x25.png\" alt=\"Web 7.0 Foundation Logo\" /><span class=\"text\" style=\"color: #ffffff;\">Web 7.0 DID Registry</span></a>" + headerHtml + "</div>");
+    $("#footer").html("<div class=\"content\"><a href=\"https://technitium.com/\" target=\"_blank\">Web 7.0 DID Registry</a> | <a href=\"https://blog.technitium.com/\" target=\"_blank\">Blog</a> | <a href=\"https://go.technitium.com/?id=35\" target=\"_blank\">Donate</a> | <a href=\"https://dnsclient.net/\" target=\"_blank\">DNS Client</a> | <a href=\"https://github.com/TechnitiumSoftware/DnsServer\" target=\"_blank\"><i class=\"fa fa-github\"></i>&nbsp;GitHub</a> | <a href=\"https://technitium.com/aboutus.html\" target=\"_blank\">About</a></div>");
 
     //dropdown list box support
     $('.dropdown').on('click', 'a', function (e) {
@@ -837,7 +837,7 @@ function loadDnsSettings() {
     HTTPRequest({
         url: "/api/settings/get?token=" + sessionData.token,
         success: function (responseJSON) {
-            document.title = responseJSON.response.dnsServerDomain + " - " + "Technitium DNS Server v" + responseJSON.response.version;
+            document.title = responseJSON.response.dnsServerDomain + " - " + "Web 7.0 DID Registry v" + responseJSON.response.version;
             $("#lblAboutVersion").text(responseJSON.response.version);
             checkForReverseProxy(responseJSON);
 
@@ -1623,7 +1623,7 @@ function saveDnsSettings() {
             + "&enableLogging=" + enableLogging + "&logQueries=" + logQueries + "&useLocalTime=" + useLocalTime + "&logFolder=" + encodeURIComponent(logFolder) + "&maxLogFileDays=" + maxLogFileDays + "&maxStatFileDays=" + maxStatFileDays,
         processData: false,
         success: function (responseJSON) {
-            document.title = responseJSON.response.dnsServerDomain + " - " + "Technitium DNS Server v" + responseJSON.response.version;
+            document.title = responseJSON.response.dnsServerDomain + " - " + "Web 7.0 DID Registry v" + responseJSON.response.version;
             $("#lblDnsServerDomain").text(" - " + responseJSON.response.dnsServerDomain);
             $("#txtDnsServerDomain").val(responseJSON.response.dnsServerDomain);
 
@@ -1706,7 +1706,7 @@ function saveDnsSettings() {
             }
 
             btn.button('reset');
-            showAlert("success", "Settings Saved!", "DNS Server settings were saved successfully.");
+            showAlert("success", "Settings Saved!", "Web 7.0 DID Registry settings were saved successfully.");
 
             checkForWebConsoleRedirection(responseJSON);
         },
@@ -2546,7 +2546,7 @@ function restoreSettings() {
         dataContentType: false,
         processData: false,
         success: function (responseJSON) {
-            document.title = responseJSON.response.dnsServerDomain + " - " + "Technitium DNS Server v" + responseJSON.response.version;
+            document.title = responseJSON.response.dnsServerDomain + " - " + "Web 7.0 DID Registry v" + responseJSON.response.version;
             $("#lblDnsServerDomain").text(" - " + responseJSON.response.dnsServerDomain);
             $("#txtDnsServerDomain").val(responseJSON.response.dnsServerDomain);
 

@@ -140,7 +140,7 @@ namespace DnsServerCore.Dns.Zones
             }
 
             if ((soaResponse.Answer.Count == 0) || (soaResponse.Answer[0].Type != DnsResourceRecordType.SOA))
-                throw new DnsServerException("DNS Server failed to find SOA record for: " + name);
+                throw new DnsServerException("Web 7.0 DID Registry failed to find SOA record for: " + name);
 
             DnsSOARecordData receivedSoa = soaResponse.Answer[0].RDATA as DnsSOARecordData;
 
@@ -217,7 +217,7 @@ namespace DnsServerCore.Dns.Zones
                 {
                     LogManager log = _dnsServer.LogManager;
                     if (log != null)
-                        log.Write("DNS Server could not find primary name server IP addresses for secondary zone: " + (_name == "" ? "<root>" : _name));
+                        log.Write("Web 7.0 DID Registry could not find primary name server IP addresses for secondary zone: " + (_name == "" ? "<root>" : _name));
 
                     //set timer for retry
                     ResetRefreshTimer(currentSoa.Retry * 1000);
@@ -232,7 +232,7 @@ namespace DnsServerCore.Dns.Zones
                 {
                     LogManager log = _dnsServer.LogManager;
                     if (log != null)
-                        log.Write("DNS Server does not have TSIG key '" + recordInfo.TsigKeyName + "' configured for refreshing secondary zone: " + (_name == "" ? "<root>" : _name));
+                        log.Write("Web 7.0 DID Registry does not have TSIG key '" + recordInfo.TsigKeyName + "' configured for refreshing secondary zone: " + (_name == "" ? "<root>" : _name));
 
                     //set timer for retry
                     ResetRefreshTimer(currentSoa.Retry * 1000);
@@ -292,7 +292,7 @@ namespace DnsServerCore.Dns.Zones
                 {
                     LogManager log = _dnsServer.LogManager;
                     if (log != null)
-                        log.Write("DNS Server has started zone refresh for secondary zone: " + (_name == "" ? "<root>" : _name));
+                        log.Write("Web 7.0 DID Registry has started zone refresh for secondary zone: " + (_name == "" ? "<root>" : _name));
                 }
 
                 DnsResourceRecord currentSoaRecord = _entries[DnsResourceRecordType.SOA][0];
@@ -331,7 +331,7 @@ namespace DnsServerCore.Dns.Zones
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server received RCODE=" + soaResponse.RCODE.ToString() + " for '" + (_name == "" ? "<root>" : _name) + "' secondary zone refresh from: " + soaResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry received RCODE=" + soaResponse.RCODE.ToString() + " for '" + (_name == "" ? "<root>" : _name) + "' secondary zone refresh from: " + soaResponse.Metadata.NameServer.ToString());
 
                         return false;
                     }
@@ -340,7 +340,7 @@ namespace DnsServerCore.Dns.Zones
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server received an empty response for SOA query for '" + (_name == "" ? "<root>" : _name) + "' secondary zone refresh from: " + soaResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry received an empty response for SOA query for '" + (_name == "" ? "<root>" : _name) + "' secondary zone refresh from: " + soaResponse.Metadata.NameServer.ToString());
 
                         return false;
                     }
@@ -353,7 +353,7 @@ namespace DnsServerCore.Dns.Zones
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server successfully checked for '" + (_name == "" ? "<root>" : _name) + "' secondary zone update from: " + soaResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry successfully checked for '" + (_name == "" ? "<root>" : _name) + "' secondary zone update from: " + soaResponse.Metadata.NameServer.ToString());
 
                         return true;
                     }
@@ -434,7 +434,7 @@ namespace DnsServerCore.Dns.Zones
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server received a zone transfer response (RCODE=" + xfrResponse.RCODE.ToString() + ") for '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry received a zone transfer response (RCODE=" + xfrResponse.RCODE.ToString() + ") for '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
 
                         return false;
                     }
@@ -443,7 +443,7 @@ namespace DnsServerCore.Dns.Zones
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server received an empty response for zone transfer query for '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry received an empty response for zone transfer query for '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
 
                         return false;
                     }
@@ -452,7 +452,7 @@ namespace DnsServerCore.Dns.Zones
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server received invalid response for zone transfer query for '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry received invalid response for zone transfer query for '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
 
                         return false;
                     }
@@ -480,13 +480,13 @@ namespace DnsServerCore.Dns.Zones
 
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server successfully refreshed '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry successfully refreshed '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + xfrResponse.Metadata.NameServer.ToString());
                     }
                     else
                     {
                         LogManager log = _dnsServer.LogManager;
                         if (log != null)
-                            log.Write("DNS Server successfully checked for '" + (_name == "" ? "<root>" : _name) + "' secondary zone update from: " + xfrResponse.Metadata.NameServer.ToString());
+                            log.Write("Web 7.0 DID Registry successfully checked for '" + (_name == "" ? "<root>" : _name) + "' secondary zone update from: " + xfrResponse.Metadata.NameServer.ToString());
                     }
 
                     return true;
@@ -507,7 +507,7 @@ namespace DnsServerCore.Dns.Zones
                             strNameServers += ", " + nameServer.ToString();
                     }
 
-                    log.Write("DNS Server failed to refresh '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + strNameServers + "\r\n" + ex.ToString());
+                    log.Write("Web 7.0 DID Registry failed to refresh '" + (_name == "" ? "<root>" : _name) + "' secondary zone from: " + strNameServers + "\r\n" + ex.ToString());
                 }
 
                 return false;

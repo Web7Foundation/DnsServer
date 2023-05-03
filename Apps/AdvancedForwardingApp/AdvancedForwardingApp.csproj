@@ -5,13 +5,13 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Version>1.1</Version>
 		<Company>Technitium</Company>
-		<Product>Technitium DNS Server</Product>
-		<Authors>Shreyas Zare</Authors>
+		<Product>Web 7.0 DID Registry</Product>
+		<Authors>Shreyas Zare, Web 7.0 Foundation</Authors>
 		<AssemblyName>AdvancedForwardingApp</AssemblyName>
 		<RootNamespace>AdvancedForwarding</RootNamespace>
 		<PackageProjectUrl>https://technitium.com/dns/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/TechnitiumSoftware/DnsServer</RepositoryUrl>
-		<Description>Provides advanced, bulk conditional forwarding options. Supports creating groups based on client's IP address or subnet to enable different conditional forwarding configuration for each group. Supports AdGuard Upstreams config files.\n\nNote: This app works independent of the DNS server's built-in Conditional Forwarder Zones feature.</Description>
+		<Description>Provides advanced, bulk conditional forwarding options. Supports creating groups based on client's IP address or subnet to enable different conditional forwarding configuration for each group. Supports AdGuard Upstreams config files.\n\nNote: This app works independent of the Web 7.0 DID Registry's built-in Conditional Forwarder Zones feature.</Description>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<OutputType>Library</OutputType>
 	</PropertyGroup>

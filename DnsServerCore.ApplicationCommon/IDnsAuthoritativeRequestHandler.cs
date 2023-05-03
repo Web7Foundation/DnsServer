@@ -24,18 +24,18 @@ using TechnitiumLibrary.Net.Dns;
 namespace DnsServerCore.ApplicationCommon
 {
     /// <summary>
-    /// Lets a DNS App to handle incoming requests for the DNS server's authoritative zone allowing it to act as an authoritative zone by itself and respond to any requests.
+    /// Lets a DNS App to handle incoming requests for the Web 7.0 DID Registry's authoritative zone allowing it to act as an authoritative zone by itself and respond to any requests.
     /// </summary>
     public interface IDnsAuthoritativeRequestHandler
     {
         /// <summary>
-        /// Allows a DNS App to respond to an incoming DNS request for the DNS server's authoritative zone. This method is called by the DNS Server's authoritative zone before querying its built in zone database. Response returned may be further processed to resolve CNAME or ANAME records, or referral response.
+        /// Allows a DNS App to respond to an incoming DNS request for the Web 7.0 DID Registry's authoritative zone. This method is called by the DNS Server's authoritative zone before querying its built in zone database. Response returned may be further processed to resolve CNAME or ANAME records, or referral response.
         /// </summary>
         /// <param name="request">The incoming DNS request to be processed.</param>
         /// <param name="remoteEP">The end point (IP address and port) of the client making the request.</param>
         /// <param name="protocol">The protocol using which the request was received.</param>
-        /// <param name="isRecursionAllowed">Tells if the DNS server is configured to allow recursion for the client making this request.</param>
-        /// <returns>The DNS response for the DNS request or <c>null</c> to let the DNS server core process the request as usual.</returns>
+        /// <param name="isRecursionAllowed">Tells if the Web 7.0 DID Registry is configured to allow recursion for the client making this request.</param>
+        /// <returns>The DNS response for the DNS request or <c>null</c> to let the Web 7.0 DID Registry core process the request as usual.</returns>
         Task<DnsDatagram> ProcessRequestAsync(DnsDatagram request, IPEndPoint remoteEP, DnsTransportProtocol protocol, bool isRecursionAllowed);
     }
 }

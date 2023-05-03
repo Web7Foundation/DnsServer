@@ -92,7 +92,7 @@ namespace DnsServerCore.Dns.ZoneManagers
 
             try
             {
-                _dnsServer.LogManager?.Write("DNS Server is loading blocked zone file: " + blockedZoneFile);
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry is loading blocked zone file: " + blockedZoneFile);
 
                 using (FileStream fS = new FileStream(blockedZoneFile, FileMode.Open, FileAccess.Read))
                 {
@@ -123,13 +123,13 @@ namespace DnsServerCore.Dns.ZoneManagers
                     }
                 }
 
-                _dnsServer.LogManager?.Write("DNS Server blocked zone file was loaded: " + blockedZoneFile);
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry blocked zone file was loaded: " + blockedZoneFile);
             }
             catch (FileNotFoundException)
             { }
             catch (Exception ex)
             {
-                _dnsServer.LogManager?.Write("DNS Server encountered an error while loading blocked zone file: " + blockedZoneFile + "\r\n" + ex.ToString());
+                _dnsServer.LogManager?.Write("Web 7.0 DID Registry encountered an error while loading blocked zone file: " + blockedZoneFile + "\r\n" + ex.ToString());
             }
         }
 
@@ -193,7 +193,7 @@ namespace DnsServerCore.Dns.ZoneManagers
                     bW.WriteShortString(zone.Name);
             }
 
-            _dnsServer.LogManager?.Write("DNS Server blocked zone file was saved: " + blockedZoneFile);
+            _dnsServer.LogManager?.Write("Web 7.0 DID Registry blocked zone file was saved: " + blockedZoneFile);
         }
 
         public DnsDatagram Query(DnsDatagram request)

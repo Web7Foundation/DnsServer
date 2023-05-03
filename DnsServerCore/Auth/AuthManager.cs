@@ -229,7 +229,7 @@ namespace DnsServerCore.Auth
                     }
                 }
 
-                _log.Write("DNS Server auth config file was loaded: " + configFile);
+                _log.Write("Web 7.0 DID Registry auth config file was loaded: " + configFile);
 
                 if (passwordResetOption)
                 {
@@ -246,7 +246,7 @@ namespace DnsServerCore.Auth
 
                     adminUser.AddToGroup(GetGroup(Group.ADMINISTRATORS));
 
-                    _log.Write("DNS Server reset password for user: admin");
+                    _log.Write("Web 7.0 DID Registry reset password for user: admin");
                     SaveConfigFileInternal();
 
                     try
@@ -259,8 +259,8 @@ namespace DnsServerCore.Auth
             }
             catch (FileNotFoundException)
             {
-                _log.Write("DNS Server auth config file was not found: " + configFile);
-                _log.Write("DNS Server is restoring default auth config file.");
+                _log.Write("Web 7.0 DID Registry auth config file was not found: " + configFile);
+                _log.Write("Web 7.0 DID Registry is restoring default auth config file.");
 
                 CreateDefaultConfig();
 
@@ -268,7 +268,7 @@ namespace DnsServerCore.Auth
             }
             catch (Exception ex)
             {
-                _log.Write("DNS Server encountered an error while loading auth config file: " + configFile + "\r\n" + ex.ToString());
+                _log.Write("Web 7.0 DID Registry encountered an error while loading auth config file: " + configFile + "\r\n" + ex.ToString());
                 _log.Write("Note: You may try deleting the auth config file to fix this issue. However, you will lose auth settings but, rest of the DNS settings and zone data wont be affected.");
                 throw;
             }
@@ -292,13 +292,13 @@ namespace DnsServerCore.Auth
                 }
             }
 
-            _log.Write("DNS Server auth config file was saved: " + configFile);
+            _log.Write("Web 7.0 DID Registry auth config file was saved: " + configFile);
         }
 
         private void ReadConfigFrom(BinaryReader bR)
         {
             if (Encoding.ASCII.GetString(bR.ReadBytes(2)) != "AS") //format
-                throw new InvalidDataException("DNS Server auth config file format is invalid.");
+                throw new InvalidDataException("Web 7.0 DID Registry auth config file format is invalid.");
 
             int version = bR.ReadByte();
             switch (version)
@@ -343,7 +343,7 @@ namespace DnsServerCore.Auth
                     break;
 
                 default:
-                    throw new InvalidDataException("DNS Server auth config version not supported.");
+                    throw new InvalidDataException("Web 7.0 DID Registry auth config version not supported.");
             }
         }
 

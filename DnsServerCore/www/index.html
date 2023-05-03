@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="robots" content="noindex, nofollow" />
 
-    <title>Technitium DNS Server</title>
+    <title>Web 7.0 DID Registry</title>
 
     <script src="/js/jquery.min.js"></script>
 
@@ -54,7 +54,7 @@
             <div id="pageLogin" class="pageLogin">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">DNS Server</h3>
+                        <h3 class="panel-title">Web 7.0 DID Registry</h3>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal">
@@ -89,7 +89,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading" style="height: 38px;">
                         <div style="float: left;">
-                            <h3 class="panel-title">DNS Server<span id="lblDnsServerDomain"></span></h3>
+                            <h3 class="panel-title">Web 7.0 DID Registry<span id="lblDnsServerDomain"></span></h3>
                         </div>
                         <div style="float: right;">
                             <a href="#" data-toggle="modal" data-target="#modalUpdateAvailable" id="lnkUpdateAvailable" style="display: none; color: red !important;">New Update Available!</a>
@@ -866,22 +866,22 @@
                                                 <div id="settingsTabPaneGeneral" role="tabpanel" class="tab-pane active">
                                                     <div class="well well-sm form-horizontal">
                                                         <div class="form-group">
-                                                            <label for="txtDnsServerDomain" class="col-sm-3 control-label">DNS Server Domain</label>
+                                                            <label for="txtDnsServerDomain" class="col-sm-3 control-label">Web 7.0 DID Registry Domain</label>
                                                             <div class="col-sm-6">
                                                                 <input type="text" class="form-control" id="txtDnsServerDomain" placeholder="domain name">
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The primary fully qualified domain name used by this DNS Server to identify itself.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The primary fully qualified domain name used by this Web 7.0 DID Registry to identify itself.</div>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label for="txtDnsServerLocalEndPoints" class="col-sm-3 control-label">DNS Server Local End Points</label>
+                                                            <label for="txtDnsServerLocalEndPoints" class="col-sm-3 control-label">Web 7.0 DID Registry Local End Points</label>
                                                             <div class="col-sm-6">
                                                                 <textarea id="txtDnsServerLocalEndPoints" class="form-control" rows="3" spellcheck="false"></textarea>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">Local end points are the network interface IP addresses and ports you want the DNS Server to listen for requests. The default values work for Windows but on Linux when you have multiple network adapters, you must explicitly specify the network adapter IP addresses here as the local end points.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">Local end points are the network interface IP addresses and ports you want the Web 7.0 DID Registry to listen for requests. The default values work for Windows but on Linux when you have multiple network adapters, you must explicitly specify the network adapter IP addresses here as the local end points.</div>
                                                         </div>
 
-                                                        <div>Note! The DNS Server local end point changes will be automatically applied and so you do not need to manually restart the main service.</div>
+                                                        <div>Note! The Web 7.0 DID Registry local end point changes will be automatically applied and so you do not need to manually restart the main service.</div>
                                                     </div>
 
                                                     <div class="well well-sm form-horizontal">
@@ -902,7 +902,7 @@
                                                                         <input id="chkDnsAppsEnableAutomaticUpdate" type="checkbox"> Enable Automatic Update
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">DNS server will check for DNS Apps update every day and will automatically download and install the updates.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Web 7.0 DID Registry will check for DNS Apps update every day and will automatically download and install the updates.</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -916,11 +916,11 @@
                                                                         <input id="chkPreferIPv6" type="checkbox"> Prefer IPv6
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">DNS Server will use IPv6 for querying whenever possible with this option enabled.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Web 7.0 DID Registry will use IPv6 for querying whenever possible with this option enabled.</div>
                                                             </div>
                                                         </div>
 
-                                                        <div>Warning! Use this option only if this DNS server has native IPv6 Internet access otherwise it will affect performance.</div>
+                                                        <div>Warning! Use this option only if this Web 7.0 DID Registry has native IPv6 Internet access otherwise it will affect performance.</div>
                                                     </div>
 
                                                     <div class="well well-sm form-horizontal">
@@ -943,12 +943,12 @@
                                                                         <input id="chkDnssecValidation" type="checkbox" checked> Enable DNSSEC Validation
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">DNS Server will validate all responses from name servers or forwarders when this option is enabled.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Web 7.0 DID Registry will validate all responses from name servers or forwarders when this option is enabled.</div>
                                                             </div>
                                                         </div>
 
                                                         <div>
-                                                            <p>Warning! Devices that do not have a real-time clock and rely on NTP when booting (e.g. Raspberry Pi), enabling DNSSEC validation will cause failure to resolve the NTP server domain name thus causing the DNS server to fail to validate all other domain names too due to invalid system date/time. To fix this issue, just create a Conditional Forwarder zone for the NTP server domain name (e.g. ntp.org) with forwarder set to <code>this-server</code> and Enable DNSSEC Validation option unchecked. This conditional forwarder zone will disable DNSSEC validation for the NTP server domain name and allow the device to update its system data/time on boot.</p>
+                                                            <p>Warning! Devices that do not have a real-time clock and rely on NTP when booting (e.g. Raspberry Pi), enabling DNSSEC validation will cause failure to resolve the NTP server domain name thus causing the Web 7.0 DID Registry to fail to validate all other domain names too due to invalid system date/time. To fix this issue, just create a Conditional Forwarder zone for the NTP server domain name (e.g. ntp.org) with forwarder set to <code>this-server</code> and Enable DNSSEC Validation option unchecked. This conditional forwarder zone will disable DNSSEC validation for the NTP server domain name and allow the device to update its system data/time on boot.</p>
                                                             <p>Warning! When forwarders are configured, DNSSEC validation will work only if the forwarders are security aware i.e. can respond to DNSSEC requests correctly.</p>
                                                             <p>Note! Enabling DNSSEC may increase delays in resolving domain names when the cache is initially empty. As the cache fills up, the performance will be normal as expected.</p>
                                                         </div>
@@ -963,7 +963,7 @@
                                                                         <input id="chkEDnsClientSubnet" type="checkbox"> Enable EDNS Client Subnet
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">DNS Server will use the public IP address of the request with a prefix length, or the existing Client Subnet option from the request.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Web 7.0 DID Registry will use the public IP address of the request with a prefix length, or the existing Client Subnet option from the request.</div>
                                                             </div>
                                                         </div>
 
@@ -986,9 +986,9 @@
                                                         </div>
 
                                                         <div>
-                                                            <p>Warning! EDNS Client Subnet (ECS) option when enabled will compromises user's privacy since the DNS server will send the user's public IP network subnet to name servers or forwarders when resolving requests. When not using encrypted DNS protocols, this information can also be read passively by anyone on the network.</p>
-                                                            <p>Note! EDNS Client Subnet (ECS) option allows passing the user's client subnet information to name servers or forwarders so that the response may contain IP addresses of servers closer to the user's geographic region. EDNS Client Subnet (ECS) option thus is only useful when the DNS server is hosted in a geographically different region compared to the users that are configured to use it.</p>
-                                                            <p>Note! Enabling EDNS Client Subnet (ECS) option will significantly increase the DNS server's memory usage since the server will have to cache data for each client subnet separately. It will also increase cache misses since DNS server will have to resolve requests and cache them for each client subnet separately.</p>
+                                                            <p>Warning! EDNS Client Subnet (ECS) option when enabled will compromises user's privacy since the Web 7.0 DID Registry will send the user's public IP network subnet to name servers or forwarders when resolving requests. When not using encrypted DNS protocols, this information can also be read passively by anyone on the network.</p>
+                                                            <p>Note! EDNS Client Subnet (ECS) option allows passing the user's client subnet information to name servers or forwarders so that the response may contain IP addresses of servers closer to the user's geographic region. EDNS Client Subnet (ECS) option thus is only useful when the Web 7.0 DID Registry is hosted in a geographically different region compared to the users that are configured to use it.</p>
+                                                            <p>Note! Enabling EDNS Client Subnet (ECS) option will significantly increase the Web 7.0 DID Registry's memory usage since the server will have to cache data for each client subnet separately. It will also increase cache misses since Web 7.0 DID Registry will have to resolve requests and cache them for each client subnet separately.</p>
                                                         </div>
                                                     </div>
 
@@ -1048,7 +1048,7 @@
                                                                 <input type="number" class="form-control" id="txtClientTimeout" placeholder="timeout" style="width: 100px; display: inline;">
                                                                 <span>milliseconds (valid range 1000-10000; default 4000)</span>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The amount of time the DNS server must wait before responding with a <code>ServerFailure</code> response to a client request when no answer is available.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The amount of time the Web 7.0 DID Registry must wait before responding with a <code>ServerFailure</code> response to a client request when no answer is available.</div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -1057,7 +1057,7 @@
                                                                 <input type="number" class="form-control" id="txtTcpSendTimeout" placeholder="timeout" style="width: 100px; display: inline;">
                                                                 <span>milliseconds (valid range 1000-90000; default 10000)</span>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The amount of time a TCP socket must wait for an <code>ACK</code> before closing the connection. This option will apply for DNS requests being received by the DNS Server over TCP, TLS, or HTTPS transports.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The amount of time a TCP socket must wait for an <code>ACK</code> before closing the connection. This option will apply for DNS requests being received by the Web 7.0 DID Registry over TCP, TLS, or HTTPS transports.</div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -1066,7 +1066,7 @@
                                                                 <input type="number" class="form-control" id="txtTcpReceiveTimeout" placeholder="timeout" style="width: 100px; display: inline;">
                                                                 <span>milliseconds (valid range 1000-90000; default 10000)</span>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The amount of time a TCP socket must wait for data before closing the connection. This option will apply for DNS requests being received by the DNS Server over TCP, TLS, or HTTPS transports.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The amount of time a TCP socket must wait for data before closing the connection. This option will apply for DNS requests being received by the Web 7.0 DID Registry over TCP, TLS, or HTTPS transports.</div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -1173,14 +1173,14 @@
                                                             <pre>openssl pkcs12 -export -out "example.com.pfx" -inkey "privkey.pem" -in "cert.pem" -certfile "chain.pem"</pre>
                                                         </div>
 
-                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2023/02/configuring-dns-over-quic-and-https3.html" target="_blank">Help: Configuring DNS-over-QUIC and HTTPS/3 For Technitium DNS Server</a></div>
+                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2023/02/configuring-dns-over-quic-and-https3.html" target="_blank">Help: Configuring DNS-over-QUIC and HTTPS/3 For Web 7.0 DID Registry</a></div>
                                                     </div>
                                                 </div>
 
                                                 <div id="settingsTabPaneOptionalProtocols" role="tabpanel" class="tab-pane">
                                                     <div class="well well-sm form-horizontal">
                                                         <div class="form-group">
-                                                            <label class="col-sm-3 control-label">Optional DNS Server Protocols</label>
+                                                            <label class="col-sm-3 control-label">Optional Web 7.0 DID Registry Protocols</label>
                                                             <div class="col-sm-8">
                                                                 <div class="checkbox">
                                                                     <label>
@@ -1265,17 +1265,17 @@
                                                         </div>
 
                                                         <div>
-                                                            <p>Note! These optional DNS server protocol changes will be automatically applied and so you do not need to manually restart the main service. The DNS-over-TLS, DNS-over-QUIC, and DNS-over-HTTPS protocols will be enabled only when a TLS certificate is configured.</p>
-                                                            <p>These optional DNS server protocols are used to host these as a service. You do not need to enable these optional protocols to use them with Forwarders or Conditional Forwarder Zones.</p>
+                                                            <p>Note! These optional Web 7.0 DID Registry protocol changes will be automatically applied and so you do not need to manually restart the main service. The DNS-over-TLS, DNS-over-QUIC, and DNS-over-HTTPS protocols will be enabled only when a TLS certificate is configured.</p>
+                                                            <p>These optional Web 7.0 DID Registry protocols are used to host these as a service. You do not need to enable these optional protocols to use them with Forwarders or Conditional Forwarder Zones.</p>
                                                             <p>For DNS-over-HTTP, use <code>http://<span id="lblDoHHost">localhost:8053</span>/dns-query</code> with a TLS terminating reverse proxy like nginx. For DNS-over-TLS, use <code id="lblDoTHost">tls-certificate-domain:853</code>, for DNS-over-QUIC, use <code id="lblDoQHost">tls-certificate-domain:853</code>, and for DNS-over-HTTPS use <code>https://<span id="lblDoHsHost">tls-certificate-domain</span>/dns-query</code> to configure supported DNS clients.</p>
-                                                            <p>When using a reverse proxy with the DNS-over-HTTP service, you need to add <code>X-Real-IP</code> header to the proxy request with the IP address of the client to allow the DNS server to know the real IP address of the client originating the request. For example, if you are using nginx as the reverse proxy, you can add <code>proxy_set_header X-Real-IP $remote_addr;</code> to make it work.</p>
+                                                            <p>When using a reverse proxy with the DNS-over-HTTP service, you need to add <code>X-Real-IP</code> header to the proxy request with the IP address of the client to allow the Web 7.0 DID Registry to know the real IP address of the client originating the request. For example, if you are using nginx as the reverse proxy, you can add <code>proxy_set_header X-Real-IP $remote_addr;</code> to make it work.</p>
                                                             <p>DNS-over-QUIC protocol support is not available on all platforms. On Windows, it is available only on Windows 11 (build 22000 or later) and Windows Server 2022. On Linux, it requires <code>libmsquic</code> and <code>openssl v1.1.1</code> to be installed.</p>
                                                             <p>Use the following openssl command to convert your TLS certificate that is in PEM format to PKCS #12 certificate (.pfx) format:</p>
                                                             <pre>openssl pkcs12 -export -out "example.com.pfx" -inkey "privkey.pem" -in "cert.pem" -certfile "chain.pem"</pre>
                                                         </div>
 
                                                         <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2020/07/how-to-host-your-own-dns-over-https-and.html" target="_blank">Help: How To Host Your Own DNS-over-HTTPS, DNS-over-TLS, And DNS-over-QUIC Services</a></div>
-                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2023/02/configuring-dns-over-quic-and-https3.html" target="_blank">Help: Configuring DNS-over-QUIC and HTTPS/3 For Technitium DNS Server</a></div>
+                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2023/02/configuring-dns-over-quic-and-https3.html" target="_blank">Help: Configuring DNS-over-QUIC and HTTPS/3 For Web 7.0 DID Registry</a></div>
                                                     </div>
                                                 </div>
 
@@ -1313,14 +1313,14 @@
                                                                         <input type="radio" name="rdRecursion" id="rdRecursionDeny" value="Deny">
                                                                         Deny Recursion
                                                                     </label>
-                                                                    <div style="padding-top: 5px; padding-left: 20px;">Disables recursion so that this DNS Server works as authoritative only.</div>
+                                                                    <div style="padding-top: 5px; padding-left: 20px;">Disables recursion so that this Web 7.0 DID Registry works as authoritative only.</div>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label>
                                                                         <input type="radio" name="rdRecursion" id="rdRecursionAllow" value="Allow">
                                                                         Allow Recursion
                                                                     </label>
-                                                                    <div style="padding-top: 5px; padding-left: 20px;">Enables recursion to allow this DNS Server to resolve any domain name.</div>
+                                                                    <div style="padding-top: 5px; padding-left: 20px;">Enables recursion to allow this Web 7.0 DID Registry to resolve any domain name.</div>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label>
@@ -1417,11 +1417,11 @@
                                                                         <input id="chkSaveCache" type="checkbox"> Save Cache To Disk
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">Enable this option to save DNS cache on disk when the DNS server stops. The saved cache will be loaded next time the DNS server starts.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Enable this option to save DNS cache on disk when the Web 7.0 DID Registry stops. The saved cache will be loaded next time the Web 7.0 DID Registry starts.</div>
                                                             </div>
                                                         </div>
 
-                                                        <div>Note! The DNS server will attempt to save cache to disk when it stops which may take time depending on the cache size. If the DNS server takes a lot of time to stop then it may lead to the OS killing the DNS server process causing an incomplete cache to be stored on disk.</div>
+                                                        <div>Note! The Web 7.0 DID Registry will attempt to save cache to disk when it stops which may take time depending on the cache size. If the Web 7.0 DID Registry takes a lot of time to stop then it may lead to the OS killing the Web 7.0 DID Registry process causing an incomplete cache to be stored on disk.</div>
                                                     </div>
 
                                                     <div class="well well-sm form-horizontal">
@@ -1433,7 +1433,7 @@
                                                                         <input id="chkServeStale" type="checkbox"> Enable Serve Stale
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">Enable the <a href="https://datatracker.ietf.org/doc/rfc8767/" target="_blank">Serve Stale</a> feature to improve resiliency by using expired or stale records in cache when the DNS server is unable to reach the upstream or authoritative name servers.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Enable the <a href="https://datatracker.ietf.org/doc/rfc8767/" target="_blank">Serve Stale</a> feature to improve resiliency by using expired or stale records in cache when the Web 7.0 DID Registry is unable to reach the upstream or authoritative name servers.</div>
                                                             </div>
                                                         </div>
 
@@ -1454,7 +1454,7 @@
                                                                 <input type="number" class="form-control" id="txtCacheMaximumEntries" placeholder="entries" style="width: 125px; display: inline;">
                                                                 <span>(default 10000; set 0 to disable)</span>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The maximum number of entries that the cache can store. A relevant value should be configured by monitoring the Cache entries value on Dashboard and the server's memory usage to limit the amount of RAM used by the DNS server. A cache entry is a complete Resource Record Set (RR Set) which is a group of records with the same type for a given domain name. When a value is configured, the DNS server will trigger a clean up operation every few minutes and remove least recently used entries to maintain the maximum allowed entries in cache.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The maximum number of entries that the cache can store. A relevant value should be configured by monitoring the Cache entries value on Dashboard and the server's memory usage to limit the amount of RAM used by the Web 7.0 DID Registry. A cache entry is a complete Resource Record Set (RR Set) which is a group of records with the same type for a given domain name. When a value is configured, the Web 7.0 DID Registry will trigger a clean up operation every few minutes and remove least recently used entries to maintain the maximum allowed entries in cache.</div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -1531,7 +1531,7 @@
                                                             <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">Minimum required hits per hour for a domain name to be eligible for auto prefetch.</div>
                                                         </div>
 
-                                                        <div>The DNS Server cache auto prefetch option can keep eligible domain names from last hour stats "hot" in cache. Auto prefetch eligibility value can be decided by keeping an eye on the hits shown for last hour on the dashboard. Experiment with auto prefetch sampling interval and eligibility to get best results.</div>
+                                                        <div>The Web 7.0 DID Registry cache auto prefetch option can keep eligible domain names from last hour stats "hot" in cache. Auto prefetch eligibility value can be decided by keeping an eye on the hits shown for last hour on the dashboard. Experiment with auto prefetch sampling interval and eligibility to get best results.</div>
                                                     </div>
                                                 </div>
 
@@ -1545,14 +1545,14 @@
                                                                         <input id="chkEnableBlocking" type="checkbox"> Enable Blocking
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">Sets the DNS server to block domain names using Blocked Zone and Block List Zone.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Sets the Web 7.0 DID Registry to block domain names using Blocked Zone and Block List Zone.</div>
 
                                                                 <div class="checkbox">
                                                                     <label>
                                                                         <input id="chkAllowTxtBlockingReport" type="checkbox"> Allow TXT Blocking Report
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">Specifies if the DNS Server should respond with TXT records containing a blocked domain report for TXT type requests. This option also enables Extended DNS Error blocked domain report in response for requests that support EDNS.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Specifies if the Web 7.0 DID Registry should respond with TXT records containing a blocked domain report for TXT type requests. This option also enables Extended DNS Error blocked domain report in response for requests that support EDNS.</div>
                                                             </div>
                                                         </div>
 
@@ -1660,7 +1660,7 @@
                                                             <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">Click the 'Update Now' button to reset the next update schedule and force download and update of the block lists.</div>
                                                         </div>
 
-                                                        <div style="margin-top: 10px;">Note! DNS Server will use the data returned by the block list URLs to update the block list zone automatically. The expected file format is standard <code>hosts</code> file format, plain text file containing list of domains to block, wildcard block list file format, or <code>Adblock Plus</code> file format.</div>
+                                                        <div style="margin-top: 10px;">Note! Web 7.0 DID Registry will use the data returned by the block list URLs to update the block list zone automatically. The expected file format is standard <code>hosts</code> file format, plain text file containing list of domains to block, wildcard block list file format, or <code>Adblock Plus</code> file format.</div>
                                                         <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2018/10/blocking-internet-ads-using-dns-sinkhole.html" target="_blank">Help: Blocking Internet Ads Using DNS Sinkhole</a></div>
                                                     </div>
                                                 </div>
@@ -1727,7 +1727,7 @@
                                                             <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">Enter IP addresses, network addresses or domain names to never proxy.</div>
                                                         </div>
 
-                                                        <div style="margin-top: 10px;">When proxy server is configured, DNS Server will use it for all outbound network requests.</div>
+                                                        <div style="margin-top: 10px;">When proxy server is configured, Web 7.0 DID Registry will use it for all outbound network requests.</div>
                                                     </div>
 
                                                     <div class="well well-sm form-horizontal">
@@ -1811,7 +1811,7 @@
                                                                     <option value="adguard-f-quic-ipv6">AdGuard Family Protection (DNS-over-QUIC IPv6)</option>
                                                                 </select>
 
-                                                                <div style="margin-top: 10px;">Enter forwarder DNS Server IP addresses or URLs one below another in above text field or use the Quick Select list to select desired forwarder.</div>
+                                                                <div style="margin-top: 10px;">Enter forwarder Web 7.0 DID Registry IP addresses or URLs one below another in above text field or use the Quick Select list to select desired forwarder.</div>
                                                             </div>
                                                         </div>
 
@@ -1849,13 +1849,13 @@
                                                                     </label>
                                                                 </div>
 
-                                                                <div style="margin-top: 10px;">Select a protocol that this DNS server must use to query the forwarders specified above.</div>
+                                                                <div style="margin-top: 10px;">Select a protocol that this Web 7.0 DID Registry must use to query the forwarders specified above.</div>
                                                             </div>
                                                         </div>
 
-                                                        <div style="margin-top: 10px;">Forwarders are DNS servers which this DNS Server should use to resolve recursive queries. If no forwarders are configured then this DNS server will use preconfigured ROOT SERVERS to perform recursive resolution.</div>
-                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2018/06/configuring-dns-server-for-privacy.html" target="_blank">Help: Configuring DNS Server For Privacy & Security</a></div>
-                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2023/02/configuring-dns-over-quic-and-https3.html" target="_blank">Help: Configuring DNS-over-QUIC and HTTPS/3 For Technitium DNS Server</a></div>
+                                                        <div style="margin-top: 10px;">Forwarders are Web 7.0 DID Registries which this Web 7.0 DID Registry should use to resolve recursive queries. If no forwarders are configured then this Web 7.0 DID Registry will use preconfigured ROOT SERVERS to perform recursive resolution.</div>
+                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2018/06/configuring-dns-server-for-privacy.html" target="_blank">Help: Configuring Web 7.0 DID Registry For Privacy & Security</a></div>
+                                                        <div style="margin-top: 10px;"><a href="https://blog.technitium.com/2023/02/configuring-dns-over-quic-and-https3.html" target="_blank">Help: Configuring DNS-over-QUIC and HTTPS/3 For Web 7.0 DID Registry</a></div>
                                                     </div>
 
                                                     <div class="well well-sm form-horizontal">
@@ -1865,7 +1865,7 @@
                                                                 <input type="number" class="form-control" id="txtForwarderRetries" placeholder="retries" style="width: 100px; display: inline;">
                                                                 <span>(valid range 1-10; default 3)</span>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The total number of retries the forwarder or conditional forwarder resolver must do per upstream DNS server.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The total number of retries the forwarder or conditional forwarder resolver must do per upstream Web 7.0 DID Registry.</div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -1905,7 +1905,7 @@
                                                                         <input id="chkLogQueries" type="checkbox"> Log All Queries
                                                                     </label>
                                                                 </div>
-                                                                <div style="padding-top: 5px; padding-left: 20px;">Enable this option to log every query received by this DNS Server and the corresponding response answers into the log file.</div>
+                                                                <div style="padding-top: 5px; padding-left: 20px;">Enable this option to log every query received by this Web 7.0 DID Registry and the corresponding response answers into the log file.</div>
 
                                                                 <div class="checkbox">
                                                                     <label>
@@ -1922,7 +1922,7 @@
                                                                 <input type="text" class="form-control" id="txtLogFolderPath" placeholder="Log Folder Path On Server">
                                                             </div>
 
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The folder path on the server where the log files should be saved. The path can be relative to the DNS server config folder.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The folder path on the server where the log files should be saved. The path can be relative to the Web 7.0 DID Registry config folder.</div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -2172,19 +2172,19 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <label for="txtDhcpScopeDnsServers" class="col-sm-3 control-label">DNS Servers</label>
+                                                            <label for="txtDhcpScopeDnsServers" class="col-sm-3 control-label">Web 7.0 DID Registries</label>
                                                             <div class="col-sm-6">
                                                                 <div class="checkbox">
                                                                     <label>
-                                                                        <input id="chkUseThisDnsServer" type="checkbox" onclick="$('#txtDhcpScopeDnsServers').prop('disabled', $(this).prop('checked'));"> Use This DNS Server
+                                                                        <input id="chkUseThisDnsServer" type="checkbox" onclick="$('#txtDhcpScopeDnsServers').prop('disabled', $(this).prop('checked'));"> Use This Web 7.0 DID Registry
                                                                     </label>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px; margin-bottom: 10px;">Enable this option to automatically use this DNS Server.</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px; margin-bottom: 10px;">Enable this option to automatically use this Web 7.0 DID Registry.</div>
                                                             <div class="col-sm-offset-3 col-sm-3">
                                                                 <textarea id="txtDhcpScopeDnsServers" class="form-control" rows="2" spellcheck="false"></textarea>
                                                             </div>
-                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The DNS server IP addresses to be used by the clients. (Option 6)</div>
+                                                            <div class="col-sm-offset-3 col-sm-8" style="padding-top: 5px;">The Web 7.0 DID Registry IP addresses to be used by the clients. (Option 6)</div>
                                                         </div>
 
                                                         <div class="form-group">
@@ -2745,7 +2745,7 @@
 
                                     <div class="about" style="text-align: center;">
                                         <img src="/img/logo.png" alt="Technitium Logo" />
-                                        <h1>Technitium DNS Server</h1>
+                                        <h1>Web 7.0 DID Registry</h1>
                                         <p>Version <span id="lblAboutVersion"></span></p>
                                         <p style="max-width: 800px; margin: 0 auto 10px auto;">
                                             Copyright (C) 2023  Shreyas Zare (shreyas@technitium.com)<br />
@@ -2757,10 +2757,10 @@
                                         <p>Read the <a href="https://go.technitium.com/?id=23" target="_blank">change log</a> to know whats new in this release.</p>
 
                                         <h3 style="margin-top: 40px;"><a style="color: rgb(51,51,51) !important;" href="https://github.com/TechnitiumSoftware/DnsServer/blob/master/APIDOCS.md" target="_blank">API Documentation</a></h3>
-                                        <p>The DNS server HTTP API allows any 3rd party app or script to configure the DNS server. The HTTP API is used by this web console and thus all the actions that this web console does can be performed via the API. Read the <a href="https://github.com/TechnitiumSoftware/DnsServer/blob/master/APIDOCS.md" target="_blank">HTTP API documentation</a> for complete details.</p>
+                                        <p>The Web 7.0 DID Registry HTTP API allows any 3rd party app or script to configure the Web 7.0 DID Registry. The HTTP API is used by this web console and thus all the actions that this web console does can be performed via the API. Read the <a href="https://github.com/TechnitiumSoftware/DnsServer/blob/master/APIDOCS.md" target="_blank">HTTP API documentation</a> for complete details.</p>
 
                                         <h3 style="margin-top: 40px;"><a style="color: rgb(51,51,51) !important;" href="https://go.technitium.com/?id=25" target="_blank">Help Topics</a></h3>
-                                        <p>Read the latest <a href="https://go.technitium.com/?id=25" target="_blank">online help topics</a> which contains the DNS Server user manual and covers frequently asked questions.</p>
+                                        <p>Read the latest <a href="https://go.technitium.com/?id=25" target="_blank">online help topics</a> which contains the Web 7.0 DID Registry user manual and covers frequently asked questions.</p>
 
                                         <h3 style="margin-top: 40px;">Support</h3>
                                         <p>For support, send an email to <a href="mailto:support@technitium.com" target="_blank">support@technitium.com</a>.</p>
@@ -3001,16 +3001,16 @@
                     <h4 class="modal-title">Forgot Password?</h4>
                 </div>
                 <div class="modal-body">
-                    <p>To reset your password, you need to contact the DNS server administrator.</p>
+                    <p>To reset your password, you need to contact the Web 7.0 DID Registry administrator.</p>
                     <p>If you are an administrator, follow these steps to reset the 'admin' user's password:</p>
                     <ol>
-                        <li>Stop the DNS server.</li>
-                        <li>Find the DNS Server config folder and locate the <b>auth.config</b> file. The config folder will be found where the DNS Server is installed.</li>
+                        <li>Stop the Web 7.0 DID Registry.</li>
+                        <li>Find the Web 7.0 DID Registry config folder and locate the <b>auth.config</b> file. The config folder will be found where the Web 7.0 DID Registry is installed.</li>
                         <li>Rename the <b>auth.config</b> file as <b>resetadmin.config</b></li>
-                        <li>Start the DNS Server to complete the password reset process.</li>
+                        <li>Start the Web 7.0 DID Registry to complete the password reset process.</li>
                         <li>Just refresh this web page in the web browser to auto login with default credentials and quickly change the password.</li>
                     </ol>
-                    <p>Note: To reset 'admin' password, you will need file system access on the server running this DNS Server. If the 'admin' user does not exists then it will be created automatically.</p>
+                    <p>Note: To reset 'admin' password, you will need file system access on the server running this Web 7.0 DID Registry. If the 'admin' user does not exists then it will be created automatically.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -3190,7 +3190,7 @@ ns1.example.com ([2001:db8::])
                                         </label>
                                     </div>
                                     <div style="padding-top: 5px; padding-left: 20px; padding-bottom: 10px;">
-                                        When using "This Server", if a record does not exists in the zone then the request is forwarded to the DNS server's resolver internally. This allows you to override any record for the forwarded domain name or control its DNSSEC validation.
+                                        When using "This Server", if a record does not exists in the zone then the request is forwarded to the Web 7.0 DID Registry's resolver internally. This allows you to override any record for the forwarded domain name or control its DNSSEC validation.
                                     </div>
 
                                     <input id="txtAddZoneForwarder" type="text" class="form-control" placeholder="8.8.8.8">
@@ -3700,7 +3700,7 @@ MII...
                                             </label>
                                         </div>
                                         <div style="padding-top: 5px; padding-left: 20px; padding-bottom: 10px;">
-                                            When using "This Server", if a record does not exists in the zone then the request is forwarded to the DNS server's resolver internally. This allows you to override any record for the forwarded domain name or control its DNSSEC validation.
+                                            When using "This Server", if a record does not exists in the zone then the request is forwarded to the Web 7.0 DID Registry's resolver internally. This allows you to override any record for the forwarded domain name or control its DNSSEC validation.
                                         </div>
 
                                         <input id="txtAddEditRecordDataForwarder" type="text" class="form-control" placeholder="8.8.8.8">
@@ -3913,7 +3913,7 @@ MII...
                                             </div>
                                         </div>
 
-                                        <div>Note! TSIG key names must be configured from the Settings before using them here. Entering one or more TSIG key names above will cause the DNS server to authenticate all zone transfer requests. A secondary zone must be configured with one of the above keys to be able to perform a zone transfer.</div>
+                                        <div>Note! TSIG key names must be configured from the Settings before using them here. Entering one or more TSIG key names above will cause the Web 7.0 DID Registry to authenticate all zone transfer requests. A secondary zone must be configured with one of the above keys to be able to perform a zone transfer.</div>
                                     </div>
                                 </div>
 
@@ -4035,7 +4035,7 @@ MII...
                                             <tbody id="tbodyDynamicUpdateSecurityPolicy"></tbody>
                                         </table>
 
-                                        <div>Note! Configuring a security policy above will cause the DNS server to authenticate all dynamic update requests. A TSIG key can add/delete records only for the specified domain name and allowed record types. TSIG key names must be configured from the Settings before using them here. Use wildcard domain name to specify all sub domain names. Use a comma separator to specify more than one record type. Use ANY to specify all record types.</div>
+                                        <div>Note! Configuring a security policy above will cause the Web 7.0 DID Registry to authenticate all dynamic update requests. A TSIG key can add/delete records only for the specified domain name and allowed record types. TSIG key names must be configured from the Settings before using them here. Use wildcard domain name to specify all sub domain names. Use a comma separator to specify more than one record type. Use ANY to specify all record types.</div>
                                     </div>
                                 </div>
                             </div>
@@ -4165,7 +4165,7 @@ MII...
                                     <span>(valid range 0-50, recommended 0)</span>
                                 </div>
                                 <div class="col-sm-offset-4 col-sm-8" style="padding-top: 5px;">
-                                    The number of iterations used by NSEC3 for hashing the domain names. It is recommended to use 0 iterations since more iterations will increase computational costs for both the DNS server and resolver while not providing much value against "zone walking" [<a href="https://www.rfc-editor.org/rfc/rfc9276.html#name-iterations" target="_blank">RFC 9276</a>].
+                                    The number of iterations used by NSEC3 for hashing the domain names. It is recommended to use 0 iterations since more iterations will increase computational costs for both the Web 7.0 DID Registry and resolver while not providing much value against "zone walking" [<a href="https://www.rfc-editor.org/rfc/rfc9276.html#name-iterations" target="_blank">RFC 9276</a>].
                                 </div>
                             </div>
 
@@ -4199,7 +4199,7 @@ MII...
                                 <span>days (valid range 0-365; default 90; set 0 to disable)</span>
                             </div>
                             <div class="col-sm-offset-4 col-sm-8" style="padding-top: 5px;">
-                                The frequency at which the DNS server must automatically rollover all Zone Signing Key (ZSK) keys.
+                                The frequency at which the Web 7.0 DID Registry must automatically rollover all Zone Signing Key (ZSK) keys.
                             </div>
                         </div>
                     </div>
@@ -4352,7 +4352,7 @@ MII...
                                             </div>
                                         </div>
                                         <div class="col-sm-offset-4 col-sm-8" style="margin-top: 10px;">
-                                            The frequency at which the DNS server must automatically rollover the key.
+                                            The frequency at which the Web 7.0 DID Registry must automatically rollover the key.
                                         </div>
                                     </div>
 
@@ -4398,7 +4398,7 @@ MII...
                                         <span>(valid range 0-50, recommended 0)</span>
                                     </div>
                                     <div class="col-sm-offset-4 col-sm-8" style="padding-top: 5px;">
-                                        The number of iterations used by NSEC3 for hashing the domain names. It is recommended to use 0 iterations since more iterations will increase computational costs for both the DNS server and resolver while not providing much value against "zone walking" [<a href="https://www.rfc-editor.org/rfc/rfc9276.html#name-iterations" target="_blank">RFC 9276</a>].
+                                        The number of iterations used by NSEC3 for hashing the domain names. It is recommended to use 0 iterations since more iterations will increase computational costs for both the Web 7.0 DID Registry and resolver while not providing much value against "zone walking" [<a href="https://www.rfc-editor.org/rfc/rfc9276.html#name-iterations" target="_blank">RFC 9276</a>].
                                     </div>
                                 </div>
 

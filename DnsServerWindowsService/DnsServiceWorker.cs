@@ -105,7 +105,7 @@ namespace DnsServerWindowsService
                         return true;
                 }
 
-                WindowsFirewall.AddRuleVista("Technitium DNS Server", "Allows incoming connection request to the DNS server.", FirewallAction.Allow, appPath, Protocol.ANY, null, null, null, null, InterfaceTypeFlags.All, true, Direction.Inbound, true);
+                WindowsFirewall.AddRuleVista("Web 7.0 DID Registry", "Allows incoming connection request to the Web 7.0 DID Registry.", FirewallAction.Allow, appPath, Protocol.ANY, null, null, null, null, InterfaceTypeFlags.All, true, Direction.Inbound, true);
 
                 return true;
             }
