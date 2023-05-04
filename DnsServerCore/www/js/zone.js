@@ -402,7 +402,7 @@ function refreshZones(checkDisplay, pageNumber) {
                 tableHtmlRows += "<td>" + expiry + "</td>";
 
                 tableHtmlRows += "<td align=\"right\"><div class=\"dropdown\"><a href=\"#\" id=\"btnZoneRowOption" + id + "\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"true\"><span class=\"glyphicon glyphicon-option-vertical\" aria-hidden=\"true\"></span></a><ul class=\"dropdown-menu dropdown-menu-right\">";
-                tableHtmlRows += "<li><a href=\"#\" onclick=\"showEditZone('" + name + "'); return false;\">" + (isReadOnlyZone ? "View" : "Edit") + " Zone</a></li>";
+                tableHtmlRows += "<li><a href=\"#\" onclick=\"showEditZone('" + name + "'); return false;\">" + (isReadOnlyZone ? "View" : "Edit") + " Method</a></li>";
 
                 if (!zones[i].internal) {
                     tableHtmlRows += "<li id=\"mnuEnableZone" + id + "\"" + (zones[i].disabled ? "" : " style=\"display: none;\"") + "><a href=\"#\" data-id=\"" + id + "\" data-zone=\"" + htmlEncode(name) + "\" onclick=\"enableZoneMenu(this); return false;\">Enable</a></li>";
@@ -419,7 +419,7 @@ function refreshZones(checkDisplay, pageNumber) {
 
                 if (!zones[i].internal) {
                     tableHtmlRows += "<li role=\"separator\" class=\"divider\"></li>";
-                    tableHtmlRows += "<li><a href=\"#\" data-id=\"" + id + "\" data-zone=\"" + htmlEncode(name) + "\" onclick=\"deleteZoneMenu(this); return false;\">Delete Zone</a></li>";
+                    tableHtmlRows += "<li><a href=\"#\" data-id=\"" + id + "\" data-zone=\"" + htmlEncode(name) + "\" onclick=\"deleteZoneMenu(this); return false;\">Delete Method</a></li>";
                 }
 
                 tableHtmlRows += "</ul></div></td></tr>";
