@@ -1223,7 +1223,7 @@ function addZone() {
     var zone = $("#txtAddZone").val();
 
     if ((zone == null) || (zone === "")) {
-        showAlert("warning", "Missing!", "Please enter a domain name to add zone.", divAddZoneAlert);
+        showAlert("warning", "Missing!", "Please enter a name to add method/zone.", divAddZoneAlert);
         $("#txtAddZone").focus();
         return;
     }
@@ -1320,7 +1320,7 @@ function showEditZone(zone, showPageNumber) {
     if (zone == null) {
         zone = $("#txtZonesEdit").val();
         if (zone === "") {
-            showAlert("warning", "Missing!", "Please enter a zone name to start editing.");
+            showAlert("warning", "Missing!", "Please enter a method name to start editing.");
             $("#txtZonesEdit").focus();
             return;
         }

@@ -49,6 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvancedForwardingApp", "Ap
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BF7D7F71-6F9F-4DC9-BD14-CE34FEACA3BA}"
 	ProjectSection(SolutionItems) = preProject
+		Docs\did2domain.txt = Docs\did2domain.txt
 		Docs\DIDDocument.tsl.txt = Docs\DIDDocument.tsl.txt
 		Docs\DnsServer Logical Architecture 0.7-annotated.png = Docs\DnsServer Logical Architecture 0.7-annotated.png
 		DnsServerWindowsSetup\DnsServerSetup.iss = DnsServerWindowsSetup\DnsServerSetup.iss

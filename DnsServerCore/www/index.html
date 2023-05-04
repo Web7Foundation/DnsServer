@@ -355,11 +355,11 @@
                                             </form>
                                             <form class="pull-right">
                                                 <div class="form-group">
-                                                    <label for="txtZonesPageNumber">Page Number</label>
+                                                    <label for="txtZonesPageNumber">Page</label>
                                                     <input id="txtZonesPageNumber" class="form-control" style="width: 100px;" type="number" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="optZonesPerPage">Methods Per Page</label>
+                                                    <label for="optZonesPerPage">Items Per Page</label>
                                                     <select class="form-control" id="optZonesPerPage">
                                                         <option selected>10</option>
                                                         <option>25</option>
@@ -467,11 +467,11 @@
                                         <div class="form-inline">
                                             <form class="pull-right">
                                                 <div class="form-group">
-                                                    <label for="txtEditZonePageNumber">Page Number</label>
+                                                    <label for="txtEditZonePageNumber">Page</label>
                                                     <input id="txtEditZonePageNumber" class="form-control" style="width: 100px;" type="number" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="optEditZoneRecordsPerPage">Records Per Page</label>
+                                                    <label for="optEditZoneRecordsPerPage">Items Per Page</label>
                                                     <select class="form-control" id="optEditZoneRecordsPerPage">
                                                         <option selected>10</option>
                                                         <option>25</option>
@@ -782,7 +782,7 @@
 
                                         <div class="form-group">
                                             <label for="txtDnsClientDomain">DID/Domain</label>
-                                            <input type="text" class="form-control" style="min-width: 295px;" id="txtDnsClientDomain" placeholder="did:person or example.com">
+                                            <input type="text" class="form-control" style="min-width: 295px;" id="txtDnsClientDomain" placeholder="did:person:1234 or example.com">
                                         </div>
 
                                         <div class="form-group">
@@ -1820,14 +1820,14 @@
                                                             <div class="col-sm-8">
                                                                 <div class="radio">
                                                                     <label>
-                                                                        <input type="radio" name="rdForwarderProtocol" id="rdForwarderProtocolUdp" value="Udp" checked>
-                                                                        DNS-over-UDP (default)
+                                                                        <input type="radio" name="rdForwarderProtocol" id="rdForwarderProtocolUdp" value="Udp">
+                                                                        DNS-over-UDP
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
                                                                     <label>
-                                                                        <input type="radio" name="rdForwarderProtocol" id="rdForwarderProtocolTcp" value="Tcp">
-                                                                        DNS-over-TCP
+                                                                        <input type="radio" name="rdForwarderProtocol" id="rdForwarderProtocolTcp" value="Tcp" checked>
+                                                                        DNS-over-TCP (default)
                                                                     </label>
                                                                 </div>
                                                                 <div class="radio">
@@ -2564,12 +2564,12 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="txtQueryLogPageNumber">Page Number</label>
+                                                    <label for="txtQueryLogPageNumber">Page</label>
                                                     <input id="txtQueryLogPageNumber" type="number" class="form-control" style="width: 120px;" value="1" />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="optQueryLogsEntriesPerPage">Logs Per Page</label>
+                                                    <label for="optQueryLogsEntriesPerPage">Items Per Page</label>
                                                     <select class="form-control" id="optQueryLogsEntriesPerPage">
                                                         <option>10</option>
                                                         <option>25</option>
@@ -3057,14 +3057,14 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add Method</h4>
+                        <h4 class="modal-title">Add Method/Zone</h4>
                     </div>
                     <div class="modal-body">
                         <div id="divAddZoneAlert"></div>
 
                         <div style="max-height: 500px; overflow-y: auto; padding: 0 6px; overflow-x: hidden;">
                             <div class="form-group">
-                                <label for="txtAddZone" class="col-sm-4 control-label">Method</label>
+                                <label for="txtAddZone" class="col-sm-4 control-label">Method/Zone</label>
                                 <div class="col-sm-7">
                                     <input id="txtAddZone" type="text" class="form-control" placeholder="did:person or example.com or 192.168.0.0/24 or 2001:db8::/64" maxlength="255">
                                 </div>
@@ -3076,7 +3076,7 @@
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="rdAddZoneType" id="rdAddZoneTypePrimary" value="Primary" checked>
-                                            Primary Method/Zone (default)
+                                            Method or Primary Zone (default)
                                         </label>
                                     </div>
                                     <div class="radio">
@@ -3150,14 +3150,14 @@ ns1.example.com ([2001:db8::])
                                 <div class="col-sm-7">
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="rdAddZoneForwarderProtocol" id="rdAddZoneForwarderProtocolUdp" value="Udp" checked>
-                                            DNS-over-UDP (default)
+                                            <input type="radio" name="rdAddZoneForwarderProtocol" id="rdAddZoneForwarderProtocolUdp" value="Udp">
+                                            DNS-over-UDP
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
-                                            <input type="radio" name="rdAddZoneForwarderProtocol" value="Tcp">
-                                            DNS-over-TCP
+                                            <input type="radio" name="rdAddZoneForwarderProtocol" value="Tcp" checked>
+                                            DNS-over-TCP (default)
                                         </label>
                                     </div>
                                     <div class="radio">
@@ -3660,14 +3660,14 @@ MII...
                                     <div class="col-sm-7">
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolUdp" value="Udp" checked>
-                                                DNS-over-UDP (default)
+                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolUdp" value="Udp">
+                                                DNS-over-UDP
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolTcp" value="Tcp">
-                                                DNS-over-TCP
+                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolTcp" value="Tcp" checked>
+                                                DNS-over-TCP (default)
                                             </label>
                                         </div>
                                         <div class="radio">

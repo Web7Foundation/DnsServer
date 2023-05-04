@@ -69,7 +69,7 @@ function showPageMain() {
     $("#txtDnsClientNameServer").val("This Server {this-server}");
     $("#txtDnsClientDomain").val("");
     $("#optDnsClientType").val("A");
-    $("#optDnsClientProtocol").val("UDP");
+    $("#optDnsClientProtocol").val("TCP");
     $("#divDnsClientLoader").hide();
     $("#divDnsClientOutput").text("");
     $("#preDnsClientOutput").hide();
@@ -249,7 +249,7 @@ $(function () {
                     break;
 
                 default:
-                    $("#optDnsClientProtocol").val("UDP");
+                    $("#optDnsClientProtocol").val("TCP");
                     break;
             }
         }
@@ -2337,7 +2337,7 @@ function resolveQuery(importRecords) {
     var server = $("#txtDnsClientNameServer").val();
 
     if (server.indexOf("recursive-resolver") !== -1)
-        $("#optDnsClientProtocol").val("UDP");
+        $("#optDnsClientProtocol").val("TCP");
 
     var domain = $("#txtDnsClientDomain").val();
     var type = $("#optDnsClientType").val();
@@ -2367,6 +2367,8 @@ function resolveQuery(importRecords) {
     }
 
     {
+        /* MWHTODO if domain.indexOf("did:") > -1, convert from DID to domain: split on ':', reverse to create a domain name */
+
         var i = domain.indexOf("://");
         if (i > -1) {
             var j = domain.indexOf(":", i + 3);

@@ -805,6 +805,8 @@ namespace DnsServerCore
             if (zoneName.Contains('*'))
                 throw new DnsWebServiceException("Domain name for a zone cannot contain wildcard character.");
 
+            // MWHTODO if zoneName.StartsWith("did:"), convert from DID to domain: split on ':', and reverse to create a domain name
+
             if (IPAddress.TryParse(zoneName, out IPAddress ipAddress))
             {
                 zoneName = ipAddress.GetReverseDomain().ToLower();
