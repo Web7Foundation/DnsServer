@@ -1,0 +1,14 @@
+1. Add DnsRecordClass (ex. DnsDIDTXTRecord.cs) to TechnitiumLibrary.Net > Dns > ResourceRecords
+
+2. DnsServerCore > zone.js:
+	- add RR case to getZoneRecordRowHtml()
+	- add RR case to modifyAddRecordFormByType()
+ 	- add RR case to addRecord()
+	- add RR case to deleteRecord()
+	- add RR case to showEditRecordModal()
+	- add RR case to updateRecord()
+
+3. DnsServerCore > WebServiceZonesApi.cs
+	- add RR case to AddRecord()
+	- add RR case to DeleteRecord()
+	- add RR case to UpdateRecord()
