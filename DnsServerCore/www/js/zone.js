@@ -1849,7 +1849,7 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             break;
 
         case "TXT":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + htmlEncode(record.rData.text);
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Text:</b> " + htmlEncode(record.rData.text);
 
             tableHtmlRow += "<br /><br /><b>Last Used:</b> " + lastUsedOn;
 
@@ -2149,6 +2149,20 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             additionalDataAttributes = "data-record-app-name=\"" + htmlEncode(record.rData.appName) + "\" " +
                 "data-record-classpath=\"" + htmlEncode(record.rData.classPath) + "\" " +
                 "data-record-data=\"" + htmlEncode(record.rData.data) + "\"";
+            break;
+
+        // did RR cases
+        case "DIDID":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Value:</b> " + htmlEncode(record.rData.data);
+
+            //tableHtmlRow += "<br /><br /><b>Last Used:</b> " + lastUsedOn;
+
+            if ((record.comments != null) && (record.comments.length > 0))
+                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
+
+            tableHtmlRow += "</td>";
+            additionalDataAttributes = "data-record-value=\"" + htmlEncode(record.rData.data) + "\" ";
+
             break;
 
         default:
@@ -2497,7 +2511,7 @@ function modifyAddRecordFormByType(addMode) {
             $("#txtAddEditRecordDataDsDigest").val("");
             $("#divAddEditRecordDataDs").show();
             break;
-
+            
         case "SSHFP":
             $("#optAddEditRecordDataSshfpAlgorithm").val("");
             $("#optAddEditRecordDataSshfpFingerprintType").val("");
@@ -2550,6 +2564,16 @@ function modifyAddRecordFormByType(addMode) {
 
             if (addMode)
                 loadAddRecordModalAppNames();
+
+            break;
+
+        // did RR cases
+        case "DIDID": // mwh - 3 fields: Name, Type, and TTL
+            $("#lblAddEditRecordDataValue").text("Subject DID");
+            $("#divAddEditRecordData").show();
+            $("#txtAddEditRecordDataValue").val("AddRecord() will override this with the domain label value");
+            $("#txtAddEditRecordDataValue").attr("disabled","disabled");
+            $("#lblAddEditRecordDataValue").text("Value");
 
             break;
     }
@@ -2902,6 +2926,19 @@ function addRecord() {
 
             apiUrl += "&appName=" + encodeURIComponent(appName) + "&classPath=" + encodeURIComponent(classPath) + "&recordData=" + encodeURIComponent(recordData);
             break;
+
+        // did RR cases
+        case "DIDID":
+            var value = $("#txtAddEditRecordDataValue").val();
+            if (value === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&value=" + encodeURIComponent(value);
+            break;
+
     }
 
     btn.button("loading");
@@ -3234,6 +3271,11 @@ function showEditRecordModal(objBtn) {
             $("#optAddEditRecordDataClassPath").val(divData.attr("data-record-classpath"))
 
             $("#txtAddEditRecordDataData").val(divData.attr("data-record-data"))
+            break;
+
+        // did RR cases
+        case "DIDID": 
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-value"));
             break;
 
         default:
@@ -3702,6 +3744,19 @@ function updateRecord() {
         case "APP":
             apiUrl += "&appName=" + encodeURIComponent(divData.attr("data-record-app-name")) + "&classPath=" + encodeURIComponent(divData.attr("data-record-classpath")) + "&recordData=" + encodeURIComponent($("#txtAddEditRecordDataData").val());
             break;
+
+        // did RR cases
+        case "DIDID":
+            var newValue = $("#txtAddEditRecordDataValue").val();
+            console.log(newValue);
+            if (newValue === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&newValue=" + encodeURIComponent(newValue);
+            break;
     }
 
     btn.button('loading');
@@ -3926,6 +3981,12 @@ function deleteRecord(objBtn) {
 
         case "FWD":
             apiUrl += "&protocol=" + divData.attr("data-record-protocol") + "&forwarder=" + encodeURIComponent(divData.attr("data-record-forwarder"));
+            break;
+
+        // DID RR types
+        case "DIDID":
+            console.log(divData);
+            apiUrl += "&didid=" + encodeURIComponent(divData.attr("data-record-value"));
             break;
     }
 

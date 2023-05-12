@@ -1892,6 +1892,8 @@ namespace DnsServerCore
 
             switch (type)
             {
+                #region DNS RR types
+
                 case DnsResourceRecordType.A:
                 case DnsResourceRecordType.AAAA:
                     {
@@ -2228,6 +2230,32 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
                     }
                     break;
+                #endregion
+
+                #region DID RR types
+                case DnsResourceRecordType.DIDID:
+                    {
+                        var didlabels = domain.Split('.');
+                        string diddomain = "";
+                        int i;
+                        for (i = didlabels.Length - 1; i >= 0; i--)
+                        {
+                            diddomain = diddomain + didlabels[i];
+                            if (i > 0) diddomain = diddomain + ":";
+                        }
+
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDIDRecord(diddomain));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
+                #endregion
 
                 default:
                     throw new DnsWebServiceException("Type not supported for AddRecords().");
@@ -2323,6 +2351,8 @@ namespace DnsServerCore
             DnsResourceRecordType type = request.GetQueryOrFormEnum<DnsResourceRecordType>("type");
             switch (type)
             {
+                #region DNS RR types
+
                 case DnsResourceRecordType.A:
                 case DnsResourceRecordType.AAAA:
                     {
@@ -2469,6 +2499,15 @@ namespace DnsServerCore
                 case DnsResourceRecordType.APP:
                     _dnsWebService.DnsServer.AuthZoneManager.DeleteRecords(zoneInfo.Name, domain, type);
                     break;
+                #endregion
+
+                #region DID RR types
+                case DnsResourceRecordType.DIDID:
+                    string didid = request.GetQueryOrFormAlt("didid", "value");
+
+                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecord(didid)); 
+                    break;
+                #endregion
 
                 default:
                     throw new DnsWebServiceException("Type not supported for DeleteRecord().");
@@ -2520,6 +2559,7 @@ namespace DnsServerCore
 
             switch (type)
             {
+                #region DNS RR types
                 case DnsResourceRecordType.A:
                 case DnsResourceRecordType.AAAA:
                     {
@@ -3002,6 +3042,27 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
                     }
                     break;
+                #endregion
+
+                #region DID RR types
+                case DnsResourceRecordType.DIDID:
+                    {
+                        string didid = request.GetQueryOrFormAlt("didid", "value");
+                        string newDidid = request.GetQueryOrFormAlt("newText", "newValue", didid);
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecord(didid));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDIDRecord(newDidid));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+                #endregion
 
                 default:
                     throw new DnsWebServiceException("Type not supported for UpdateRecords().");
