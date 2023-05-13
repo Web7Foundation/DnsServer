@@ -2527,9 +2527,7 @@ namespace DnsServerCore
 
                 case DnsResourceRecordType.DIDCTX:
                     string didTag = request.GetQueryOrForm("didTag", "");
-                    didTag = "testtag";
                     string ctxURIdata = request.GetQueryOrFormAlt("value", "");
-                    ctxURIdata = "ABcHdGVzdHRhZw53d3cuZ29vZ2xlLmNvbQ==";
 
                     _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXRecord(didTag, ctxURIdata));
                     break;
