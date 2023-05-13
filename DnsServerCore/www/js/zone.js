@@ -1849,6 +1849,7 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             break;
 
         case "TXT":
+            console.log(record);
             tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Text:</b> " + htmlEncode(record.rData.text);
 
             tableHtmlRow += "<br /><br /><b>Last Used:</b> " + lastUsedOn;
@@ -2162,7 +2163,15 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
 
             tableHtmlRow += "</td>";
             additionalDataAttributes = "data-record-value=\"" + htmlEncode(record.rData.data) + "\" ";
+            break;
 
+        case "DIDCTX":
+            console.log(record);
+            tableHtmlRow += "<td>  <b>Tag:</b> " + htmlEncode(record.rData.didTag);
+            tableHtmlRow += "<br /><b>CTX URI:</b> " + htmlEncode(record.rData.value) + "</td>";
+
+            additionalDataAttributes =
+                "data-record-didTag=\"" + htmlEncode(record.rData.didTag) + "\" ";
             break;
 
         default:
@@ -2241,13 +2250,13 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
 function clearAddEditRecordForm() {
     $("#divAddEditRecordAlert").html("");
 
-    $("#txtAddEditRecordName").prop("placeholder", "@");
-    $("#txtAddEditRecordName").prop("disabled", false);
+    $("#txtAddEditRecordNameOrSubjectDID").prop("placeholder", "@");
+    $("#txtAddEditRecordNameOrSubjectDID").prop("disabled", false);
     $("#optAddEditRecordType").prop("disabled", false);
     $("#txtAddEditRecordTtl").prop("disabled", false);
     $("#divAddEditRecordTtl").show();
 
-    $("#txtAddEditRecordName").val("");
+    $("#txtAddEditRecordNameOrSubjectDID").val("");
     $("#optAddEditRecordType").val("A");
     $("#txtAddEditRecordTtl").val("");
 
@@ -2359,7 +2368,7 @@ function showAddRecordModal() {
     $("#modalAddEditRecord").modal("show");
 
     setTimeout(function () {
-        $("#txtAddEditRecordName").focus();
+        $("#txtAddEditRecordNameOrSubjectDID").focus();
     }, 1000);
 }
 
@@ -2413,11 +2422,13 @@ function loadAddRecordModalAppNames() {
 function modifyAddRecordFormByType(addMode) {
     $("#divAddEditRecordAlert").html("");
 
-    $("#txtAddEditRecordName").prop("placeholder", "@");
+    $("#txtAddEditRecordNameOrSubjectDID").prop("placeholder", "@");
     $("#divAddEditRecordTtl").show();
 
     var type = $("#optAddEditRecordType").val();
 
+
+    $("#divAddEditRecordDataDIDCTX").hide();
     $("#divAddEditRecordData").hide();
     $("#divAddEditRecordDataPtr").hide();
     $("#divAddEditRecordDataNs").hide();
@@ -2430,9 +2441,12 @@ function modifyAddRecordFormByType(addMode) {
     $("#divAddEditRecordDataCaa").hide();
     $("#divAddEditRecordDataForwarder").hide();
     $("#divAddEditRecordDataApplication").hide();
+    $("#txtAddEditRecordDataValue").attr("disabled", false);
+
 
     switch (type) {
         case "A":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#lblAddEditRecordDataValue").text("IPv4 Address");
             $("#txtAddEditRecordDataValue").val("");
             $("#chkAddEditRecordDataPtr").prop("checked", false);
@@ -2444,6 +2458,7 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         case "AAAA":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#lblAddEditRecordDataValue").text("IPv6 Address");
             $("#txtAddEditRecordDataValue").val("");
             $("#chkAddEditRecordDataPtr").prop("checked", false);
@@ -2455,12 +2470,14 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         case "NS":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#txtAddEditRecordDataNsNameServer").val("");
             $("#txtAddEditRecordDataNsGlue").val("");
             $("#divAddEditRecordDataNs").show();
             break;
 
         case "SOA":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#txtEditRecordDataSoaPrimaryNameServer").val("");
             $("#txtEditRecordDataSoaResponsiblePerson").val("");
             $("#txtEditRecordDataSoaSerial").val("");
@@ -2478,25 +2495,29 @@ function modifyAddRecordFormByType(addMode) {
         case "CNAME":
         case "DNAME":
         case "ANAME":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#lblAddEditRecordDataValue").text("Domain Name");
             $("#txtAddEditRecordDataValue").val("");
             $("#divAddEditRecordData").show();
             break;
 
         case "MX":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#txtAddEditRecordDataMxPreference").val("");
             $("#txtAddEditRecordDataMxExchange").val("");
             $("#divAddEditRecordDataMx").show();
             break;
 
         case "TXT":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#lblAddEditRecordDataValue").text("Text Data");
             $("#txtAddEditRecordDataValue").val("");
             $("#divAddEditRecordData").show();
             break;
 
         case "SRV":
-            $("#txtAddEditRecordName").prop("placeholder", "_service._protocol.name");
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
+            $("#txtAddEditRecordNameOrSubjectDID").prop("placeholder", "_service._protocol.name");
             $("#txtAddEditRecordDataSrvPriority").val("");
             $("#txtAddEditRecordDataSrvWeight").val("");
             $("#txtAddEditRecordDataSrvPort").val("");
@@ -2505,6 +2526,7 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         case "DS":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#txtAddEditRecordDataDsKeyTag").val("");
             $("#optAddEditRecordDataDsAlgorithm").val("");
             $("#optAddEditRecordDataDsDigestType").val("");
@@ -2513,6 +2535,7 @@ function modifyAddRecordFormByType(addMode) {
             break;
             
         case "SSHFP":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#optAddEditRecordDataSshfpAlgorithm").val("");
             $("#optAddEditRecordDataSshfpFingerprintType").val("");
             $("#txtAddEditRecordDataSshfpFingerprint").val("");
@@ -2520,7 +2543,8 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         case "TLSA":
-            $("#txtAddEditRecordName").prop("placeholder", "_port._protocol.name");
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
+            $("#txtAddEditRecordNameOrSubjectDID").prop("placeholder", "_port._protocol.name");
             $("#optAddEditRecordDataTlsaCertificateUsage").val("");
             $("#optAddEditRecordDataTlsaSelector").val("");
             $("#optAddEditRecordDataTlsaMatchingType").val("");
@@ -2529,6 +2553,7 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         case "CAA":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#txtAddEditRecordDataCaaFlags").val("");
             $("#txtAddEditRecordDataCaaTag").val("");
             $("#txtAddEditRecordDataCaaValue").val("");
@@ -2536,6 +2561,7 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         case "FWD":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#divAddEditRecordTtl").hide();
             $("input[name=rdAddEditRecordDataForwarderProtocol]:radio").attr("disabled", false);
             $("#rdAddEditRecordDataForwarderProtocolUdp").prop("checked", true);
@@ -2557,6 +2583,7 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         case "APP":
+            $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
             $("#optAddEditRecordDataAppName").val("");
             $("#optAddEditRecordDataClassPath").val("");
             $("#txtAddEditRecordDataData").val("");
@@ -2568,13 +2595,19 @@ function modifyAddRecordFormByType(addMode) {
             break;
 
         // did RR cases
-        case "DIDID": // mwh - 3 fields: Name, Type, and TTL
-            $("#lblAddEditRecordDataValue").text("Subject DID");
+        case "DIDID": // 3 fields: Name, Type, and TTL
+            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+            $("#lblAddEditRecordDataValue").text("Subject DID Value");
             $("#divAddEditRecordData").show();
-            $("#txtAddEditRecordDataValue").val("AddRecord() will override this with the domain label value");
-            $("#txtAddEditRecordDataValue").attr("disabled","disabled");
-            $("#lblAddEditRecordDataValue").text("Value");
+            $("#txtAddEditRecordDataValue").val("*AddRecord() will override this with the domain label value");
+            $("#txtAddEditRecordDataValue").attr("disabled", true);
+            break;
 
+        case "DIDCTX": // 4 fields: Name, Type, TTL, and @context URI string
+            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+            $("#txtAddEditRecordDataTagValueDIDCTX").val("");
+            $("#txtAddEditRecordDataValueDIDCTX").val("");
+            $("#divAddEditRecordDataDIDCTX").show();
             break;
     }
 }
@@ -2587,7 +2620,7 @@ function addRecord() {
 
     var domain;
     {
-        var subDomain = $("#txtAddEditRecordName").val();
+        var subDomain = $("#txtAddEditRecordNameOrSubjectDID").val();
         if (subDomain === "")
             subDomain = "@";
 
@@ -2634,10 +2667,10 @@ function addRecord() {
             break;
 
         case "CNAME":
-            var subDomainName = $("#txtAddEditRecordName").val();
+            var subDomainName = $("#txtAddEditRecordNameOrSubjectDID").val();
             if ((subDomainName === "") || (subDomainName === "@")) {
                 showAlert("warning", "Missing!", "Please enter a name for the CNAME record.", divAddEditRecordAlert);
-                $("#txtAddEditRecordName").focus();
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
@@ -2689,9 +2722,9 @@ function addRecord() {
             break;
 
         case "SRV":
-            if ($("#txtAddEditRecordName").val() === "") {
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
                 showAlert("warning", "Missing!", "Please enter a name that includes service and protocol labels.", divAddEditRecordAlert);
-                $("#txtAddEditRecordName").focus();
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
@@ -2738,10 +2771,10 @@ function addRecord() {
             break;
 
         case "DS":
-            var subDomainName = $("#txtAddEditRecordName").val();
+            var subDomainName = $("#txtAddEditRecordNameOrSubjectDID").val();
             if ((subDomainName === "") || (subDomainName === "@")) {
                 showAlert("warning", "Missing!", "Please enter a name for the DS record.", divAddEditRecordAlert);
-                $("#txtAddEditRecordName").focus();
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
@@ -2929,14 +2962,38 @@ function addRecord() {
 
         // did RR cases
         case "DIDID":
-            var value = $("#txtAddEditRecordDataValue").val();
+            var value = $("#txtAddEditRecordNameOrSubjectDID").val();
             if (value === "") {
                 showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDataValue").focus();
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
             apiUrl += "&value=" + encodeURIComponent(value);
+            break;
+
+        case "DIDCTX": 
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var tag = $("#txtAddEditRecordDataTagValueDIDCTX").val();
+            //if (did === "") {
+            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
+            //    $("#txtAddEditRecordTagValue").focus();
+            //    return;
+            //}
+
+            var textData = $("#txtAddEditRecordDataValueDIDCTX").val();
+            if (textData === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value into the Context URI field.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValueDIDCTX").focus();
+                return;
+            }
+
+            apiUrl += "&didTag=" + encodeURIComponent(tag) + "&value=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
             break;
 
     }
@@ -3048,7 +3105,7 @@ function showEditRecordModal(objBtn) {
     $("#divAddEditRecordOverwrite").hide();
     modifyAddRecordFormByType(false);
 
-    $("#txtAddEditRecordName").val(name);
+    $("#txtAddEditRecordNameOrSubjectDID").val(name);
     $("#txtAddEditRecordTtl").val(ttl)
     $("#txtAddEditRecordComments").val(comments);
 
@@ -3134,7 +3191,7 @@ function showEditRecordModal(objBtn) {
                     break;
             }
 
-            $("#txtAddEditRecordName").prop("disabled", true);
+            $("#txtAddEditRecordNameOrSubjectDID").prop("disabled", true);
 
             if (disableSoaRecordModalFields) {
                 $("#txtAddEditRecordTtl").prop("disabled", true);
@@ -3278,6 +3335,11 @@ function showEditRecordModal(objBtn) {
             $("#txtAddEditRecordDataValue").val(divData.attr("data-record-value"));
             break;
 
+        case "DIDCTX":
+            $("#txtAddEditRecordDataTagValueDIDCTX").val(divData.attr("data-record-didTag"));
+            $("#txtAddEditRecordDataValueDIDCTX").val(divData.attr("data-record-value"));
+            break;
+
         default:
             showAlert("warning", "Not Supported!", "Record type not supported for edit.");
             return;
@@ -3291,7 +3353,7 @@ function showEditRecordModal(objBtn) {
     $("#modalAddEditRecord").modal("show");
 
     setTimeout(function () {
-        $("#txtAddEditRecordName").focus();
+        $("#txtAddEditRecordNameOrSubjectDID").focus();
     }, 1000);
 }
 
@@ -3311,7 +3373,7 @@ function updateRecord() {
 
     var newDomain;
     {
-        var newSubDomain = $("#txtAddEditRecordName").val();
+        var newSubDomain = $("#txtAddEditRecordNameOrSubjectDID").val();
         if (newSubDomain === "")
             newSubDomain = "@";
 
@@ -3360,10 +3422,10 @@ function updateRecord() {
             break;
 
         case "CNAME":
-            var subDomainName = $("#txtAddEditRecordName").val();
+            var subDomainName = $("#txtAddEditRecordNameOrSubjectDID").val();
             if ((subDomainName === "") || (subDomainName === "@")) {
                 showAlert("warning", "Missing!", "Please enter a name for the CNAME record.", divAddEditRecordAlert);
-                $("#txtAddEditRecordName").focus();
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
@@ -3492,9 +3554,9 @@ function updateRecord() {
             break;
 
         case "SRV":
-            if ($("#txtAddEditRecordName").val() === "") {
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
                 showAlert("warning", "Missing!", "Please enter a name that includes service and protocol labels.", divAddEditRecordAlert);
-                $("#txtAddEditRecordName").focus();
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
@@ -3549,10 +3611,10 @@ function updateRecord() {
             break;
 
         case "DS":
-            var subDomainName = $("#txtAddEditRecordName").val();
+            var subDomainName = $("#txtAddEditRecordNameOrSubjectDID").val();
             if ((subDomainName === "") || (subDomainName === "@")) {
                 showAlert("warning", "Missing!", "Please enter a name for the DS record.", divAddEditRecordAlert);
-                $("#txtAddEditRecordName").focus();
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
@@ -3757,6 +3819,36 @@ function updateRecord() {
 
             apiUrl += "&newValue=" + encodeURIComponent(newValue);
             break;
+
+        case "DIDCTX": 
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var oldTag = divData.attr("data-record-didTag");
+            var oldTextData = divData.attr("data-record-value");
+
+            var newTag = $("#txtAddEditRecordTagValue").val();
+            //if (newTag === "") {
+            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
+            //    $("#txtAddEditRecordTagValue").focus();
+            //    return;
+            //}
+
+            var newTextData = $("#txtAddEditRecordDataValue").val();
+            if (newTextData === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value into the Text Data field.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&oldTag=" + oldTag + "&oldValue=" + encodeURIComponent(oldTextData)
+                + "&newTag=" + newTag + "&newValue=" + encodeURIComponent(newTextData)
+                + "&didTrace=" + "zone.js:updateRecord";
+            break;
+
     }
 
     btn.button('loading');
@@ -3985,8 +4077,12 @@ function deleteRecord(objBtn) {
 
         // DID RR types
         case "DIDID":
-            console.log(divData);
-            apiUrl += "&didid=" + encodeURIComponent(divData.attr("data-record-value"));
+            apiUrl += "&value=" + encodeURIComponent(divData.attr("data-record-value"));
+            break;
+
+        case "DIDCTX":
+            apiUrl += "&didTag=" + encodeURIComponent(divData.attr("data-record-didTag")) +
+                "&value=" + encodeURIComponent(divData.attr("data-record-value"));
             break;
     }
 

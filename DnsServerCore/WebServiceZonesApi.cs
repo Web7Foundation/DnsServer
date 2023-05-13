@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+using DnsServerCore.ApplicationCommon;
 using DnsServerCore.Auth;
 using DnsServerCore.Dns;
 using DnsServerCore.Dns.Dnssec;
@@ -2255,6 +2256,21 @@ namespace DnsServerCore
                             _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
                     }
                     break;
+                case DnsResourceRecordType.DIDCTX:
+                    {
+                        string didTag = request.GetQueryOrForm("didTag", "");
+                        string didData = request.GetQueryOrForm("value", "");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTXRecord(didTag ?? "", didData));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
                 #endregion
 
                 default:
@@ -2506,6 +2522,16 @@ namespace DnsServerCore
                     string didid = request.GetQueryOrFormAlt("didid", "value");
 
                     _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecord(didid)); 
+                    break;
+                #endregion
+
+                case DnsResourceRecordType.DIDCTX:
+                    string didTag = request.GetQueryOrForm("didTag", "");
+                    didTag = "testtag";
+                    string ctxURIdata = request.GetQueryOrFormAlt("value", "");
+                    ctxURIdata = "ABcHdGVzdHRhZw53d3cuZ29vZ2xlLmNvbQ==";
+
+                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXRecord(didTag, ctxURIdata));
                     break;
                 #endregion
 
@@ -3080,8 +3106,6 @@ namespace DnsServerCore
             jsonWriter.WritePropertyName("updatedRecord");
             WriteRecordAsJson(newRecord, jsonWriter, true, zoneInfo);
         }
-
-        #endregion
 
         #region properties
 

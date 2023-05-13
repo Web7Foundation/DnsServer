@@ -3310,9 +3310,9 @@ ns1.example.com ([2001:db8::])
                         <div style="max-height: 500px; overflow-y: auto; padding: 0 15px; overflow-x: hidden;">
 
                             <div class="form-group">
-                                <label for="txtAddEditRecordName" class="col-sm-4 control-label">ID/Name</label>
+                                <label id="lblAddEditRecordNameOrSubjectDID" for="txtAddEditRecordNameOrSubjectDID" class="col-sm-4 control-label">ID/Name</label>
                                 <div class="col-sm-7">
-                                    <input id="txtAddEditRecordName" type="text" class="form-control" placeholder="@">
+                                    <input id="txtAddEditRecordNameOrSubjectDID" type="text" class="form-control" placeholder="@">
                                     <div style="margin-top: 6px; font-weight: 700;">.<span id="lblAddEditRecordZoneName">did:person or example.com</span></div>
                                 </div>
                             </div>
@@ -3356,13 +3356,27 @@ ns1.example.com ([2001:db8::])
                                 </div>
                             </div>
 
-                            <div class="form-group" id="divAddEditRecordTtl">
-                                <label for="txtAddEditRecordTtl" class="col-sm-4 control-label">TTL</label>
-                                <div class="col-sm-7">
-                                    <input id="txtAddEditRecordTtl" type="number" class="form-control" placeholder="3600" style="width: 100px;">
-                                </div>
-                            </div>
+                            <hr />
 
+                            <div id="divAddEditRecordDataDIDCTX">
+
+                                <!-- (optional) Tag field -->
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataTagValueDIDCTX" for="txtAddEditRecordDataTagValueDIDCTX" class="col-sm-4 control-label">Tag</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataTagValueDIDCTX" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- Context URI field -->
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataValueDIDCTX" for="txtAddEditRecordDataValueDIDCTX" class="col-sm-4 control-label">Context URI*</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataValueDIDCTX" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                            </div>
 
                             <div id="divAddEditRecordData">
                                 <div class="form-group">
@@ -3830,6 +3844,8 @@ MII...
                                 </div>
                             </div>
 
+                            <hr />
+
                             <div id="divAddEditRecordOverwrite" class="form-group">
                                 <div class="col-sm-offset-4 col-sm-7">
                                     <div class="checkbox">
@@ -3844,6 +3860,13 @@ MII...
                                 <label for="txtAddEditRecordComments" class="col-sm-4 control-label">Comments</label>
                                 <div class="col-sm-7">
                                     <textarea id="txtAddEditRecordComments" class="form-control" rows="3" maxlength="255"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="divAddEditRecordTtl">
+                                <label for="txtAddEditRecordTtl" class="col-sm-4 control-label">TTL</label>
+                                <div class="col-sm-7">
+                                    <input id="txtAddEditRecordTtl" type="number" class="form-control" placeholder="3600" style="width: 100px;">
                                 </div>
                             </div>
 
