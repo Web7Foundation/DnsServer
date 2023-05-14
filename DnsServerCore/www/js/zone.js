@@ -3017,7 +3017,7 @@ function addRecord() {
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
-            apiUrl += "&didTag=" + encodeURIComponent(tag) + "&value=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
+            apiUrl += "&tag=" + encodeURIComponent(tag) + "&data=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
             break;
 
         case "DIDTXT":

@@ -2294,7 +2294,7 @@ namespace DnsServerCore
                     break;
                 case DnsResourceRecordType.DIDCTX:
                     {
-                        string didTag = request.GetQueryOrForm("didTag", "");
+                        string didTag = request.GetQueryOrForm("tag", "");
                         string didData = request.GetQueryOrForm("data", "");
                         newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTXRecordData(didTag, didData));
 
