@@ -2179,7 +2179,7 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             tableHtmlRow += "<br /> <b>Text data:</b> " + htmlEncode(record.rData.value) + "</td>";
 
             additionalDataAttributes =
-                "data-record-didTag=\"" + htmlEncode(record.rData.didTag) + "\" " +
+                "data-record-tag=\"" + htmlEncode(record.rData.tag) + "\" " +
                 "data-record-didDID=\"" + htmlEncode(record.rData.didDID) + "\" " +
                 "data-record-value=\"" + htmlEncode(record.rData.value) + "\"";
             break;
@@ -3051,7 +3051,7 @@ function addRecord() {
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
-            apiUrl += "&didTag=" + tag + "&didDID=" + encodeURIComponent(did) + "&value=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
+            apiUrl += "&tag=" + tag + "&didDID=" + encodeURIComponent(did) + "&value=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
             break;
 
            
@@ -3401,7 +3401,7 @@ function showEditRecordModal(objBtn) {
             break;
 
         case "DIDTXT":
-            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-didTag"));
+            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
             $("#txtAddEditRecordDataDID").val(divData.attr("data-record-didDID"));
             $("#txtAddEditRecordDataValue").val(divData.attr("data-record-value"));
             break;
@@ -3926,7 +3926,7 @@ function updateRecord() {
                 return;
             }
 
-            var oldTag = divData.attr("data-record-didTag");
+            var oldTag = divData.attr("data-record-tag");
             var oldDID = divData.attr("data-record-didDID");
             var oldTextData = divData.attr("data-record-value");
 
@@ -3938,22 +3938,26 @@ function updateRecord() {
             //}
 
             var newDID = $("#txtAddEditRecordDataDID").val();
-            //if (newDID === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Service Endpoint DID.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordDIDValue").focus();
-            //    return;
-            //}
-
-            var newTextData = $("#txtAddEditRecordDataValueDIDTXT").val();
-            if (newTextData === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the Text Data field.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDataValueDIDTXT").focus();
+            if (newDID === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable Service Endpoint DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataDID").focus();
                 return;
             }
 
-            apiUrl += "&oldTag=" + oldTag + "&oldDID=" + encodeURIComponent(oldDID) + "&oldValue=" + encodeURIComponent(oldTextData)
-                + "&newTag=" + newTag + "&newDID=" + encodeURIComponent(newDID) + "&newValue=" + encodeURIComponent(newTextData)
-                + "&didTrace=" + "zone.js:updateRecord";
+            var newTextData = $("#txtAddEditRecordDataValue").val();
+            if (newTextData === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value into the Text Data field.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&oldTag=" + oldTag +
+                "&oldDID=" + encodeURIComponent(oldDID) +
+                "&oldValue=" + encodeURIComponent(oldTextData) +
+                "&newTag=" + newTag +
+                "&newDID=" + encodeURIComponent(newDID) +
+                "&newValue=" + encodeURIComponent(newTextData) +
+                "&didTrace=" + "zone.js:updateRecord";
             break;
 
     }

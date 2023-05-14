@@ -2309,7 +2309,7 @@ namespace DnsServerCore
                     break;
                 case DnsResourceRecordType.DIDTXT:
                     {
-                        string didTag = request.GetQueryOrForm("didTag", "");
+                        string didTag = request.GetQueryOrForm("tag", "");
                         string didDID = request.GetQueryOrForm("didDID", "");
                         string value = request.GetQueryOrForm("value", "");
                         newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDTXTRecord(didTag, didDID, value));
@@ -3156,6 +3156,29 @@ namespace DnsServerCore
 
                         oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCTXRecordData(oldTag, oldValue));
                         newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCTXRecordData(newTag, newValue));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDTXT:
+                    {
+                        string oldTag = request.GetQueryOrFormAlt("oldTag", "");
+                        string oldDID = request.GetQueryOrFormAlt("oldDID", "");
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+
+                        string newTag = request.GetQueryOrFormAlt("newTag", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+                        string newDID = request.GetQueryOrFormAlt("newDID", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDTXTRecord(oldTag, oldDID, oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDTXTRecord(newTag, newDID, newValue));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
