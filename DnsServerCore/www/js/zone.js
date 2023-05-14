@@ -2287,6 +2287,12 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordDataNsNameServer").val("");
     $("#txtAddEditRecordDataNsGlue").val("");
 
+    $("#divAddEditRecordTagDID").hide(); // rk
+    $("#txtAddEditRecordDataTagDID").val(""); // rk
+
+    $("#divAddEditRecordDID").hide(); // rk
+    $("#txtAddEditRecordDataDID").val(""); // rk
+
     $("#divEditRecordDataSoa").hide();
     $("#txtEditRecordDataSoaPrimaryNameServer").prop("disabled", false);
     $("#txtEditRecordDataSoaResponsiblePerson").prop("disabled", false);
