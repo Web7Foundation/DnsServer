@@ -1849,7 +1849,6 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             break;
 
         case "TXT":
-            console.log(record);
             tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Text:</b> " + htmlEncode(record.rData.text);
 
             tableHtmlRow += "<br /><br /><b>Last Used:</b> " + lastUsedOn;
@@ -2190,7 +2189,6 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             break;
 
     }
-    console.log(record);
 
     var hideActionButtons = false;
     var disableEnableDisableDeleteButtons = false;
@@ -3877,15 +3875,18 @@ function updateRecord() {
 
         // did RR cases
         case "DIDID":
-            var newValue = $("#txtAddEditRecordDataValue").val();
-            console.log(newValue);
+
+            var value = divData.attr("data-record-value");
+
+            var newValue = $("#txtAddEditRecordNameOrSubjectDID").val();
             if (newValue === "") {
                 showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
 
-            apiUrl += "&newValue=" + encodeURIComponent(newValue);
+            apiUrl += "&newValue=" + encodeURIComponent(newValue)
+                + "&value=" + value;
             break;
 
         case "DIDCTX": 
@@ -4187,7 +4188,6 @@ function deleteRecord(objBtn) {
             break;
 
         case "DIDCTX":
-            console.log(divData);
             apiUrl += "&tag=" + encodeURIComponent(divData.attr("data-record-tag")) +
                 "&data=" + encodeURIComponent(divData.attr("data-record-data"));
             break;

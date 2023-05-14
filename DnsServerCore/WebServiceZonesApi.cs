@@ -3123,11 +3123,19 @@ namespace DnsServerCore
                 #region DID RR types
                 case DnsResourceRecordType.DIDID:
                     {
-                        string didid = request.GetQueryOrFormAlt("didid", "value");
-                        string newDidid = request.GetQueryOrFormAlt("newText", "newValue", didid);
+                        string olddid = request.GetQueryOrFormAlt("value", "");
 
-                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecordData(didid));
-                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDIDRecordData(newDidid));
+                        var didlabels = newDomain.Split('.');
+                        string newDidDomain = "";
+                        int i;
+                        for (i = didlabels.Length - 1; i >= 0; i--)
+                        {
+                            newDidDomain = newDidDomain + didlabels[i];
+                            if (i > 0) newDidDomain = newDidDomain + ":";
+                        }
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecordData(olddid));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDIDRecordData(newDidDomain));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
