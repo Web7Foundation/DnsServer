@@ -1,5 +1,7 @@
 1. Add DnsRecordClass (ex. DnsDIDTXTRecord.cs) to TechnitiumLibrary.Net > Dns > ResourceRecords
 
+2. Add case to TechnitiumLibrary > Dns > ResourceRecords > DnsResourceRecord.cs > "ReadRecordData())
+
 2. DnsServerCore > zone.js:
 	- add RR case to getZoneRecordRowHtml()
 	- add RR case to modifyAddRecordFormByType()
