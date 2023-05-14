@@ -3358,26 +3358,30 @@ ns1.example.com ([2001:db8::])
 
                             <hr />
 
-                            <div id="divAddEditRecordDataDIDCTX">
+                            <div id="divAddEditRecordTagDID">
 
                                 <!-- (optional) Tag field -->
                                 <div class="form-group">
-                                    <label id="lblAddEditRecordDataTagValueDIDCTX" for="txtAddEditRecordDataTagValueDIDCTX" class="col-sm-4 control-label">Tag</label>
+                                    <label id="lblAddEditRecordDataTagDID" for="txtAddEditRecordDataTagDID" class="col-sm-4 control-label">Tag</label>
                                     <div class="col-sm-7">
-                                        <input id="txtAddEditRecordDataTagValueDIDCTX" type="text" class="form-control">
+                                        <input id="txtAddEditRecordDataTagDID" type="text" class="form-control">
                                     </div>
                                 </div>
-
-                                <!-- Context URI field -->
-                                <div class="form-group">
-                                    <label id="lblAddEditRecordDataValueDIDCTX" for="txtAddEditRecordDataValueDIDCTX" class="col-sm-4 control-label">Context URI*</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtAddEditRecordDataValueDIDCTX" type="text" class="form-control">
-                                    </div>
-                                </div>
-
                             </div>
 
+                            <div id="divAddEditRecordDID">
+
+                                <!-- DID field -->
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataDID" for="txtAddEditRecordDataDID" class="col-sm-4 control-label">DID</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataDID" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- default value field -->
                             <div id="divAddEditRecordData">
                                 <div class="form-group">
                                     <label id="lblAddEditRecordDataValue" for="txtAddEditRecordDataValue" class="col-sm-4 control-label">Value</label>
@@ -3414,8 +3418,7 @@ ns1.example.com ([2001:db8::])
                                 <div class="form-group">
                                     <label for="txtAddEditRecordDataNsGlue" class="col-sm-4 control-label">Glue Addresses</label>
                                     <div class="col-sm-7">
-                                        <textarea id="txtAddEditRecordDataNsGlue" class="form-control" rows="3" spellcheck="false" placeholder="192.168.1.1
-2001:db8::"></textarea>
+                                        <textarea id="txtAddEditRecordDataNsGlue" class="form-control" rows="3" spellcheck="false" placeholder="192.168.1.1 2001:db8::"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -3668,7 +3671,7 @@ ns1.example.com ([2001:db8::])
                                     <label for="txtAddEditRecordDataTlsaCertificateAssociationData" class="col-sm-4 control-label">Certificate Association Data</label>
                                     <div class="col-sm-7">
                                         <textarea id="txtAddEditRecordDataTlsaCertificateAssociationData" class="form-control" rows="6" spellcheck="false" placeholder="5F95253A20A0957648DEBAAEB032F7C5720CD4F0DCF928840C55650687921DAE
-          OR
+        OR
 -----BEGIN CERTIFICATE-----
 MII...
 -----END CERTIFICATE-----

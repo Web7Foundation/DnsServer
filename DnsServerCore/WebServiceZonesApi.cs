@@ -129,6 +129,8 @@ namespace DnsServerCore
 
             switch (record.Type)
             {
+                #region DNS RR types
+
                 case DnsResourceRecordType.A:
                     {
                         if (record.RDATA is DnsARecordData rdata)
@@ -604,6 +606,40 @@ namespace DnsServerCore
                         }
                     }
                     break;
+
+                #endregion
+
+                #region DID RR types
+
+                case DnsResourceRecordType.DIDID:
+                    {
+                        if (record.RDATA is DnsDIDIDRecordData rdata)
+                        {
+                            jsonWriter.WriteString("value", rdata.DID);
+                        }                      
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCTX:
+                    {
+                        if (record.RDATA is DnsDIDCTXRecordData rdata)
+                        {
+                            jsonWriter.WriteString("tag", rdata.Tag);
+                            jsonWriter.WriteString("data", rdata.Data);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDTXT:
+                    {
+                        if (record.RDATA is DnsDIDTXTRecord rdata)
+                        {
+                            jsonWriter.WriteString("tag", rdata.Tag);
+                            jsonWriter.WriteString("didDID", rdata.DID);
+                            jsonWriter.WriteString("value", rdata.TextData);
+                        }
+                    }
+                    break;
+
+                #endregion
 
                 default:
                     {
@@ -2245,7 +2281,7 @@ namespace DnsServerCore
                             if (i > 0) diddomain = diddomain + ":";
                         }
 
-                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDIDRecord(diddomain));
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDIDRecordData(diddomain));
 
                         if (!string.IsNullOrEmpty(comments))
                             newRecord.GetAuthRecordInfo().Comments = comments;
@@ -2259,8 +2295,24 @@ namespace DnsServerCore
                 case DnsResourceRecordType.DIDCTX:
                     {
                         string didTag = request.GetQueryOrForm("didTag", "");
-                        string didData = request.GetQueryOrForm("value", "");
-                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTXRecord(didTag ?? "", didData));
+                        string didData = request.GetQueryOrForm("data", "");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTXRecordData(didTag, didData));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
+                case DnsResourceRecordType.DIDTXT:
+                    {
+                        string didTag = request.GetQueryOrForm("didTag", "");
+                        string didDID = request.GetQueryOrForm("didDID", "");
+                        string value = request.GetQueryOrForm("value", "");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDTXTRecord(didTag, didDID, value));
 
                         if (!string.IsNullOrEmpty(comments))
                             newRecord.GetAuthRecordInfo().Comments = comments;
@@ -2521,15 +2573,15 @@ namespace DnsServerCore
                 case DnsResourceRecordType.DIDID:
                     string didid = request.GetQueryOrFormAlt("didid", "value");
 
-                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecord(didid)); 
+                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecordData(didid)); 
                     break;
                 #endregion
 
                 case DnsResourceRecordType.DIDCTX:
-                    string didTag = request.GetQueryOrForm("didTag", "");
-                    string ctxURIdata = request.GetQueryOrFormAlt("value", "");
+                    string didTag = request.GetQueryOrForm("tag", "");
+                    string ctxURIdata = request.GetQueryOrFormAlt("data", "");
 
-                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXRecord(didTag, ctxURIdata));
+                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXRecordData(didTag, ctxURIdata));
                     break;
                 #endregion
 
@@ -3074,8 +3126,8 @@ namespace DnsServerCore
                         string didid = request.GetQueryOrFormAlt("didid", "value");
                         string newDidid = request.GetQueryOrFormAlt("newText", "newValue", didid);
 
-                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecord(didid));
-                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDIDRecord(newDidid));
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecordData(didid));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDIDRecordData(newDidid));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
