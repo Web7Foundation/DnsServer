@@ -3146,6 +3146,26 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
                     }
                     break;
+
+                case DnsResourceRecordType.DIDCTX:
+                    {
+                        string oldTag = request.GetQueryOrFormAlt("oldTag", "");
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newTag = request.GetQueryOrFormAlt("newTag", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCTXRecordData(oldTag, oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCTXRecordData(newTag, newValue));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
                 #endregion
 
                 default:

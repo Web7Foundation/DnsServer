@@ -3396,7 +3396,7 @@ function showEditRecordModal(objBtn) {
             break;
 
         case "DIDCTX":
-            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-didTag"));
+            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
             $("#txtAddEditRecordDataValue").val(divData.attr("data-record-data"));
             break;
 
@@ -3906,10 +3906,10 @@ function updateRecord() {
             //    return;
             //}
 
-            var newTextData = $("#txtAddEditRecordDataValueDIDCTX").val();
+            var newTextData = $("#txtAddEditRecordDataValue").val();
             if (newTextData === "") {
                 showAlert("warning", "Missing!", "Please enter a suitable value into the Text Data field.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDataValueDIDCTX").focus();
+                $("#txtAddEditRecordDataValue").focus();
                 return;
             }
 
