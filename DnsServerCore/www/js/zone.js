@@ -2199,8 +2199,6 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
         case "DIDID":
             tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>DID Value:</b> " + htmlEncode(record.rData.value);
 
-            //tableHtmlRow += "<br /><br /><b>Last Used:</b> " + lastUsedOn;
-
             if ((record.comments != null) && (record.comments.length > 0))
                 tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
 
@@ -2226,6 +2224,21 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
                 "data-record-tag=\"" + htmlEncode(record.rData.tag) + "\" " +
                 "data-record-didDID=\"" + htmlEncode(record.rData.didDID) + "\" " +
                 "data-record-value=\"" + htmlEncode(record.rData.value) + "\"";
+            break;
+
+        case "DIDSVC":
+            tableHtmlRow += "<td>  <b>Tag:</b> " + htmlEncode(record.rData.tag);
+            tableHtmlRow += "<br />  <b>DID:</b> " + htmlEncode(record.rData.did);
+            tableHtmlRow += "<br />  <b>Type:</b> " + htmlEncode(record.rData.Type);
+            tableHtmlRow += "<br />  <b>Description:</b> " + htmlEncode(record.rData.description);
+            tableHtmlRow += "<br /> <b>Service Endpoint URL:</b> " + htmlEncode(record.rData.serviceEndpointUrl) + "</td>";
+
+            additionalDataAttributes =
+                "data-record-tag=\"" + htmlEncode(record.rData.tag) + "\" " +
+                "data-record-did=\"" + htmlEncode(record.rData.did) + "\" " +
+                "data-record-type=\"" + htmlEncode(record.rData.type) + "\" " +
+                "data-record-description=\"" + htmlEncode(record.rData.description) + "\" " +
+                "data-record-serviceEndpointUrl=\"" + htmlEncode(record.rData.serviceEndpointUrl) + "\"";
             break;
 
         default:
@@ -2334,6 +2347,11 @@ function clearAddEditRecordForm() {
 
     $("#divAddEditRecordDID").hide(); // rk
     $("#txtAddEditRecordDataDID").val(""); // rk
+
+    $("#divAddEditRecordDIDSVC").hide();
+    $("#txtAddEditRecordDIDSVCType").val(""); // rk
+    $("#txtAddEditRecordDIDSVCDescription").val(""); // rk
+
 
     $("#divEditRecordDataSoa").hide();
     $("#txtEditRecordDataSoaPrimaryNameServer").prop("disabled", false);
@@ -2492,6 +2510,7 @@ function modifyAddRecordFormByType(addMode) {
 
     $("#divAddEditRecordTagDID").hide();
     $("#divAddEditRecordDID").hide();
+    $("#divAddEditRecordDIDSVC").hide();
     $("#divAddEditRecordData").hide();
     $("#divAddEditRecordDataPtr").hide();
     $("#divAddEditRecordDataNs").hide();
@@ -2676,12 +2695,35 @@ function modifyAddRecordFormByType(addMode) {
             $("#txtAddEditRecordDataDID").val("");
             $("#divAddEditRecordDID").show();
 
-            // text data (value) field
+            // value field (Text data)
             $("#lblAddEditRecordDataValue").text("Text data");
             $("#txtAddEditRecordDataValue").val("");
             $("#divAddEditRecordData").show();
 
             break;
+
+        case "DIDSVC":
+            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+
+            // tag field
+            $("#txtAddEditRecordDataTagDID").val("");
+            $("#divAddEditRecordTagDID").show();
+
+            // did field
+            $("#txtAddEditRecordDataDID").val("");
+            $("#divAddEditRecordDID").show();
+
+            // SVC specific fields (Type & Description)
+            $("#txtAddEditRecordDIDSVCType").val("");
+            $("#txtAddEditRecordDIDSVCDescription").val("");
+            $("#divAddEditRecordDIDSVC").show();
+
+            // value field (Service EP URL)
+            $("#lblAddEditRecordDataValue").text("Service Endpoint URL*");
+            $("#txtAddEditRecordDataValue").val("");
+            $("#divAddEditRecordData").show();
+
+
     }
 }
 
@@ -3098,7 +3140,51 @@ function addRecord() {
             apiUrl += "&tag=" + tag + "&didDID=" + encodeURIComponent(did) + "&value=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
             break;
 
-           
+        case "DIDSVC":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var tag = $("#txtAddEditRecordDataTagDID").val();
+            //if (did === "") {
+            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
+            //    $("#txtAddEditRecordDataTagDID").focus();
+            //    return;
+            //}
+
+            var did = $("#txtAddEditRecordDataDID").val();
+            //if (did === "") {
+            //    showAlert("warning", "Missing!", "Please enter a suitable Text DID.", divAddEditRecordAlert);
+            //    $("#txtAddEditRecordDataDID").focus();
+            //    return;
+            //}
+
+            var svcType = $("#txtAddEditRecordDIDSVCType").val();
+            if (svcType === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value into the Type field.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDIDSVCType").focus();
+                return;
+            }
+
+            var svcDescription = $("#txtAddEditRecordDIDSVCDescription").val();
+
+            var svcServiceEP = $("#txtAddEditRecordDataValue").val();
+            if (svcServiceEP === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value into the \"Service Enpoint URL\" field.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&tag=" + tag +
+                "&did=" + encodeURIComponent(did) +
+                "&type=" + encodeURIComponent(svcType) +
+                "&description=" + encodeURIComponent(svcDescription) +
+                "&serviceEndpointUrl=" + encodeURIComponent(svcServiceEP) +
+                "&didTrace=" + "zone.js:addRecord";
+
+            break;                       
 
     }
 
@@ -3448,6 +3534,14 @@ function showEditRecordModal(objBtn) {
             $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
             $("#txtAddEditRecordDataDID").val(divData.attr("data-record-didDID"));
             $("#txtAddEditRecordDataValue").val(divData.attr("data-record-value"));
+            break;
+
+        case "DIDSVC":
+            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
+            $("#txtAddEditRecordDataDID").val(divData.attr("data-record-did"));
+            $("#txtAddEditRecordDIDSVCType").val(divData.attr("data-record-type"));
+            $("#txtAddEditRecordDIDSVCDescription").val(divData.attr("data-record-description"));
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-serviceEndpointUrl"));
             break;
 
         default:
@@ -4004,6 +4098,61 @@ function updateRecord() {
                 "&didTrace=" + "zone.js:updateRecord";
             break;
 
+        case "DIDSVC":
+
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var oldTag = divData.attr("data-record-tag");
+            var oldDID = divData.attr("data-record-did");
+            var oldType = divData.attr("data-record-type");
+            var oldDescription = divData.attr("data-record-description");
+            var oldServiceEP = divData.attr("data-record-serviceEndpointUrl");
+
+            var newTag = $("#txtAddEditRecordDataTagDID").val();
+
+            var newDID = $("#txtAddEditRecordDataDID").val();
+            if (newDID === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable Service Endpoint DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataDID").focus();
+                return;
+            }
+
+            var newType = $("#txtAddEditRecordDIDSVCType").val();
+            if (newType === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable Service Endpoint DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDIDSVCType").focus();
+                return;
+            }
+
+            var newDescription = $("#txtAddEditRecordDIDSVCDescription").val();
+
+
+
+            var newServiceEP = $("#txtAddEditRecordDataValue").val();
+            if (newServiceEP === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value into the \"Service Endpoint URL\" field.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&tag=" + oldTag +
+                "&did=" + encodeURIComponent(oldDID) +
+                "&type=" + encodeURIComponent(oldType) +
+                "&description=" + encodeURIComponent(oldDescription) +
+                "&serviceEndpointUrl=" + encodeURIComponent(oldServiceEP) +
+                "&newTag=" + newTag +
+                "&newDid=" + encodeURIComponent(newDID) +
+                "&newType=" + encodeURIComponent(newType) +
+                "&newDescription=" + encodeURIComponent(newDescription) +
+                "&newServiceEndpointUrl=" + encodeURIComponent(newServiceEP) +
+                "&didTrace=" + "zone.js:updateRecord";
+
+            break;
+
     }
 
     btn.button('loading');
@@ -4238,9 +4387,13 @@ function deleteRecord(objBtn) {
         case "DIDCTX":
             apiUrl += "&tag=" + encodeURIComponent(divData.attr("data-record-tag")) + "&data=" + encodeURIComponent(divData.attr("data-record-data"));
             break;
-        // DID RR types
+
         case "DIDTXT":
             apiUrl += "&tag=" + divData.attr("data-record-tag") + "&did=" + encodeURIComponent(divData.attr("data-record-didDID")) + "&data=" + encodeURIComponent(divData.attr("data-record-value")) + "&didTrace=" + "zone.js:updateRecordState"
+            break;
+
+        case "DIDSVC":
+            apiUrl += "&tag=" + divData.attr("data-record-tag") + "&did=" + encodeURIComponent(divData.attr("data-record-did")) + "&type=" + encodeURIComponent(divData.attr("data-record-type")) + "&description=" + encodeURIComponent(divData.attr("data-record-description")) + "&serviceEndpointUrl=" + encodeURIComponent(divData.attr("data-record-serviceEndpointUrl")) + "&didTrace=" + "zone.js:updateRecordState"
             break;
     }
 

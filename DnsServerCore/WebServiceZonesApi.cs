@@ -639,6 +639,18 @@ namespace DnsServerCore
                     }
                     break;
 
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        if (record.RDATA is DnsDIDSVCRecord rdata)
+                        {
+                            jsonWriter.WriteString("tag", rdata.Tag);
+                            jsonWriter.WriteString("did", rdata.DID);
+                            jsonWriter.WriteString("type", rdata.Type);
+                            jsonWriter.WriteString("description", rdata.Description);
+                            jsonWriter.WriteString("serviceEndpointUrl", rdata.ServiceEndpointUrl);
+                        }
+                    }
+                    break;
                 #endregion
 
                 default:
@@ -2323,6 +2335,26 @@ namespace DnsServerCore
                             _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
                     }
                     break;
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                       
+                        string didTag = request.GetQueryOrForm("tag", "");
+                        string didDID = request.GetQueryOrForm("did", "");
+                        string svcType = request.GetQueryOrForm("type", "");
+                        string desc = request.GetQueryOrForm("description", "");
+                        string serviceEP = request.GetQueryOrForm("serviceEndpointUrl", "");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDSVCRecord(didTag, didDID, svcType, desc, serviceEP));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
                 #endregion
 
                 default:
@@ -2594,6 +2626,18 @@ namespace DnsServerCore
                         string data = request.GetQueryOrFormAlt("data", "");
 
                         _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDTXTRecord(didtxtTag, did, data));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        string tag = request.GetQueryOrForm("tag", "");
+                        string did = request.GetQueryOrFormAlt("did", "");
+                        string svcType = request.GetQueryOrFormAlt("type", "");
+                        string desc = request.GetQueryOrFormAlt("description", "");
+                        string serviceEP = request.GetQueryOrFormAlt("serviceEndpointUrl", "");
+
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDSVCRecord(tag, did, svcType, desc, serviceEP));
                     }
                     break;
                 #endregion
@@ -3192,6 +3236,33 @@ namespace DnsServerCore
 
                         oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDTXTRecord(oldTag, oldDID, oldValue));
                         newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDTXTRecord(newTag, newDID, newValue));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        string oldTag = request.GetQueryOrFormAlt("tag", "");
+                        string oldDID = request.GetQueryOrFormAlt("did", "");
+                        string oldType = request.GetQueryOrFormAlt("type", "");
+                        string oldDescription = request.GetQueryOrFormAlt("description", "");
+                        string oldServiceEP = request.GetQueryOrFormAlt("serviceEndpointUrl", "");
+
+                        string newTag = request.GetQueryOrFormAlt("newTag", "");
+                        string newDID = request.GetQueryOrFormAlt("newDid", "");
+                        string newType = request.GetQueryOrFormAlt("newType", "");
+                        string newDescription = request.GetQueryOrFormAlt("newDescription", "");
+                        string newServiceEP = request.GetQueryOrFormAlt("newServiceEndpointUrl", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDSVCRecord(oldTag, oldDID, oldType, oldDescription, oldServiceEP));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDSVCRecord(newTag, newDID, newType, newDescription, newServiceEP));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
