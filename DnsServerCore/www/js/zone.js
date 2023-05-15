@@ -391,8 +391,22 @@ function refreshZones(checkDisplay, pageNumber) {
 
                 tableHtmlRows += "<tr id=\"trZone" + id + "\"><td>" + (firstRowNumber + i) + "</td>";
 
+                // if zone name ends with '.did', convert the zone name to DID format
+                // 
+                var parsedName;
+                var isDIDMethod = false;
+                var didStyle = "";
+                if (name.substring(name.length - 4, name.length) == ".did") {
+                    parsedName = convertDnsNotationToDidNotation(name);
+                    didStyle = "font-weight: bold; color: darkblue;";
+                    isDIDMethod = true;
+                }
+                else {
+                    parsedName = name;
+                }
+
                 if (zones[i].nameIdn == null)
-                    tableHtmlRows += "<td><a href=\"#\" onclick=\"showEditZone('" + name + "'); return false;\">" + htmlEncode(name === "." ? "<root>" : name) + "</a></td>";
+                    tableHtmlRows += "<td><a style='" + didStyle + "'' href=\"#\" onclick=\"showEditZone('" + name + "'); return false;\">" + htmlEncode(name === "." ? "<root>" : parsedName) + "</a></td>";
                 else
                     tableHtmlRows += "<td><a href=\"#\" onclick=\"showEditZone('" + name + "'); return false;\">" + htmlEncode(zones[i].nameIdn + " (" + name + ")") + "</a></td>";
 
@@ -1222,6 +1236,24 @@ function addZone() {
     var divAddZoneAlert = $("#divAddZoneAlert");
     var zone = $("#txtAddZone").val();
 
+    // if zone name is in DID notation, convert it to DNS notation
+    if (zone.substring(0, 4) == "did:") {
+        zone = convertDidNotationToDnsNotation(zone);
+    }
+
+    var i = zone.indexOf("://");
+    if (i > -1) {
+        var j = zone.indexOf(":", i + 3);
+
+        if (j < 0)
+            j = zone.indexOf("/", i + 3);
+
+        if (j > -1)
+            zone = zone.substring(i + 3, j);
+        else
+            zone = zone.substring(i + 3);
+    }
+
     if ((zone == null) || (zone === "")) {
         showAlert("warning", "Missing!", "Please enter a name to add method/zone.", divAddZoneAlert);
         $("#txtAddZone").focus();
@@ -1324,6 +1356,12 @@ function showEditZone(zone, showPageNumber) {
             $("#txtZonesEdit").focus();
             return;
         }
+    }
+
+    // if it is a DID method, convert the zone name to DID format
+    if (zone.substring(0, 4) == "did:") {
+        var convertedZoneText = convertDidNotationToDnsNotation(zone);
+        zone = convertedZoneText;
     }
 
     if (showPageNumber == null)
@@ -1636,6 +1674,12 @@ function showEditZonePage(pageNumber) {
     var tableHtmlRows = "";
     var zone = $("#titleEditZone").attr("data-zone");
     var zoneType = $("#titleEditZone").attr("data-zone-type");
+
+    // if it is a DID method, convert the zone name to DID format
+    if (zone.substring(zone.length - 4, zone.length) == ".did") {
+        var convertedZoneText = convertDnsNotationToDidNotation(zone);
+        $("#titleEditZone").text(convertedZoneText);
+    }
 
     for (var i = start; i < end; i++)
         tableHtmlRows += getZoneRecordRowHtml(i, zone, zoneType, editZoneRecords[i]);
