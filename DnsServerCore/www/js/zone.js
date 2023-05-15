@@ -4236,12 +4236,11 @@ function deleteRecord(objBtn) {
             break;
 
         case "DIDCTX":
-            apiUrl += "&tag=" + encodeURIComponent(divData.attr("data-record-tag")) +
-                "&data=" + encodeURIComponent(divData.attr("data-record-data"));
+            apiUrl += "&tag=" + encodeURIComponent(divData.attr("data-record-tag")) + "&data=" + encodeURIComponent(divData.attr("data-record-data"));
             break;
         // DID RR types
         case "DIDTXT":
-            apiUrl += "&tag=" + divData.attr("data-record-didTag") + "&didDID=" + encodeURIComponent(divData.attr("data-record-didDID")) + "&didTrace=" + "zone.js:updateRecordState"
+            apiUrl += "&tag=" + divData.attr("data-record-tag") + "&did=" + encodeURIComponent(divData.attr("data-record-didDID")) + "&data=" + encodeURIComponent(divData.attr("data-record-value")) + "&didTrace=" + "zone.js:updateRecordState"
             break;
     }
 

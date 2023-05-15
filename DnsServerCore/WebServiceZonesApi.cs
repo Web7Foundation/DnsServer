@@ -2571,17 +2571,30 @@ namespace DnsServerCore
 
                 #region DID RR types
                 case DnsResourceRecordType.DIDID:
-                    string didid = request.GetQueryOrFormAlt("didid", "value");
+                    {
+                        string didid = request.GetQueryOrFormAlt("didid", "value");
 
-                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecordData(didid)); 
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecordData(didid));
+                    }
                     break;
                 #endregion
 
                 case DnsResourceRecordType.DIDCTX:
-                    string didTag = request.GetQueryOrForm("tag", "");
-                    string ctxURIdata = request.GetQueryOrFormAlt("data", "");
+                    {
+                        string didctxTag = request.GetQueryOrForm("tag", "");
+                        string ctxURIdata = request.GetQueryOrFormAlt("data", "");
 
-                    _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXRecordData(didTag, ctxURIdata));
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXRecordData(didctxTag, ctxURIdata));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDTXT:
+                    {
+                        string didtxtTag = request.GetQueryOrForm("tag", "");
+                        string did = request.GetQueryOrFormAlt("did", "");
+                        string data = request.GetQueryOrFormAlt("data", "");
+
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDTXTRecord(didtxtTag, did, data));
+                    }
                     break;
                 #endregion
 
