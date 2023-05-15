@@ -630,7 +630,7 @@ namespace DnsServerCore
                     break;
                 case DnsResourceRecordType.DIDTXT:
                     {
-                        if (record.RDATA is DnsDIDTXTRecord rdata)
+                        if (record.RDATA is DnsDIDTXTRecordData rdata)
                         {
                             jsonWriter.WriteString("tag", rdata.Tag);
                             jsonWriter.WriteString("didDID", rdata.DID);
@@ -641,7 +641,7 @@ namespace DnsServerCore
 
                 case DnsResourceRecordType.DIDSVC:
                     {
-                        if (record.RDATA is DnsDIDSVCRecord rdata)
+                        if (record.RDATA is DnsDIDSVCRecordData rdata)
                         {
                             jsonWriter.WriteString("tag", rdata.Tag);
                             jsonWriter.WriteString("did", rdata.DID);
@@ -2324,7 +2324,7 @@ namespace DnsServerCore
                         string didTag = request.GetQueryOrForm("tag", "");
                         string didDID = request.GetQueryOrForm("didDID", "");
                         string value = request.GetQueryOrForm("value", "");
-                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDTXTRecord(didTag, didDID, value));
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDTXTRecordData(didTag, didDID, value));
 
                         if (!string.IsNullOrEmpty(comments))
                             newRecord.GetAuthRecordInfo().Comments = comments;
@@ -2344,7 +2344,7 @@ namespace DnsServerCore
                         string svcType = request.GetQueryOrForm("type", "");
                         string desc = request.GetQueryOrForm("description", "");
                         string serviceEP = request.GetQueryOrForm("serviceEndpointUrl", "");
-                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDSVCRecord(didTag, didDID, svcType, desc, serviceEP));
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDSVCRecordData(didTag, didDID, svcType, desc, serviceEP));
 
                         if (!string.IsNullOrEmpty(comments))
                             newRecord.GetAuthRecordInfo().Comments = comments;
@@ -2625,7 +2625,7 @@ namespace DnsServerCore
                         string did = request.GetQueryOrFormAlt("did", "");
                         string data = request.GetQueryOrFormAlt("data", "");
 
-                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDTXTRecord(didtxtTag, did, data));
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDTXTRecordData(didtxtTag, did, data));
                     }
                     break;
 
@@ -2637,7 +2637,7 @@ namespace DnsServerCore
                         string desc = request.GetQueryOrFormAlt("description", "");
                         string serviceEP = request.GetQueryOrFormAlt("serviceEndpointUrl", "");
 
-                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDSVCRecord(tag, did, svcType, desc, serviceEP));
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDSVCRecordData(tag, did, svcType, desc, serviceEP));
                     }
                     break;
                 #endregion
@@ -3234,8 +3234,8 @@ namespace DnsServerCore
                         string newValue = request.GetQueryOrFormAlt("newValue", "");
                         string newDID = request.GetQueryOrFormAlt("newDID", "");
 
-                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDTXTRecord(oldTag, oldDID, oldValue));
-                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDTXTRecord(newTag, newDID, newValue));
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDTXTRecordData(oldTag, oldDID, oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDTXTRecordData(newTag, newDID, newValue));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
@@ -3261,8 +3261,8 @@ namespace DnsServerCore
                         string newDescription = request.GetQueryOrFormAlt("newDescription", "");
                         string newServiceEP = request.GetQueryOrFormAlt("newServiceEndpointUrl", "");
 
-                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDSVCRecord(oldTag, oldDID, oldType, oldDescription, oldServiceEP));
-                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDSVCRecord(newTag, newDID, newType, newDescription, newServiceEP));
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDSVCRecordData(oldTag, oldDID, oldType, oldDescription, oldServiceEP));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDSVCRecordData(newTag, newDID, newType, newDescription, newServiceEP));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
