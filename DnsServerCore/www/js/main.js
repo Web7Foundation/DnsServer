@@ -2369,7 +2369,7 @@ function resolveQuery(importRecords) {
     {
         /* RK - IMPLEMENTED MAY 4 2023 */
         // convert DID notation to DNS notation (if applicable)
-        if (domain.substring(0, 4) == "did:" && type == "DID" || type == "ANY") {
+        if (domain.substring(0, 4) == "did:") {
             domain = convertDidNotationToDnsNotation(domain); // function from 'notationConversion.js'
         }
 
