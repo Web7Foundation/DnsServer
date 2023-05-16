@@ -645,7 +645,7 @@ namespace DnsServerCore
                         {
                             jsonWriter.WriteString("tag", rdata.Tag);
                             jsonWriter.WriteString("did", rdata.DID);
-                            jsonWriter.WriteString("type", rdata.Type);
+                            jsonWriter.WriteString("svctype", rdata.Type);
                             jsonWriter.WriteString("description", rdata.Description);
                             jsonWriter.WriteString("serviceEndpointUrl", rdata.ServiceEndpointUrl);
                         }
@@ -2341,7 +2341,7 @@ namespace DnsServerCore
                        
                         string didTag = request.GetQueryOrForm("tag", "");
                         string didDID = request.GetQueryOrForm("did", "");
-                        string svcType = request.GetQueryOrForm("type", "");
+                        string svcType = request.GetQueryOrForm("svctype", "");
                         string desc = request.GetQueryOrForm("description", "");
                         string serviceEP = request.GetQueryOrForm("serviceEndpointUrl", "");
                         newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDSVCRecordData(didTag, didDID, svcType, desc, serviceEP));
@@ -2633,7 +2633,7 @@ namespace DnsServerCore
                     {
                         string tag = request.GetQueryOrForm("tag", "");
                         string did = request.GetQueryOrFormAlt("did", "");
-                        string svcType = request.GetQueryOrFormAlt("type", "");
+                        string svcType = request.GetQueryOrFormAlt("svctype", "");
                         string desc = request.GetQueryOrFormAlt("description", "");
                         string serviceEP = request.GetQueryOrFormAlt("serviceEndpointUrl", "");
 
@@ -3251,13 +3251,13 @@ namespace DnsServerCore
                     {
                         string oldTag = request.GetQueryOrFormAlt("tag", "");
                         string oldDID = request.GetQueryOrFormAlt("did", "");
-                        string oldType = request.GetQueryOrFormAlt("type", "");
+                        string oldType = request.GetQueryOrFormAlt("svctype", "");
                         string oldDescription = request.GetQueryOrFormAlt("description", "");
                         string oldServiceEP = request.GetQueryOrFormAlt("serviceEndpointUrl", "");
 
                         string newTag = request.GetQueryOrFormAlt("newTag", "");
                         string newDID = request.GetQueryOrFormAlt("newDid", "");
-                        string newType = request.GetQueryOrFormAlt("newType", "");
+                        string newType = request.GetQueryOrFormAlt("newSvcType", "");
                         string newDescription = request.GetQueryOrFormAlt("newDescription", "");
                         string newServiceEP = request.GetQueryOrFormAlt("newServiceEndpointUrl", "");
 

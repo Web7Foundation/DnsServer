@@ -2229,14 +2229,14 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
         case "DIDSVC":
             tableHtmlRow += "<td>  <b>Tag:</b> " + htmlEncode(record.rData.tag);
             tableHtmlRow += "<br />  <b>DID:</b> " + htmlEncode(record.rData.did);
-            tableHtmlRow += "<br />  <b>Type:</b> " + htmlEncode(record.rData.Type);
+            tableHtmlRow += "<br />  <b>Type:</b> " + htmlEncode(record.rData.svctype);
             tableHtmlRow += "<br />  <b>Description:</b> " + htmlEncode(record.rData.description);
             tableHtmlRow += "<br /> <b>Service Endpoint URL:</b> " + htmlEncode(record.rData.serviceEndpointUrl) + "</td>";
 
             additionalDataAttributes =
                 "data-record-tag=\"" + htmlEncode(record.rData.tag) + "\" " +
                 "data-record-did=\"" + htmlEncode(record.rData.did) + "\" " +
-                "data-record-type=\"" + htmlEncode(record.rData.type) + "\" " +
+                "data-record-svctype=\"" + htmlEncode(record.rData.svctype) + "\" " +
                 "data-record-description=\"" + htmlEncode(record.rData.description) + "\" " +
                 "data-record-serviceEndpointUrl=\"" + htmlEncode(record.rData.serviceEndpointUrl) + "\"";
             break;
@@ -3179,7 +3179,7 @@ function addRecord() {
 
             apiUrl += "&tag=" + tag +
                 "&did=" + encodeURIComponent(did) +
-                "&type=" + encodeURIComponent(svcType) +
+                "&svctype=" + encodeURIComponent(svcType) +
                 "&description=" + encodeURIComponent(svcDescription) +
                 "&serviceEndpointUrl=" + encodeURIComponent(svcServiceEP) +
                 "&didTrace=" + "zone.js:addRecord";
@@ -3539,7 +3539,7 @@ function showEditRecordModal(objBtn) {
         case "DIDSVC":
             $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
             $("#txtAddEditRecordDataDID").val(divData.attr("data-record-did"));
-            $("#txtAddEditRecordDIDSVCType").val(divData.attr("data-record-type"));
+            $("#txtAddEditRecordDIDSVCType").val(divData.attr("data-record-svctype"));
             $("#txtAddEditRecordDIDSVCDescription").val(divData.attr("data-record-description"));
             $("#txtAddEditRecordDataValue").val(divData.attr("data-record-serviceEndpointUrl"));
             break;
@@ -4108,7 +4108,7 @@ function updateRecord() {
 
             var oldTag = divData.attr("data-record-tag");
             var oldDID = divData.attr("data-record-did");
-            var oldType = divData.attr("data-record-type");
+            var oldType = divData.attr("data-record-svctype");
             var oldDescription = divData.attr("data-record-description");
             var oldServiceEP = divData.attr("data-record-serviceEndpointUrl");
 
@@ -4141,12 +4141,12 @@ function updateRecord() {
 
             apiUrl += "&tag=" + oldTag +
                 "&did=" + encodeURIComponent(oldDID) +
-                "&type=" + encodeURIComponent(oldType) +
+                "&svctype=" + encodeURIComponent(oldType) +
                 "&description=" + encodeURIComponent(oldDescription) +
                 "&serviceEndpointUrl=" + encodeURIComponent(oldServiceEP) +
                 "&newTag=" + newTag +
                 "&newDid=" + encodeURIComponent(newDID) +
-                "&newType=" + encodeURIComponent(newType) +
+                "&newSvcType=" + encodeURIComponent(newType) +
                 "&newDescription=" + encodeURIComponent(newDescription) +
                 "&newServiceEndpointUrl=" + encodeURIComponent(newServiceEP) +
                 "&didTrace=" + "zone.js:updateRecord";
@@ -4393,7 +4393,7 @@ function deleteRecord(objBtn) {
             break;
 
         case "DIDSVC":
-            apiUrl += "&tag=" + divData.attr("data-record-tag") + "&did=" + encodeURIComponent(divData.attr("data-record-did")) + "&type=" + encodeURIComponent(divData.attr("data-record-type")) + "&description=" + encodeURIComponent(divData.attr("data-record-description")) + "&serviceEndpointUrl=" + encodeURIComponent(divData.attr("data-record-serviceEndpointUrl")) + "&didTrace=" + "zone.js:updateRecordState"
+            apiUrl += "&tag=" + divData.attr("data-record-tag") + "&did=" + encodeURIComponent(divData.attr("data-record-did")) + "&svctype=" + encodeURIComponent(divData.attr("data-record-svctype")) + "&description=" + encodeURIComponent(divData.attr("data-record-description")) + "&serviceEndpointUrl=" + encodeURIComponent(divData.attr("data-record-serviceEndpointUrl")) + "&didTrace=" + "zone.js:updateRecordState"
             break;
     }
 
