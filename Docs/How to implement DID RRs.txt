@@ -1,8 +1,10 @@
-1. Add DnsRecordClass (ex. DnsDIDTXTRecordData.cs) to TechnitiumLibrary.Net > Dns > ResourceRecords
+1. Create a case in TechnitiumLibrary.Net > Dns > DnsResourceRecord > "DnsResourceRecordType" enum
 
-2. Add case to TechnitiumLibrary > Dns > ResourceRecords > DnsResourceRecord.cs > "ReadRecordData()"
+2. Add DnsRecordClass (ex. DnsDIDCTXTRecordData.cs) to TechnitiumLibrary.Net > Dns > ResourceRecords folder
 
-2. DnsServerCore > zone.js:
+3. Add case to TechnitiumLibrary > Dns > ResourceRecords > DnsResourceRecord.cs > "ReadRecordData()" method
+
+4. DnsServer > DnsServerCore > zone.js:
 	- add RR case to getZoneRecordRowHtml()
 	- add RR case to modifyAddRecordFormByType()
  	- add RR case to addRecord()
@@ -10,8 +12,15 @@
 	- add RR case to showEditRecordModal()
 	- add RR case to updateRecord()
 
-3. DnsServerCore > WebServiceZonesApi.cs
+5. DnsServer > DnsServerCore > WebServiceZonesApi.cs
 	- add RR case to WriteRecordAsJson()
 	- add RR case to AddRecord()
 	- add RR case to DeleteRecord()
 	- add RR case to UpdateRecord()
+
+6. Test: Add, Edit, Delete, DNS Client Query...
+
+Debugging notes:
+
+- If the app is not updating your changes, you can clean solution/project, then run "DnsServerApp" from visual studio.
+- Refresh dashboard page and cache (CTRL + F5).
