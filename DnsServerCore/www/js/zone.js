@@ -2256,31 +2256,47 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             additionalDataAttributes = "data-record-controller=\"" + htmlEncode(record.rData.controller) + "\" ";
             break;
 
+        // verification method map DID RRs
+        case "DIDVM":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.verificationMethod.id);
+            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.verificationMethod.comment);
+            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.verificationMethod.controller);
+            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.verificationMethod.type_);
+            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyMultibase);
 
-        case "DIDTXT":
-            tableHtmlRow += "<td>  <b>Tag:</b> " + htmlEncode(record.rData.tag);
-            tableHtmlRow += "<br />  <b>DID:</b> " + htmlEncode(record.rData.didDID);
-            tableHtmlRow += "<br /> <b>Text data:</b> " + htmlEncode(record.rData.value) + "</td>";
+            tableHtmlRow += "<br />";
 
-            additionalDataAttributes =
-                "data-record-tag=\"" + htmlEncode(record.rData.tag) + "\" " +
-                "data-record-didDID=\"" + htmlEncode(record.rData.didDID) + "\" " +
-                "data-record-value=\"" + htmlEncode(record.rData.value) + "\"";
-            break;
+            tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
+            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.crv);
+            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.e);
+            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.n);
+            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.x);
+            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.y);
+            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kty);
+            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kid);
 
-        case "DIDSVC":
-            tableHtmlRow += "<td>  <b>Tag:</b> " + htmlEncode(record.rData.tag);
-            tableHtmlRow += "<br />  <b>DID:</b> " + htmlEncode(record.rData.did);
-            tableHtmlRow += "<br />  <b>Type:</b> " + htmlEncode(record.rData.svctype);
-            tableHtmlRow += "<br />  <b>Description:</b> " + htmlEncode(record.rData.description);
-            tableHtmlRow += "<br /> <b>Service Endpoint URL:</b> " + htmlEncode(record.rData.serviceEndpointUrl) + "</td>";
+            tableHtmlRow += "<br />";
 
-            additionalDataAttributes =
-                "data-record-tag=\"" + htmlEncode(record.rData.tag) + "\" " +
-                "data-record-did=\"" + htmlEncode(record.rData.did) + "\" " +
-                "data-record-svctype=\"" + htmlEncode(record.rData.svctype) + "\" " +
-                "data-record-description=\"" + htmlEncode(record.rData.description) + "\" " +
-                "data-record-serviceEndpointUrl=\"" + htmlEncode(record.rData.serviceEndpointUrl) + "\"";
+            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyBase58);
+            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.verificationMethod.privateKeyBase58);
+            tableHtmlRow += "</td>";
+
+            additionalDataAttributes +=
+                "data-record-vmm_id=\"" + htmlEncode(record.rData.verificationMethod.id) + "\" " +
+                "data-record-vmm_comment=\"" + htmlEncode(record.rData.verificationMethod.comment) + "\" " +
+                "data-record-vmm_controller=\"" + htmlEncode(record.rData.verificationMethod.controller) + "\" " +
+                "data-record-vmm_type=\"" + htmlEncode(record.rData.verificationMethod.type_) + "\" " +
+                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.verificationMethod.publicKeyMultibase) + "\" " +
+                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.verificationMethod.publicKeyBase58) + "\" " +
+                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.verificationMethod.privateKeyBase58) + "\" " +
+
+                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.crv) + "\" " +
+                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.e) + "\" " +
+                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.n) + "\" " +
+                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.x) + "\" " +
+                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.y) + "\" " +
+                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kty) + "\" " +
+                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kid) + "\" ";
             break;
 
         default:
@@ -2384,16 +2400,7 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordDataNsNameServer").val("");
     $("#txtAddEditRecordDataNsGlue").val("");
 
-    $("#divAddEditRecordTagDID").hide(); // rk
-    $("#txtAddEditRecordDataTagDID").val(""); // rk
-
-    $("#divAddEditRecordDID").hide(); // rk
-    $("#txtAddEditRecordDataDID").val(""); // rk
-
-    $("#divAddEditRecordDIDSVC").hide();
-    $("#txtAddEditRecordDIDSVCType").val(""); // rk
-    $("#txtAddEditRecordDIDSVCDescription").val(""); // rk
-
+    $("#divAddEditRecordDataVMM").hide(); // rk
 
     $("#divEditRecordDataSoa").hide();
     $("#txtEditRecordDataSoaPrimaryNameServer").prop("disabled", false);
@@ -2550,6 +2557,7 @@ function modifyAddRecordFormByType(addMode) {
 
     $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
 
+    $("#divAddEditRecordDataVMM").hide();
     $("#divAddEditRecordData").hide();
     $("#divAddEditRecordDataPtr").hide();
     $("#divAddEditRecordDataNs").hide();
@@ -2739,6 +2747,13 @@ function modifyAddRecordFormByType(addMode) {
             $("#lblAddEditRecordDataValue").text("Controller");
             $("#divAddEditRecordData").show();
             break;     
+
+        // verification method map DID RR cases
+        case "DIDVM":
+            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+
+            $("#divAddEditRecordDataVMM").show();
+            break;
 
     }
 }
@@ -3188,51 +3203,66 @@ function addRecord() {
             apiUrl += "&controller=" + encodeURIComponent(value);
             break;
 
-        case "DIDSVC":
+        // verification method map DID RR cases - 3 required fields (id, controller, type)
+        case "DIDVM":
             if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
                 showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
                 $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
-            var tag = $("#txtAddEditRecordDataTagDID").val();
-            //if (did === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordDataTagDID").focus();
-            //    return;
-            //}
-
-            var did = $("#txtAddEditRecordDataDID").val();
-            //if (did === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Text DID.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordDataDID").focus();
-            //    return;
-            //}
-
-            var svcType = $("#txtAddEditRecordDIDSVCType").val();
-            if (svcType === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the Type field.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDIDSVCType").focus();
+            // id
+            var id = $("#txtAddEditRecordDataVMM_Id").val();
+            if (id === "") {
+                showAlert("warning", "Missing!", "Please enter an ID to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataVMM_Id").focus();
                 return;
             }
 
-            var svcDescription = $("#txtAddEditRecordDIDSVCDescription").val();
-
-            var svcServiceEP = $("#txtAddEditRecordDataValue").val();
-            if (svcServiceEP === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the \"Service Enpoint URL\" field.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDataValue").focus();
+            // controller
+            var controller = $("#txtAddEditRecordDataVMM_Controller").val();
+            if (controller === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Controller field to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataVMM_Controller").focus();
                 return;
             }
 
-            apiUrl += "&tag=" + tag +
-                "&did=" + encodeURIComponent(did) +
-                "&svctype=" + encodeURIComponent(svcType) +
-                "&description=" + encodeURIComponent(svcDescription) +
-                "&serviceEndpointUrl=" + encodeURIComponent(svcServiceEP) +
-                "&didTrace=" + "zone.js:addRecord";
+            // type
+            var type = $("#txtAddEditRecordDataVMM_Type").val();
+            if (type === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Type field to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataVMM_Type").focus();
+                return;
+            }
 
-            break;                       
+            var comment = $("#txtAddEditRecordDataVMM_Comment").val();
+            var publicKeyMultibase = $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val();
+            var publicKeyBase58 = $("#txtAddEditRecordDataVMM_PublicKeyBase58").val();
+            var privateKeyBase58 = $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val();
+            var jwk_crv = $("#txtAddEditRecordDataVMM_Jwk_crv").val();
+            var jwk_e = $("#txtAddEditRecordDataVMM_Jwk_e").val();
+            var jwk_n = $("#txtAddEditRecordDataVMM_Jwk_n").val();
+            var jwk_x = $("#txtAddEditRecordDataVMM_Jwk_x").val();
+            var jwk_y = $("#txtAddEditRecordDataVMM_Jwk_y").val();
+            var jwk_kty = $("#txtAddEditRecordDataVMM_Jwk_kty").val();
+            var jwk_kid = $("#txtAddEditRecordDataVMM_Jwk_kid").val();
+
+            apiUrl += "&vmm_id=" + encodeURIComponent(id) +
+            "&vmm_controller=" + encodeURIComponent(controller) +
+            "&vmm_type=" + encodeURIComponent(type) +
+            "&vmm_comment=" + encodeURIComponent(comment) +
+            "&vmm_publicKeyMultibase=" + encodeURIComponent(publicKeyMultibase) +
+            "&vmm_publicKeyBase58=" + encodeURIComponent(publicKeyBase58) +
+            "&vmm_privateKeyBase58=" + encodeURIComponent(privateKeyBase58) +
+            "&vmm_jwk_crv=" + encodeURIComponent(jwk_crv) +
+            "&vmm_jwk_e=" + encodeURIComponent(jwk_e) +
+            "&vmm_jwk_n=" + encodeURIComponent(jwk_n) +
+            "&vmm_jwk_x=" + encodeURIComponent(jwk_x) +
+            "&vmm_jwk_y=" + encodeURIComponent(jwk_y) +
+            "&vmm_jwk_kty=" + encodeURIComponent(jwk_kty) +
+            "&vmm_jwk_kid=" + encodeURIComponent(jwk_kid);
+
+            break;
 
     }
 
@@ -3593,13 +3623,26 @@ function showEditRecordModal(objBtn) {
             $("#txtAddEditRecordDataValue").val(divData.attr("data-record-controller"));
             break;
 
-        case "DIDSVC":
-            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
-            $("#txtAddEditRecordDataDID").val(divData.attr("data-record-did"));
-            $("#txtAddEditRecordDIDSVCType").val(divData.attr("data-record-svctype"));
-            $("#txtAddEditRecordDIDSVCDescription").val(divData.attr("data-record-description"));
-            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-serviceEndpointUrl"));
+        // verification method map did RR cases
+        case "DIDVM":
+            $("#txtAddEditRecordDataVMM_Id").val(divData.attr("data-record-vmm_id"));
+            $("#txtAddEditRecordDataVMM_Comment").val(divData.attr("data-record-vmm_comment"));
+            $("#txtAddEditRecordDataVMM_Controller").val(divData.attr("data-record-vmm_controller"));
+            $("#txtAddEditRecordDataVMM_Type").val(divData.attr("data-record-vmm_type"));
+            $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val(divData.attr("data-record-vmm_publicKeyMultibase"));
+            $("#txtAddEditRecordDataVMM_PublicKeyBase58").val(divData.attr("data-record-vmm_publicKeyBase58"));
+            $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val(divData.attr("data-record-vmm_privateKeyBase58"));
+            $("#txtAddEditRecordDataVMM_Jwk_crv").val(divData.attr("data-record-vmm_jwk_crv"));
+            $("#txtAddEditRecordDataVMM_Jwk_e").val(divData.attr("data-record-vmm_jwk_e"));
+            $("#txtAddEditRecordDataVMM_Jwk_n").val(divData.attr("data-record-vmm_jwk_n"));
+            $("#txtAddEditRecordDataVMM_Jwk_x").val(divData.attr("data-record-vmm_jwk_x"));
+            $("#txtAddEditRecordDataVMM_Jwk_y").val(divData.attr("data-record-vmm_jwk_y"));
+            $("#txtAddEditRecordDataVMM_Jwk_kty").val(divData.attr("data-record-vmm_jwk_kty"));
+            $("#txtAddEditRecordDataVMM_Jwk_kid").val(divData.attr("data-record-vmm_jwk_kid"));
+
+
             break;
+
 
         default:
             showAlert("warning", "Not Supported!", "Record type not supported for edit.");
@@ -4178,6 +4221,98 @@ function updateRecord() {
             apiUrl += "&newValue=" + encodeURIComponent(newValue)
                 + "&oldValue=" + encodeURIComponent(value);
             break;
+
+        // verification method map DID RR cases - 3 required fields (id, controller, type)
+        case "DIDVM":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            // id
+            var new_id = $("#txtAddEditRecordDataVMM_Id").val();
+            if (id === "") {
+                showAlert("warning", "Missing!", "Please enter an ID to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataVMM_Id").focus();
+                return;
+            }
+
+            // controller
+            var new_controller = $("#txtAddEditRecordDataVMM_Controller").val();
+            if (controller === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Controller field to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataVMM_Controller").focus();
+                return;
+            }
+
+            // type
+            var new_type = $("#txtAddEditRecordDataVMM_Type").val();
+            if (type === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Type field to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataVMM_Type").focus();
+                return;
+            }
+
+            var new_comment = $("#txtAddEditRecordDataVMM_Comment").val();
+            var new_publicKeyMultibase = $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val();
+            var new_publicKeyBase58 = $("#txtAddEditRecordDataVMM_PublicKeyBase58").val();
+            var new_privateKeyBase58 = $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val();
+            var new_jwk_crv = $("#txtAddEditRecordDataVMM_Jwk_crv").val();
+            var new_jwk_e = $("#txtAddEditRecordDataVMM_Jwk_e").val();
+            var new_jwk_n = $("#txtAddEditRecordDataVMM_Jwk_n").val();
+            var new_jwk_x = $("#txtAddEditRecordDataVMM_Jwk_x").val();
+            var new_jwk_y = $("#txtAddEditRecordDataVMM_Jwk_y").val();
+            var new_jwk_kty = $("#txtAddEditRecordDataVMM_Jwk_kty").val();
+            var new_jwk_kid = $("#txtAddEditRecordDataVMM_Jwk_kid").val();
+
+            // old data
+            var id = divData.attr("data-record-vmm_id");
+            var controller = divData.attr("data-record-vmm_controller");
+            var type = divData.attr("data-record-vmm_type");
+            var comment = divData.attr("data-record-vmm_comment");
+            var publicKeyMultibase = divData.attr("data-record-vmm_publicKeyMultibase");
+            var publicKeyBase58 = divData.attr("data-record-vmm_publicKeyBase58");
+            var privateKeyBase58 = divData.attr("data-record-vmm_privateKeyBase58");
+            var jwk_crv = divData.attr("data-record-vmm_jwk_crv");
+            var jwk_e = divData.attr("data-record-vmm_jwk_e");
+            var jwk_n = divData.attr("data-record-vmm_jwk_n");
+            var jwk_x = divData.attr("data-record-vmm_jwk_x");
+            var jwk_y = divData.attr("data-record-vmm_jwk_y");
+            var jwk_kty = divData.attr("data-record-vmm_jwk_kty");
+            var jwk_kid = divData.attr("data-record-vmm_jwk_kid");
+
+            apiUrl += "&vmm_id=" + encodeURIComponent(id) +
+                "&vmm_controller=" + encodeURIComponent(controller) +
+                "&vmm_type=" + encodeURIComponent(type) +
+                "&vmm_comment=" + encodeURIComponent(comment) +
+                "&vmm_publicKeyMultibase=" + encodeURIComponent(publicKeyMultibase) +
+                "&vmm_publicKeyBase58=" + encodeURIComponent(publicKeyBase58) +
+                "&vmm_privateKeyBase58=" + encodeURIComponent(privateKeyBase58) +
+                "&vmm_jwk_crv=" + encodeURIComponent(jwk_crv) +
+                "&vmm_jwk_e=" + encodeURIComponent(jwk_e) +
+                "&vmm_jwk_n=" + encodeURIComponent(jwk_n) +
+                "&vmm_jwk_x=" + encodeURIComponent(jwk_x) +
+                "&vmm_jwk_y=" + encodeURIComponent(jwk_y) +
+                "&vmm_jwk_kty=" + encodeURIComponent(jwk_kty) +
+                "&vmm_jwk_kid=" + encodeURIComponent(jwk_kid) +
+
+                "&new_vmm_id=" + encodeURIComponent(new_id) +
+                "&new_vmm_controller=" + encodeURIComponent(new_controller) +
+                "&new_vmm_type=" + encodeURIComponent(new_type) +
+                "&new_vmm_comment=" + encodeURIComponent(new_comment) +
+                "&new_vmm_publicKeyMultibase=" + encodeURIComponent(new_publicKeyMultibase) +
+                "&new_vmm_publicKeyBase58=" + encodeURIComponent(new_publicKeyBase58) +
+                "&new_vmm_privateKeyBase58=" + encodeURIComponent(new_privateKeyBase58) +
+                "&new_vmm_jwk_crv=" + encodeURIComponent(new_jwk_crv) +
+                "&new_vmm_jwk_e=" + encodeURIComponent(new_jwk_e) +
+                "&new_vmm_jwk_n=" + encodeURIComponent(new_jwk_n) +
+                "&new_vmm_jwk_x=" + encodeURIComponent(new_jwk_x) +
+                "&new_vmm_jwk_y=" + encodeURIComponent(new_jwk_y) +
+                "&new_vmm_jwk_kty=" + encodeURIComponent(new_jwk_kty) +
+                "&new_vmm_jwk_kid=" + encodeURIComponent(new_jwk_kid);
+
+            break;
     
     }
 
@@ -4428,6 +4563,24 @@ function deleteRecord(objBtn) {
 
         case "DIDCTLR":
             apiUrl += "&controller=" + encodeURIComponent(divData.attr("data-record-controller"));
+            break;
+
+        // verification method map DID RR types
+        case "DIDVM":
+            apiUrl += "&vmm_id=" + encodeURIComponent(divData.attr("data-record-vmm_id")) +
+                "&vmm_controller=" + encodeURIComponent(divData.attr("data-record-vmm_controller")) +
+                "&vmm_type=" + encodeURIComponent(divData.attr("data-record-vmm_type")) +
+                "&vmm_comment=" + encodeURIComponent(divData.attr("data-record-vmm_comment")) +
+                "&vmm_publicKeyMultibase=" + encodeURIComponent(divData.attr("data-record-vmm_publicKeyMultibase")) +
+                "&vmm_publicKeyBase58=" + encodeURIComponent(divData.attr("data-record-vmm_publicKeyBase58")) +
+                "&vmm_privateKeyBase58=" + encodeURIComponent(divData.attr("data-record-vmm_privateKeyBase58")) +
+                "&vmm_jwk_crv=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_crv")) +
+                "&vmm_jwk_e=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_e")) +
+                "&vmm_jwk_n=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_n")) +
+                "&vmm_jwk_x=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_x")) +
+                "&vmm_jwk_y=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_y")) +
+                "&vmm_jwk_kty=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_kty")) +
+                "&vmm_jwk_kid=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_kid"));
             break;
     }
 

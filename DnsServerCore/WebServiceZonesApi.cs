@@ -610,7 +610,6 @@ namespace DnsServerCore
                 #endregion
 
                 #region DID RR types
-                // single string value did RRs
 
                 #region single string value RRs
 
@@ -670,29 +669,26 @@ namespace DnsServerCore
 
                 #endregion
 
-                case DnsResourceRecordType.DIDTXT:
-                    {
-                        if (record.RDATA is DnsDIDTXTRecordData rdata)
-                        {
-                            jsonWriter.WriteString("tag", rdata.Tag);
-                            jsonWriter.WriteString("didDID", rdata.DID);
-                            jsonWriter.WriteString("value", rdata.TextData);
-                        }
-                    }
-                    break;
+                #region verification method map DID RR types
 
-                case DnsResourceRecordType.DIDSVC:
+                case DnsResourceRecordType.DIDVM:
                     {
-                        if (record.RDATA is DnsDIDSVCRecordData rdata)
+                        if (record.RDATA is DnsDIDVMRecordData rdata)
                         {
-                            jsonWriter.WriteString("tag", rdata.Tag);
-                            jsonWriter.WriteString("did", rdata.DID);
-                            jsonWriter.WriteString("svctype", rdata.Type);
-                            jsonWriter.WriteString("description", rdata.Description);
-                            jsonWriter.WriteString("serviceEndpointUrl", rdata.ServiceEndpointUrl);
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "verificationMethod");
                         }
                     }
                     break;
+                //case DnsResourceRecordType.DIDAUTH:
+                //    {
+                //        if (record.RDATA is DnsDIDAUTHRecordData rdata)
+                //        {
+                //            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "authentication");
+                //        }
+                //    }
+                //    break;
+                #endregion
+
                 #endregion
 
                 default:
@@ -1981,6 +1977,33 @@ namespace DnsServerCore
 
             DnsResourceRecord newRecord;
 
+            // rk - create verification method map if request contains vmm data
+            VerificationMethodMapDID vmm = null;
+            if (request.Query.ContainsKey("vmm_id"))
+            {
+                vmm = new VerificationMethodMapDID()
+                {
+                    Id = request.GetQueryOrFormAlt("vmm_id", "id"),
+                    Comment = request.GetQueryOrFormAlt("vmm_comment", "comment"),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
+                    PublicKeyMultibase = request.GetQueryOrFormAlt("vmm_publicKeyMultibase", "publicKeyMultibase"),
+                    PublicKeyBase58 = request.GetQueryOrFormAlt("vmm_publicKeyBase58", "publicKeyBase58"),
+                    PrivateKeyBase58 = request.GetQueryOrFormAlt("vmm_privateKeyBase58", "privateKeyBase58"),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("vmm_jwk_crv"),
+                        e = request.GetQueryOrForm("vmm_jwk_e"),
+                        n = request.GetQueryOrForm("vmm_jwk_n"),
+                        x = request.GetQueryOrForm("vmm_jwk_x"),
+                        y = request.GetQueryOrForm("vmm_jwk_y"),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty"),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid"),
+                    }
+                };
+            }
+
             switch (type)
             {
                 #region DNS RR types
@@ -2426,12 +2449,11 @@ namespace DnsServerCore
                     break;
                 #endregion
 
-                case DnsResourceRecordType.DIDTXT:
+                #region verification method map RRs
+
+                case DnsResourceRecordType.DIDVM:
                     {
-                        string didTag = request.GetQueryOrForm("tag", "");
-                        string didDID = request.GetQueryOrForm("didDID", "");
-                        string value = request.GetQueryOrForm("value", "");
-                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDTXTRecordData(didTag, didDID, value));
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDVMRecordData(vmm));
 
                         if (!string.IsNullOrEmpty(comments))
                             newRecord.GetAuthRecordInfo().Comments = comments;
@@ -2442,6 +2464,8 @@ namespace DnsServerCore
                             _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
                     }
                     break;
+
+                #endregion
 
                 case DnsResourceRecordType.DIDSVC:
                     {
@@ -2554,6 +2578,33 @@ namespace DnsServerCore
 
             if (!_dnsWebService._authManager.IsPermitted(PermissionSection.Zones, zoneInfo.Name, session.User, PermissionFlag.Delete))
                 throw new DnsWebServiceException("Access was denied.");
+
+            // rk
+            VerificationMethodMapDID vmm = null;
+            if (request.Query.ContainsKey("vmm_id"))
+            {
+                vmm = new VerificationMethodMapDID()
+                {
+                    Id = request.GetQueryOrFormAlt("vmm_id", "id"),
+                    Comment = request.GetQueryOrFormAlt("vmm_comment", "comment"),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
+                    PublicKeyMultibase = request.GetQueryOrFormAlt("vmm_publicKeyMultibase", "publicKeyMultibase"),
+                    PublicKeyBase58 = request.GetQueryOrFormAlt("vmm_publicKeyBase58", "publicKeyBase58"),
+                    PrivateKeyBase58 = request.GetQueryOrFormAlt("vmm_privateKeyBase58", "privateKeyBase58"),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("vmm_jwk_crv"),
+                        e = request.GetQueryOrForm("vmm_jwk_e"),
+                        n = request.GetQueryOrForm("vmm_jwk_n"),
+                        x = request.GetQueryOrForm("vmm_jwk_x"),
+                        y = request.GetQueryOrForm("vmm_jwk_y"),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty"),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid"),
+                    }
+                };
+            }
 
             DnsResourceRecordType type = request.GetQueryOrFormEnum<DnsResourceRecordType>("type");
             switch (type)
@@ -2764,15 +2815,15 @@ namespace DnsServerCore
 
                 #endregion
 
-                case DnsResourceRecordType.DIDTXT:
-                    {
-                        string didtxtTag = request.GetQueryOrForm("tag", "");
-                        string did = request.GetQueryOrFormAlt("did", "");
-                        string data = request.GetQueryOrFormAlt("data", "");
+                #region verification method map RRs
 
-                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDTXTRecordData(didtxtTag, did, data));
+                case DnsResourceRecordType.DIDVM:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDVMRecordData(vmm));
                     }
                     break;
+
+                #endregion
 
                 case DnsResourceRecordType.DIDSVC:
                     {
@@ -2831,6 +2882,56 @@ namespace DnsServerCore
             bool disable = request.GetQueryOrForm("disable", bool.Parse, false);
             string comments = request.QueryOrForm("comments");
             DnsResourceRecordType type = request.GetQueryOrFormEnum<DnsResourceRecordType>("type");
+
+            // rk
+            VerificationMethodMapDID vmm = null;
+            VerificationMethodMapDID newvmm = null;
+            if (request.Query.ContainsKey("vmm_id"))
+            {
+                vmm = new VerificationMethodMapDID()
+                {
+                    Id = request.GetQueryOrFormAlt("vmm_id", "id"),
+                    Comment = request.GetQueryOrFormAlt("vmm_comment", "comment"),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
+                    PublicKeyMultibase = request.GetQueryOrFormAlt("vmm_publicKeyMultibase", "publicKeyMultibase"),
+                    PublicKeyBase58 = request.GetQueryOrFormAlt("vmm_publicKeyBase58", "publicKeyBase58"),
+                    PrivateKeyBase58 = request.GetQueryOrFormAlt("vmm_privateKeyBase58", "privateKeyBase58"),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("vmm_jwk_crv"),
+                        e = request.GetQueryOrForm("vmm_jwk_e"),
+                        n = request.GetQueryOrForm("vmm_jwk_n"),
+                        x = request.GetQueryOrForm("vmm_jwk_x"),
+                        y = request.GetQueryOrForm("vmm_jwk_y"),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty"),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid"),
+                    }
+                };
+
+                newvmm = new VerificationMethodMapDID()
+                {
+                    Id = request.GetQueryOrFormAlt("new_vmm_id", ""),
+                    Comment = request.GetQueryOrFormAlt("new_vmm_comment", ""),
+                    Controller = request.GetQueryOrFormAlt("new_vmm_controller", ""),
+                    Type_ = request.GetQueryOrFormAlt("new_vmm_type", ""),
+                    PublicKeyMultibase = request.GetQueryOrFormAlt("new_vmm_publicKeyMultibase", ""),
+                    PublicKeyBase58 = request.GetQueryOrFormAlt("new_vmm_publicKeyBase58", ""),
+                    PrivateKeyBase58 = request.GetQueryOrFormAlt("new_vmm_privateKeyBase58", ""),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("new_vmm_jwk_crv"),
+                        e = request.GetQueryOrForm("new_vmm_jwk_e"),
+                        n = request.GetQueryOrForm("new_vmm_jwk_n"),
+                        x = request.GetQueryOrForm("new_vmm_jwk_x"),
+                        y = request.GetQueryOrForm("new_vmm_jwk_y"),
+                        kty = request.GetQueryOrForm("new_vmm_jwk_kty"),
+                        kid = request.GetQueryOrForm("new_vmm_jwk_kid"),
+                    }
+                };
+            }
 
             DnsResourceRecord oldRecord = null;
             DnsResourceRecord newRecord;
@@ -3444,18 +3545,12 @@ namespace DnsServerCore
 
                 #endregion
 
-                case DnsResourceRecordType.DIDTXT:
+                #region verification method map RRs
+
+                case DnsResourceRecordType.DIDVM:
                     {
-                        string oldTag = request.GetQueryOrFormAlt("oldTag", "");
-                        string oldDID = request.GetQueryOrFormAlt("oldDID", "");
-                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
-
-                        string newTag = request.GetQueryOrFormAlt("newTag", "");
-                        string newValue = request.GetQueryOrFormAlt("newValue", "");
-                        string newDID = request.GetQueryOrFormAlt("newDID", "");
-
-                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDTXTRecordData(oldTag, oldDID, oldValue));
-                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDTXTRecordData(newTag, newDID, newValue));
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDVMRecordData(vmm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDVMRecordData(newvmm));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
@@ -3466,6 +3561,8 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
                     }
                     break;
+
+                #endregion
 
                 case DnsResourceRecordType.DIDSVC:
                     {
