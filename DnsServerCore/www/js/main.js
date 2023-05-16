@@ -68,7 +68,7 @@ function showPageMain() {
 
     $("#txtDnsClientNameServer").val("This Server {this-server}");
     $("#txtDnsClientDomain").val("");
-    $("#optDnsClientType").val("A");
+    $("#optDnsClientType").val("ANY");
     $("#optDnsClientProtocol").val("TCP");
     $("#divDnsClientLoader").hide();
     $("#divDnsClientOutput").text("");
