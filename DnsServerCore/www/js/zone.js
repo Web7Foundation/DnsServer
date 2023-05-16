@@ -2195,25 +2195,67 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
                 "data-record-data=\"" + htmlEncode(record.rData.data) + "\"";
             break;
 
-        // did RR cases
+        // single string value did RR cases
         case "DIDID":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>DID Value:</b> " + htmlEncode(record.rData.value);
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>DID:</b> " + htmlEncode(record.rData.did);
 
             if ((record.comments != null) && (record.comments.length > 0))
                 tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
 
             tableHtmlRow += "</td>";
-            additionalDataAttributes = "data-record-value=\"" + htmlEncode(record.rData.value) + "\" ";
+            additionalDataAttributes = "data-record-did=\"" + htmlEncode(record.rData.did) + "\" ";
             break;
 
-        case "DIDCTX":
-            tableHtmlRow += "<td>  <b>Tag:</b> " + htmlEncode(record.rData.tag);
-            tableHtmlRow += "<br /><b>CTX URI:</b> " + htmlEncode(record.rData.data) + "</td>";
+        case "DIDPURP":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Purpose:</b> " + htmlEncode(record.rData.purpose);
 
-            additionalDataAttributes =
-                "data-record-tag=\"" + htmlEncode(record.rData.tag) + "\" " +
-            "data-record-data=\"" + htmlEncode(record.rData.data) + "\"";
+            if ((record.comments != null) && (record.comments.length > 0))
+                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
+
+            tableHtmlRow += "</td>";
+            additionalDataAttributes = "data-record-purpose=\"" + htmlEncode(record.rData.purpose) + "\" ";
             break;
+
+        case "DIDCOMM":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Comment:</b> " + htmlEncode(record.rData.comment);
+
+            //if ((record.comments != null) && (record.comments.length > 0))
+            //    tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
+
+            tableHtmlRow += "</td>";
+            additionalDataAttributes = "data-record-comment=\"" + htmlEncode(record.rData.comment) + "\" ";
+            break;
+
+        case "DIDCTXT":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Context:</b> " + htmlEncode(record.rData.context);
+
+            if ((record.comments != null) && (record.comments.length > 0))
+                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
+
+            tableHtmlRow += "</td>";
+            additionalDataAttributes = "data-record-context=\"" + htmlEncode(record.rData.context) + "\" ";
+            break;
+
+        case "DIDAKA":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Also Known As:</b> " + htmlEncode(record.rData.alsoKnownAs);
+
+            if ((record.comments != null) && (record.comments.length > 0))
+                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
+
+            tableHtmlRow += "</td>";
+            additionalDataAttributes = "data-record-alsoKnownAs=\"" + htmlEncode(record.rData.alsoKnownAs) + "\" ";
+            break;
+
+        case "DIDCTLR":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Controller:</b> " + htmlEncode(record.rData.controller);
+
+            if ((record.comments != null) && (record.comments.length > 0))
+                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
+
+            tableHtmlRow += "</td>";
+            additionalDataAttributes = "data-record-controller=\"" + htmlEncode(record.rData.controller) + "\" ";
+            break;
+
 
         case "DIDTXT":
             tableHtmlRow += "<td>  <b>Tag:</b> " + htmlEncode(record.rData.tag);
@@ -2508,9 +2550,6 @@ function modifyAddRecordFormByType(addMode) {
 
     $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
 
-    $("#divAddEditRecordTagDID").hide();
-    $("#divAddEditRecordDID").hide();
-    $("#divAddEditRecordDIDSVC").hide();
     $("#divAddEditRecordData").hide();
     $("#divAddEditRecordDataPtr").hide();
     $("#divAddEditRecordDataNs").hide();
@@ -2662,8 +2701,8 @@ function modifyAddRecordFormByType(addMode) {
 
             break;
 
-        // did RR cases
-        case "DIDID": // 3 fields: Name, Type, and TTL
+        // single string value did RR cases
+        case "DIDID":
             $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Subject DID Value");
             $("#txtAddEditRecordDataValue").val("*AddRecord() will override this with the domain label value");
@@ -2671,58 +2710,35 @@ function modifyAddRecordFormByType(addMode) {
             $("#divAddEditRecordData").show();
             break;
 
-        case "DIDCTX": // 4 fields: Name, Type, TTL, and @context URI string
+        case "DIDPURP":
             $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
-
-            // tag field
-            $("#txtAddEditRecordDataTagDID").val("");
-            $("#divAddEditRecordTagDID").show();
-
-            // context uri field
-            $("#lblAddEditRecordDataValue").text("Context URI");
-            $("#txtAddEditRecordDataValue").val("");
+            $("#lblAddEditRecordDataValue").text("Purpose");
             $("#divAddEditRecordData").show();
             break;
 
-        case "DIDTXT":
+        case "DIDCOMM":
             $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
-
-            // tag field
-            $("#txtAddEditRecordDataTagDID").val("");
-            $("#divAddEditRecordTagDID").show();
-
-            // did field
-            $("#txtAddEditRecordDataDID").val("");
-            $("#divAddEditRecordDID").show();
-
-            // value field (Text data)
-            $("#lblAddEditRecordDataValue").text("Text data");
-            $("#txtAddEditRecordDataValue").val("");
+            $("#lblAddEditRecordDataValue").text("Comment");
             $("#divAddEditRecordData").show();
-
             break;
 
-        case "DIDSVC":
+        case "DIDCTXT":
             $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
-
-            // tag field
-            $("#txtAddEditRecordDataTagDID").val("");
-            $("#divAddEditRecordTagDID").show();
-
-            // did field
-            $("#txtAddEditRecordDataDID").val("");
-            $("#divAddEditRecordDID").show();
-
-            // SVC specific fields (Type & Description)
-            $("#txtAddEditRecordDIDSVCType").val("");
-            $("#txtAddEditRecordDIDSVCDescription").val("");
-            $("#divAddEditRecordDIDSVC").show();
-
-            // value field (Service EP URL)
-            $("#lblAddEditRecordDataValue").text("Service Endpoint URL*");
-            $("#txtAddEditRecordDataValue").val("");
+            $("#lblAddEditRecordDataValue").text("Context");
             $("#divAddEditRecordData").show();
+            break;
 
+        case "DIDAKA":
+            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+            $("#lblAddEditRecordDataValue").text("Also Known As");
+            $("#divAddEditRecordData").show();
+            break;
+
+        case "DIDCTLR":
+            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+            $("#lblAddEditRecordDataValue").text("Controller");
+            $("#divAddEditRecordData").show();
+            break;     
 
     }
 }
@@ -3075,7 +3091,7 @@ function addRecord() {
             apiUrl += "&appName=" + encodeURIComponent(appName) + "&classPath=" + encodeURIComponent(classPath) + "&recordData=" + encodeURIComponent(recordData);
             break;
 
-        // did RR cases
+        // single string value did RR cases
         case "DIDID":
             var value = $("#txtAddEditRecordNameOrSubjectDID").val();
             if (value === "") {
@@ -3084,60 +3100,92 @@ function addRecord() {
                 return;
             }
 
-            apiUrl += "&value=" + encodeURIComponent(value);
+            apiUrl += "&did=" + encodeURIComponent(value);
             break;
 
-        case "DIDCTX": 
+        case "DIDPURP":
             if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
                 showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
                 $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
-            var tag = $("#txtAddEditRecordDataTagDID").val();
-            //if (did === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordDataTagDID").focus();
-            //    return;
-            //}
-
-            var textData = $("#txtAddEditRecordDataValue").val();
-            if (textData === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the Context URI field.", divAddEditRecordAlert);
+            var value = $("#txtAddEditRecordDataValue").val();
+            if (value === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
-            apiUrl += "&tag=" + encodeURIComponent(tag) + "&data=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
+
+            apiUrl += "&purpose=" + encodeURIComponent(value);
             break;
 
-        case "DIDTXT":
+        case "DIDCOMM":
             if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
                 showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
                 $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
-            var tag = $("#txtAddEditRecordDataTagDID").val();
-            //if (did === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordDataTagDID").focus();
-            //    return;
-            //}
-
-            var did = $("#txtAddEditRecordDataDID").val();
-            //if (did === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Text DID.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordDataDID").focus();
-            //    return;
-            //}
-
-            var textData = $("#txtAddEditRecordDataValue").val();
-            if (textData === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the Text Data field.", divAddEditRecordAlert);
+            var value = $("#txtAddEditRecordDataValue").val();
+            if (value === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
-            apiUrl += "&tag=" + tag + "&didDID=" + encodeURIComponent(did) + "&value=" + encodeURIComponent(textData) + "&didTrace=" + "zone.js:addRecord";
+
+            apiUrl += "&comment=" + encodeURIComponent(value);
+            break;
+
+        case "DIDCTXT":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var value = $("#txtAddEditRecordDataValue").val();
+            if (value === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&context=" + encodeURIComponent(value);
+            break;
+
+        case "DIDAKA":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var value = $("#txtAddEditRecordDataValue").val();
+            if (value === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&alsoKnownAs=" + encodeURIComponent(value);
+            break;
+
+        case "DIDCTLR":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var value = $("#txtAddEditRecordDataValue").val();
+            if (value === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&controller=" + encodeURIComponent(value);
             break;
 
         case "DIDSVC":
@@ -3520,20 +3568,29 @@ function showEditRecordModal(objBtn) {
             $("#txtAddEditRecordDataData").val(divData.attr("data-record-data"))
             break;
 
-        // did RR cases
+        // single string value did RR cases
         case "DIDID": 
-            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-value"));
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-did"));
             break;
 
-        case "DIDCTX":
-            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
-            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-data"));
+        case "DIDPURP":
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-purpose"));
             break;
 
-        case "DIDTXT":
-            $("#txtAddEditRecordDataTagDID").val(divData.attr("data-record-tag"));
-            $("#txtAddEditRecordDataDID").val(divData.attr("data-record-didDID"));
-            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-value"));
+        case "DIDCOMM":
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-comment"));
+            break;
+
+        case "DIDCTXT":
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-context"));
+            break;
+
+        case "DIDAKA":
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-alsoKnownAs"));
+            break;
+
+        case "DIDCTLR":
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-controller"));
             break;
 
         case "DIDSVC":
@@ -4011,148 +4068,117 @@ function updateRecord() {
             apiUrl += "&appName=" + encodeURIComponent(divData.attr("data-record-app-name")) + "&classPath=" + encodeURIComponent(divData.attr("data-record-classpath")) + "&recordData=" + encodeURIComponent($("#txtAddEditRecordDataData").val());
             break;
 
-        // did RR cases
+        // single string value did RR cases
         case "DIDID":
 
-            var value = divData.attr("data-record-value");
+            var value = divData.attr("data-record-did");
 
             var newValue = $("#txtAddEditRecordNameOrSubjectDID").val();
             if (newValue === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
+                showAlert("warning", "Missing!", "Please enter a suitable value to update the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            apiUrl += "&newValue=" + encodeURIComponent(newValue)
+                + "&oldValue=" + value;
+            break;
+
+        case "DIDPURP":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable Subject DID to update the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var value = divData.attr("data-record-purpose");
+            var newValue = $("#txtAddEditRecordDataValue").val();
+            if (newValue === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to update the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
 
             apiUrl += "&newValue=" + encodeURIComponent(newValue)
-                + "&value=" + value;
+                + "&oldValue=" + encodeURIComponent(value);
             break;
 
-        case "DIDCTX": 
+        case "DIDCOMM":
             if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
-                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                showAlert("warning", "Missing!", "Please enter a suitable Subject DID to update the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
-            var oldTag = divData.attr("data-record-tag");
-            var oldTextData = divData.attr("data-record-data");
-
-            var newTag = $("#txtAddEditRecordDataTagDID").val();
-            //if (newTag === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordTagValue").focus();
-            //    return;
-            //}
-
-            var newTextData = $("#txtAddEditRecordDataValue").val();
-            if (newTextData === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the Text Data field.", divAddEditRecordAlert);
+            var value = divData.attr("data-record-comment");
+            var newValue = $("#txtAddEditRecordDataValue").val();
+            if (newValue === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to update the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
 
-            apiUrl += "&oldTag=" + oldTag + "&oldValue=" + encodeURIComponent(oldTextData)
-                + "&newTag=" + newTag + "&newValue=" + encodeURIComponent(newTextData)
-                + "&didTrace=" + "zone.js:updateRecord";
+            apiUrl += "&newValue=" + encodeURIComponent(newValue)
+                + "&oldValue=" + encodeURIComponent(value);
             break;
 
-        case "DIDTXT":
-
+        case "DIDCTXT":
             if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
-                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                showAlert("warning", "Missing!", "Please enter a suitable Subject DID to update the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
-            var oldTag = divData.attr("data-record-tag");
-            var oldDID = divData.attr("data-record-didDID");
-            var oldTextData = divData.attr("data-record-value");
-
-            var newTag = $("#txtAddEditRecordDataTagDID").val();
-            //if (newTag === "") {
-            //    showAlert("warning", "Missing!", "Please enter a suitable Tag.", divAddEditRecordAlert);
-            //    $("#txtAddEditRecordTagValue").focus();
-            //    return;
-            //}
-
-            var newDID = $("#txtAddEditRecordDataDID").val();
-            if (newDID === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable Service Endpoint DID.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDataDID").focus();
-                return;
-            }
-
-            var newTextData = $("#txtAddEditRecordDataValue").val();
-            if (newTextData === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the Text Data field.", divAddEditRecordAlert);
+            var value = divData.attr("data-record-context");
+            var newValue = $("#txtAddEditRecordDataValue").val();
+            if (newValue === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to update the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
 
-            apiUrl += "&oldTag=" + oldTag +
-                "&oldDID=" + encodeURIComponent(oldDID) +
-                "&oldValue=" + encodeURIComponent(oldTextData) +
-                "&newTag=" + newTag +
-                "&newDID=" + encodeURIComponent(newDID) +
-                "&newValue=" + encodeURIComponent(newTextData) +
-                "&didTrace=" + "zone.js:updateRecord";
+            apiUrl += "&newValue=" + encodeURIComponent(newValue)
+                + "&oldValue=" + encodeURIComponent(value);
             break;
 
-        case "DIDSVC":
-
+        case "DIDAKA":
             if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
-                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                showAlert("warning", "Missing!", "Please enter a suitable Subject DID to update the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordNameOrSubjectDID").focus();
                 return;
             }
 
-            var oldTag = divData.attr("data-record-tag");
-            var oldDID = divData.attr("data-record-did");
-            var oldType = divData.attr("data-record-svctype");
-            var oldDescription = divData.attr("data-record-description");
-            var oldServiceEP = divData.attr("data-record-serviceEndpointUrl");
-
-            var newTag = $("#txtAddEditRecordDataTagDID").val();
-
-            var newDID = $("#txtAddEditRecordDataDID").val();
-            if (newDID === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable Service Endpoint DID.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDataDID").focus();
-                return;
-            }
-
-            var newType = $("#txtAddEditRecordDIDSVCType").val();
-            if (newType === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable Service Endpoint DID.", divAddEditRecordAlert);
-                $("#txtAddEditRecordDIDSVCType").focus();
-                return;
-            }
-
-            var newDescription = $("#txtAddEditRecordDIDSVCDescription").val();
-
-
-
-            var newServiceEP = $("#txtAddEditRecordDataValue").val();
-            if (newServiceEP === "") {
-                showAlert("warning", "Missing!", "Please enter a suitable value into the \"Service Endpoint URL\" field.", divAddEditRecordAlert);
+            var value = divData.attr("data-record-alsoKnownAs");
+            var newValue = $("#txtAddEditRecordDataValue").val();
+            if (newValue === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to update the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataValue").focus();
                 return;
             }
 
-            apiUrl += "&tag=" + oldTag +
-                "&did=" + encodeURIComponent(oldDID) +
-                "&svctype=" + encodeURIComponent(oldType) +
-                "&description=" + encodeURIComponent(oldDescription) +
-                "&serviceEndpointUrl=" + encodeURIComponent(oldServiceEP) +
-                "&newTag=" + newTag +
-                "&newDid=" + encodeURIComponent(newDID) +
-                "&newSvcType=" + encodeURIComponent(newType) +
-                "&newDescription=" + encodeURIComponent(newDescription) +
-                "&newServiceEndpointUrl=" + encodeURIComponent(newServiceEP) +
-                "&didTrace=" + "zone.js:updateRecord";
-
+            apiUrl += "&newValue=" + encodeURIComponent(newValue)
+                + "&oldValue=" + encodeURIComponent(value);
             break;
 
+        case "DIDCTLR":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable Subject DID to update the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var value = divData.attr("data-record-controller");
+            var newValue = $("#txtAddEditRecordDataValue").val();
+            if (newValue === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to update the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&newValue=" + encodeURIComponent(newValue)
+                + "&oldValue=" + encodeURIComponent(value);
+            break;
+    
     }
 
     btn.button('loading');
@@ -4379,21 +4405,29 @@ function deleteRecord(objBtn) {
             apiUrl += "&protocol=" + divData.attr("data-record-protocol") + "&forwarder=" + encodeURIComponent(divData.attr("data-record-forwarder"));
             break;
 
-        // DID RR types
+        // single string value DID RR types
         case "DIDID":
-            apiUrl += "&value=" + encodeURIComponent(divData.attr("data-record-value"));
+            apiUrl += "&did=" + encodeURIComponent(divData.attr("data-record-did"));
             break;
 
-        case "DIDCTX":
-            apiUrl += "&tag=" + encodeURIComponent(divData.attr("data-record-tag")) + "&data=" + encodeURIComponent(divData.attr("data-record-data"));
+        case "DIDPURP":
+            apiUrl += "&purpose=" + encodeURIComponent(divData.attr("data-record-purpose"));
             break;
 
-        case "DIDTXT":
-            apiUrl += "&tag=" + divData.attr("data-record-tag") + "&did=" + encodeURIComponent(divData.attr("data-record-didDID")) + "&data=" + encodeURIComponent(divData.attr("data-record-value")) + "&didTrace=" + "zone.js:updateRecordState"
+        case "DIDCOMM":
+            apiUrl += "&comment=" + encodeURIComponent(divData.attr("data-record-comment"));
             break;
 
-        case "DIDSVC":
-            apiUrl += "&tag=" + divData.attr("data-record-tag") + "&did=" + encodeURIComponent(divData.attr("data-record-did")) + "&svctype=" + encodeURIComponent(divData.attr("data-record-svctype")) + "&description=" + encodeURIComponent(divData.attr("data-record-description")) + "&serviceEndpointUrl=" + encodeURIComponent(divData.attr("data-record-serviceEndpointUrl")) + "&didTrace=" + "zone.js:updateRecordState"
+        case "DIDCTXT":
+            apiUrl += "&context=" + encodeURIComponent(divData.attr("data-record-context"));
+            break;
+
+        case "DIDAKA":
+            apiUrl += "&alsoKnownAs=" + encodeURIComponent(divData.attr("data-record-alsoKnownAs"));
+            break;
+
+        case "DIDCTLR":
+            apiUrl += "&controller=" + encodeURIComponent(divData.attr("data-record-controller"));
             break;
     }
 

@@ -2714,7 +2714,7 @@ namespace DnsServerCore
 
                 case DnsResourceRecordType.DIDID:
                     {
-                        string didid = request.GetQueryOrFormAlt("didid", "value");
+                        string didid = request.GetQueryOrFormAlt("did", "value");
 
                         _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecordData(didid));
                     }
@@ -3328,7 +3328,7 @@ namespace DnsServerCore
 
                 case DnsResourceRecordType.DIDID:
                     {
-                        string olddid = request.GetQueryOrFormAlt("did", "value");
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
 
                         var didlabels = newDomain.Split('.');
                         string newDidDomain = "";
@@ -3339,7 +3339,7 @@ namespace DnsServerCore
                             if (i > 0) newDidDomain = newDidDomain + ":";
                         }
 
-                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecordData(olddid));
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecordData(oldValue));
                         newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDIDRecordData(newDidDomain));
 
                         if (disable)
