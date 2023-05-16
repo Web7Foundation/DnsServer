@@ -610,24 +610,66 @@ namespace DnsServerCore
                 #endregion
 
                 #region DID RR types
+                // single string value did RRs
+
+                #region single string value RRs
 
                 case DnsResourceRecordType.DIDID:
                     {
                         if (record.RDATA is DnsDIDIDRecordData rdata)
                         {
-                            jsonWriter.WriteString("value", rdata.DID);
+                            jsonWriter.WriteString("did", rdata.DID);
                         }                      
                     }
                     break;
-                case DnsResourceRecordType.DIDCTX:
+
+                case DnsResourceRecordType.DIDPURP:
                     {
-                        if (record.RDATA is DnsDIDCTXRecordData rdata)
+                        if (record.RDATA is DnsDIDPURPRecordData rdata)
                         {
-                            jsonWriter.WriteString("tag", rdata.Tag);
-                            jsonWriter.WriteString("data", rdata.Data);
+                            jsonWriter.WriteString("purpose", rdata.Purpose);
                         }
                     }
                     break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        if (record.RDATA is DnsDIDCOMMRecordData rdata)
+                        {
+                            jsonWriter.WriteString("comment", rdata.Comment);
+                        }
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        if (record.RDATA is DnsDIDCTXTRecordData rdata)
+                        {
+                            jsonWriter.WriteString("context", rdata.Context);
+                        }
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        if (record.RDATA is DnsDIDAKARecordData rdata)
+                        {
+                            jsonWriter.WriteString("alsoKnownAs", rdata.AlsoKnownAs);
+                        }
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        if (record.RDATA is DnsDIDCTLRRecordData rdata)
+                        {
+                            jsonWriter.WriteString("controller", rdata.Controller);
+                        }
+                    }
+                    break;
+
+                #endregion
+
                 case DnsResourceRecordType.DIDTXT:
                     {
                         if (record.RDATA is DnsDIDTXTRecordData rdata)
@@ -2282,6 +2324,9 @@ namespace DnsServerCore
                 #endregion
 
                 #region DID RR types
+
+                #region single string value RRs
+
                 case DnsResourceRecordType.DIDID:
                     {
                         var didlabels = domain.Split('.');
@@ -2304,11 +2349,11 @@ namespace DnsServerCore
                             _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
                     }
                     break;
-                case DnsResourceRecordType.DIDCTX:
+
+                case DnsResourceRecordType.DIDPURP:
                     {
-                        string didTag = request.GetQueryOrForm("tag", "");
-                        string didData = request.GetQueryOrForm("data", "");
-                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTXRecordData(didTag, didData));
+                        string didPurpose = request.GetQueryOrForm("purpose", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDPURPRecordData(didPurpose));
 
                         if (!string.IsNullOrEmpty(comments))
                             newRecord.GetAuthRecordInfo().Comments = comments;
@@ -2319,6 +2364,68 @@ namespace DnsServerCore
                             _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
                     }
                     break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        string didComment = request.GetQueryOrForm("comment", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCOMMRecordData(didComment));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        string ctxValue = request.GetQueryOrForm("context", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTXTRecordData(ctxValue));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        string didAlsoKnownAs = request.GetQueryOrForm("alsoKnownAs", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDAKARecordData(didAlsoKnownAs));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        string didController = request.GetQueryOrForm("controller", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTLRRecordData(didController));
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
+                #endregion
+
                 case DnsResourceRecordType.DIDTXT:
                     {
                         string didTag = request.GetQueryOrForm("tag", "");
@@ -2602,6 +2709,9 @@ namespace DnsServerCore
                 #endregion
 
                 #region DID RR types
+
+                #region single string value RRs
+
                 case DnsResourceRecordType.DIDID:
                     {
                         string didid = request.GetQueryOrFormAlt("didid", "value");
@@ -2609,16 +2719,51 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecordData(didid));
                     }
                     break;
-                #endregion
 
-                case DnsResourceRecordType.DIDCTX:
+                case DnsResourceRecordType.DIDPURP:
                     {
-                        string didctxTag = request.GetQueryOrForm("tag", "");
-                        string ctxURIdata = request.GetQueryOrFormAlt("data", "");
+                        string didPurpose = request.GetQueryOrForm("purpose", "value");
 
-                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXRecordData(didctxTag, ctxURIdata));
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDPURPRecordData(didPurpose));
                     }
                     break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        string didComment = request.GetQueryOrForm("comment", "value");
+
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCOMMRecordData(didComment));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        string ctxValue = request.GetQueryOrForm("context", "value");
+
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXTRecordData(ctxValue));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        string didAKA = request.GetQueryOrForm("alsoKnownAs", "value");
+
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDAKARecordData(didAKA));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        string didController = request.GetQueryOrForm("controller", "value");
+
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTLRRecordData(didController));
+                    }
+                    break;
+
+                #endregion
+
+                #endregion
+
                 case DnsResourceRecordType.DIDTXT:
                     {
                         string didtxtTag = request.GetQueryOrForm("tag", "");
@@ -3178,9 +3323,12 @@ namespace DnsServerCore
                 #endregion
 
                 #region DID RR types
+
+                #region single string value RRs
+
                 case DnsResourceRecordType.DIDID:
                     {
-                        string olddid = request.GetQueryOrFormAlt("value", "");
+                        string olddid = request.GetQueryOrFormAlt("did", "value");
 
                         var didlabels = newDomain.Split('.');
                         string newDidDomain = "";
@@ -3204,15 +3352,13 @@ namespace DnsServerCore
                     }
                     break;
 
-                case DnsResourceRecordType.DIDCTX:
+                case DnsResourceRecordType.DIDPURP:
                     {
-                        string oldTag = request.GetQueryOrFormAlt("oldTag", "");
                         string oldValue = request.GetQueryOrFormAlt("oldValue", "");
-                        string newTag = request.GetQueryOrFormAlt("newTag", "");
                         string newValue = request.GetQueryOrFormAlt("newValue", "");
 
-                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCTXRecordData(oldTag, oldValue));
-                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCTXRecordData(newTag, newValue));
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDPURPRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDPURPRecordData(newValue));
 
                         if (disable)
                             newRecord.GetAuthRecordInfo().Disabled = true;
@@ -3223,6 +3369,80 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
                     }
                     break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCOMMRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCOMMRecordData(newValue));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCTXTRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCTXTRecordData(newValue));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDAKARecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDAKARecordData(newValue));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCTLRRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCTLRRecordData(newValue));
+
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+
+                #endregion
 
                 case DnsResourceRecordType.DIDTXT:
                     {
