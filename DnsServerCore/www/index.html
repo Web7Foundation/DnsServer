@@ -793,6 +793,28 @@
                                         <div class="form-group">
                                             <label for="optDnsClientType">Type</label>
                                             <select class="form-control" id="optDnsClientType" style="padding-left: 6px; padding-right: 0px;">
+
+                                                <optgroup label="DID - string value">
+                                                    <option>DIDID</option>
+                                                    <option>DIDPURP</option>
+                                                    <option>DIDCOMM</option>
+                                                    <option>DIDCTXT</option>
+                                                    <option>DIDAKA</option>
+                                                    <option>DIDCTLR</option>
+                                                </optgroup>
+                                                <optgroup label="DID - vmm">
+                                                    <option>DIDVM</option>
+                                                    <option>DIDAUTH</option>
+                                                    <option>DIDAM</option>
+                                                    <option>DIDKA</option>
+                                                    <option>DIDCI</option>
+                                                    <option>DIDCD</option>
+                                                </optgroup>
+                                                <optgroup label="DID - sm">
+                                                    <option>DIDSVC</option>
+                                                    <option>DIDREL</option>
+                                                </optgroup>
+
                                                 <optgroup label="DNS">
                                                     <option>A</option>
                                                     <option>NS</option>
@@ -818,23 +840,6 @@
                                                     <option>ANAME</option>
                                                 </optgroup>
 
-                                                <optgroup label="DID">
-                                                    <option>DIDID</option>
-                                                    <option>DIDPURP</option>
-                                                    <option>DIDCOMM</option>
-                                                    <option>DIDCTXT</option>
-                                                    <option>DIDAKA</option>
-                                                    <option>DIDCTLR</option>
-                                                    <option>DIDVM</option>
-                                                    <option>DIDAUTH</option>
-                                                    <option>DIDAM</option>
-                                                    <option>DIDKA</option>
-                                                    <option>DIDCI</option>
-                                                    <option>DIDCD</option>
-                                                    <option>DIDSVC</option>
-                                                    <option>DIDREL</option>
-                                                </optgroup>
-                                               
                                             </select>
                                         </div>
 
@@ -3327,6 +3332,28 @@ ns1.example.com ([2001:db8::])
                                 <label for="optAddEditRecordType" class="col-sm-4 control-label">Type</label>
                                 <div class="col-sm-7">
                                     <select id="optAddEditRecordType" class="form-control" onchange="modifyAddRecordFormByType(true);" style="width: auto;">
+
+                                        <optgroup label="DID - string value">
+                                            <option>DIDID</option>
+                                            <option>DIDPURP</option>
+                                            <option>DIDCOMM</option>
+                                            <option>DIDCTXT</option>
+                                            <option>DIDAKA</option>
+                                            <option>DIDCTLR</option>
+                                        </optgroup>
+                                        <optgroup label="DID - vmm">
+                                            <option>DIDVM</option>
+                                            <option>DIDAUTH</option>
+                                            <option>DIDAM</option>
+                                            <option>DIDKA</option>
+                                            <option>DIDCI</option>
+                                            <option>DIDCD</option>
+                                        </optgroup>
+                                        <optgroup label="DID - sm">
+                                            <option>DIDSVC</option>
+                                            <option>DIDREL</option>
+                                        </optgroup>
+
                                         <optgroup label="DNS">
                                             <option>A</option>
                                             <option>NS</option>
@@ -3345,23 +3372,6 @@ ns1.example.com ([2001:db8::])
                                             <option id="optAddEditRecordTypeAName">ANAME</option>
                                             <option id="optAddEditRecordTypeFwd">FWD</option>
                                             <option id="optAddEditRecordTypeApp">APP</option>
-                                        </optgroup>
-
-                                        <optgroup label="DID">
-                                            <option>DIDID</option>
-                                            <option>DIDPURP</option>
-                                            <option>DIDCOMM</option>
-                                            <option>DIDCTXT</option>
-                                            <option>DIDAKA</option>
-                                            <option>DIDCTLR</option>
-                                            <option>DIDVM</option>
-                                            <option>DIDAUTH</option>
-                                            <option>DIDAM</option>
-                                            <option>DIDKA</option>
-                                            <option>DIDCI</option>
-                                            <option>DIDCD</option>
-                                            <option>DIDSVC</option>
-                                            <option>DIDREL</option>
                                         </optgroup>
 
                                     </select>
