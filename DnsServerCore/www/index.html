@@ -825,8 +825,12 @@
                                                     <option>DIDCTXT</option>
                                                     <option>DIDAKA</option>
                                                     <option>DIDCTLR</option>
-                                                    <option>DIDSVC</option>
-                                                    <option>DIDTXT</option>
+                                                    <option>DIDVM</option>
+                                                    <option>DIDAUTH</option>
+                                                    <option>DIDAM</option>
+                                                    <option>DIDKA</option>
+                                                    <option>DIDCI</option>
+                                                    <option>DIDCD</option>
                                                 </optgroup>
                                                
                                             </select>
@@ -3348,8 +3352,12 @@ ns1.example.com ([2001:db8::])
                                             <option>DIDCTXT</option>
                                             <option>DIDAKA</option>
                                             <option>DIDCTLR</option>
-                                            <option>DIDSVC</option>
-                                            <option>DIDTXT</option>
+                                            <option>DIDVM</option>
+                                            <option>DIDAUTH</option>
+                                            <option>DIDAM</option>
+                                            <option>DIDKA</option>
+                                            <option>DIDCI</option>
+                                            <option>DIDCD</option>
                                         </optgroup>
 
                                     </select>
@@ -3358,500 +3366,607 @@ ns1.example.com ([2001:db8::])
 
                             <hr />
 
-                            <!-- default value field -->
-                            <div id="divAddEditRecordData">
+                            <!-- verification method map form -->
+                            <div id="divAddEditRecordDataVMM">
                                 <div class="form-group">
-                                    <label id="lblAddEditRecordDataValue" for="txtAddEditRecordDataValue" class="col-sm-4 control-label">Value</label>
+                                    <label id="lblAddEditRecordDataVMM_Id" for="txtAddEditRecordDataVMM_Id" class="col-sm-4 control-label">ID</label>
                                     <div class="col-sm-7">
-                                        <input id="txtAddEditRecordDataValue" type="text" class="form-control">
+                                        <input id="txtAddEditRecordDataVMM_Id" type="text" class="form-control">
                                     </div>
                                 </div>
 
-                                <div id="divAddEditRecordDataPtr" class="form-group">
-                                    <div class="col-sm-offset-4 col-sm-7">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input id="chkAddEditRecordDataPtr" type="checkbox"> <span id="chkAddEditRecordDataPtrLabel">Add reverse (PTR) record</span>
-                                            </label>
-                                        </div>
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataVMM_Comment" for="txtAddEditRecordDataVMM_Comment" class="col-sm-4 control-label">ID</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataVMM_Comment" type="text" class="form-control">
+                                    </div>
+                                </div>
 
-                                        <div class="checkbox">
-                                            <label>
-                                                <input id="chkAddEditRecordDataCreatePtrZone" type="checkbox"> Create reverse zone for PTR record
-                                            </label>
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataVMM_Controller" for="txtAddEditRecordDataVMM_Controller" class="col-sm-4 control-label">ID</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataVMM_Controller" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataVMM_Type" for="txtAddEditRecordDataVMM_Type" class="col-sm-4 control-label">ID</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataVMM_Type" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataVMM_PublicKeyMultibase" for="txtAddEditRecordDataVMM_PublicKeyMultibase" class="col-sm-4 control-label">ID</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataVMM_PublicKeyMultibase" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <!-- json key map -->
+                                <div class="border rounded">
+                                    <h5>JSON Key Map</h5>
+
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataVMM_Jwk_crv" for="txtAddEditRecordDataVMM_Jwk_crv" class="col-sm-4 control-label">ID</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataVMM_Jwk_crv" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataVMM_Jwk_e" for="txtAddEditRecordDataVMM_Jwk_e" class="col-sm-4 control-label">ID</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataVMM_Jwk_e" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataVMM_Jwk_n" for="txtAddEditRecordDataVMM_Jwk_n" class="col-sm-4 control-label">ID</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataVMM_Jwk_n" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataVMM_Jwk_x" for="txtAddEditRecordDataVMM_Jwk_x" class="col-sm-4 control-label">ID</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataVMM_Jwk_x" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataVMM_Jwk_y" for="txtAddEditRecordDataVMM_Jwk_y" class="col-sm-4 control-label">ID</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataVMM_Jwk_y" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataVMM_Jwk_kty" for="txtAddEditRecordDataVMM_Jwk_kty" class="col-sm-4 control-label">ID</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataVMM_Jwk_kty" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataVMM_Jwk_kid" for="txtAddEditRecordDataVMM_Jwk_kid" class="col-sm-4 control-label">ID</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataVMM_Jwk_kid" type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataVMM_PublicKeyBase58" for="txtAddEditRecordDataVMM_PublicKeyBase58" class="col-sm-4 control-label">ID</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataVMM_PublicKeyBase58" type="text" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label id="lblAddEditRecordDataVMM_PrivateKeyBase58" for="txtAddEditRecordDataVMM_PrivateKeyBase58" class="col-sm-4 control-label">ID</label>
+                                    <div class="col-sm-7">
+                                        <input id="txtAddEditRecordDataVMM_PrivateKeyBase58" type="text" class="form-control">
+                                    </div>
+                                </div>
+
                             </div>
 
+                                <!-- default value field -->
+                                <div id="divAddEditRecordData">
+                                    <div class="form-group">
+                                        <label id="lblAddEditRecordDataValue" for="txtAddEditRecordDataValue" class="col-sm-4 control-label">Value</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataValue" type="text" class="form-control">
+                                        </div>
+                                    </div>
 
-                            <div id="divAddEditRecordDataNs" style="display: none;">
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataNsNameServer" class="col-sm-4 control-label">Name Server</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtAddEditRecordDataNsNameServer" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataNsGlue" class="col-sm-4 control-label">Glue Addresses</label>
-                                    <div class="col-sm-7">
-                                        <textarea id="txtAddEditRecordDataNsGlue" class="form-control" rows="3" spellcheck="false" placeholder="192.168.1.1 2001:db8::"></textarea>
-                                    </div>
-                                </div>
-                            </div>
+                                    <div id="divAddEditRecordDataPtr" class="form-group">
+                                        <div class="col-sm-offset-4 col-sm-7">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="chkAddEditRecordDataPtr" type="checkbox"> <span id="chkAddEditRecordDataPtrLabel">Add reverse (PTR) record</span>
+                                                </label>
+                                            </div>
 
-
-                            <div id="divEditRecordDataSoa" style="display: none;">
-                                <div class="form-group">
-                                    <label for="txtEditRecordDataSoaPrimaryNameServer" class="col-sm-4 control-label">Primary Name Server</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtEditRecordDataSoaPrimaryNameServer" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtEditRecordDataSoaResponsiblePerson" class="col-sm-4 control-label">Responsible Person</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtEditRecordDataSoaResponsiblePerson" type="text" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtEditRecordDataSoaSerial" class="col-sm-4 control-label">Serial</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtEditRecordDataSoaSerial" type="number" class="form-control" style="width: 150px;">
-                                    </div>
-                                    <div id="divEditRecordDataSoaUseSerialDateScheme" class="col-sm-offset-4 col-sm-7">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input id="chkEditRecordDataSoaUseSerialDateScheme" type="checkbox"> Use Serial Date Scheme
-                                            </label>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="chkAddEditRecordDataCreatePtrZone" type="checkbox"> Create reverse zone for PTR record
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="txtEditRecordDataSoaRefresh" class="col-sm-4 control-label">Refresh</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtEditRecordDataSoaRefresh" type="number" class="form-control" style="width: 100px;">
+
+
+                                <div id="divAddEditRecordDataNs" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataNsNameServer" class="col-sm-4 control-label">Name Server</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataNsNameServer" type="text" class="form-control">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtEditRecordDataSoaRetry" class="col-sm-4 control-label">Retry</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtEditRecordDataSoaRetry" type="number" class="form-control" style="width: 100px;">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtEditRecordDataSoaExpire" class="col-sm-4 control-label">Expire</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtEditRecordDataSoaExpire" type="number" class="form-control" style="width: 100px;">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtEditRecordDataSoaMinimum" class="col-sm-4 control-label">Minimum</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtEditRecordDataSoaMinimum" type="number" class="form-control" style="width: 100px;">
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataNsGlue" class="col-sm-4 control-label">Glue Addresses</label>
+                                        <div class="col-sm-7">
+                                            <textarea id="txtAddEditRecordDataNsGlue" class="form-control" rows="3" spellcheck="false" placeholder="192.168.1.1 2001:db8::"></textarea>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group" id="divEditRecordDataSoaPrimaryAddresses">
-                                    <label for="txtEditRecordDataSoaPrimaryAddresses" class="col-sm-4 control-label">Primary Name Server Addresses</label>
-                                    <div class="col-sm-7">
-                                        <textarea id="txtEditRecordDataSoaPrimaryAddresses" class="form-control" rows="3" spellcheck="false" placeholder="192.168.1.1
+
+                                <div id="divEditRecordDataSoa" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="txtEditRecordDataSoaPrimaryNameServer" class="col-sm-4 control-label">Primary Name Server</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtEditRecordDataSoaPrimaryNameServer" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEditRecordDataSoaResponsiblePerson" class="col-sm-4 control-label">Responsible Person</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtEditRecordDataSoaResponsiblePerson" type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEditRecordDataSoaSerial" class="col-sm-4 control-label">Serial</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtEditRecordDataSoaSerial" type="number" class="form-control" style="width: 150px;">
+                                        </div>
+                                        <div id="divEditRecordDataSoaUseSerialDateScheme" class="col-sm-offset-4 col-sm-7">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="chkEditRecordDataSoaUseSerialDateScheme" type="checkbox"> Use Serial Date Scheme
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEditRecordDataSoaRefresh" class="col-sm-4 control-label">Refresh</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtEditRecordDataSoaRefresh" type="number" class="form-control" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEditRecordDataSoaRetry" class="col-sm-4 control-label">Retry</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtEditRecordDataSoaRetry" type="number" class="form-control" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEditRecordDataSoaExpire" class="col-sm-4 control-label">Expire</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtEditRecordDataSoaExpire" type="number" class="form-control" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtEditRecordDataSoaMinimum" class="col-sm-4 control-label">Minimum</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtEditRecordDataSoaMinimum" type="number" class="form-control" style="width: 100px;">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="divEditRecordDataSoaPrimaryAddresses">
+                                        <label for="txtEditRecordDataSoaPrimaryAddresses" class="col-sm-4 control-label">Primary Name Server Addresses</label>
+                                        <div class="col-sm-7">
+                                            <textarea id="txtEditRecordDataSoaPrimaryAddresses" class="form-control" rows="3" spellcheck="false" placeholder="192.168.1.1
 2001:db8::
 ns1.example.com (192.168.1.1)
 ns1.example.com ([2001:db8::])
 "></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group" id="divEditRecordDataSoaZoneTransferProtocol">
-                                    <label class="col-sm-4 control-label">Zone Transfer Protocol</label>
-                                    <div class="col-sm-7">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdEditRecordDataSoaZoneTransferProtocol" id="rdEditRecordDataSoaZoneTransferProtocolTcp" value="Tcp" checked>
-                                                XFR-over-TCP (default)
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdEditRecordDataSoaZoneTransferProtocol" id="rdEditRecordDataSoaZoneTransferProtocolTls" value="Tls">
-                                                XFR-over-TLS
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdEditRecordDataSoaZoneTransferProtocol" id="rdEditRecordDataSoaZoneTransferProtocolQuic" value="Quic">
-                                                XFR-over-QUIC
-                                            </label>
                                         </div>
                                     </div>
+
+                                    <div class="form-group" id="divEditRecordDataSoaZoneTransferProtocol">
+                                        <label class="col-sm-4 control-label">Zone Transfer Protocol</label>
+                                        <div class="col-sm-7">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdEditRecordDataSoaZoneTransferProtocol" id="rdEditRecordDataSoaZoneTransferProtocolTcp" value="Tcp" checked>
+                                                    XFR-over-TCP (default)
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdEditRecordDataSoaZoneTransferProtocol" id="rdEditRecordDataSoaZoneTransferProtocolTls" value="Tls">
+                                                    XFR-over-TLS
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdEditRecordDataSoaZoneTransferProtocol" id="rdEditRecordDataSoaZoneTransferProtocolQuic" value="Quic">
+                                                    XFR-over-QUIC
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" id="divEditRecordDataSoaTsigKeyName">
+                                        <label for="optEditRecordDataSoaTsigKeyName" class="col-sm-4 control-label">TSIG Key Name</label>
+                                        <div class="col-sm-7">
+                                            <select id="optEditRecordDataSoaTsigKeyName" class="form-control"></select>
+                                        </div>
+                                    </div>
+
                                 </div>
 
-                                <div class="form-group" id="divEditRecordDataSoaTsigKeyName">
-                                    <label for="optEditRecordDataSoaTsigKeyName" class="col-sm-4 control-label">TSIG Key Name</label>
-                                    <div class="col-sm-7">
-                                        <select id="optEditRecordDataSoaTsigKeyName" class="form-control"></select>
+
+                                <div id="divAddEditRecordDataMx" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataMxPreference" class="col-sm-4 control-label">Preference</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataMxPreference" type="number" class="form-control" placeholder="1" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataMxExchange" class="col-sm-4 control-label">Exchange</label>
+                                        <div class="col-sm-7">
+                                            <input id="txtAddEditRecordDataMxExchange" type="text" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
 
-                            </div>
+
+                                <div id="divAddEditRecordDataSrv" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataSrvPriority" class="col-sm-4 control-label">Priority</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" id="txtAddEditRecordDataSrvPriority" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataSrvWeight" class="col-sm-4 control-label">Weight</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" id="txtAddEditRecordDataSrvWeight" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataSrvPort" class="col-sm-4 control-label">Port</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" id="txtAddEditRecordDataSrvPort" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataSrvTarget" class="col-sm-4 control-label">Target</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="txtAddEditRecordDataSrvTarget">
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                            <div id="divAddEditRecordDataMx" style="display: none;">
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataMxPreference" class="col-sm-4 control-label">Preference</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtAddEditRecordDataMxPreference" type="number" class="form-control" placeholder="1" style="width: 100px;">
+                                <div id="divAddEditRecordDataDs" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataDsKeyTag" class="col-sm-4 control-label">Key Tag</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" id="txtAddEditRecordDataDsKeyTag" placeholder="key tag" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataDsAlgorithm" class="col-sm-4 control-label">DNSSEC Algorithm</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataDsAlgorithm" class="form-control">
+                                                <option>RSAMD5</option>
+                                                <option>RSASHA1</option>
+                                                <option>RSASHA256</option>
+                                                <option>RSASHA512</option>
+                                                <option>ECDSAP256SHA256</option>
+                                                <option>ECDSAP384SHA384</option>
+                                                <option>ED25519</option>
+                                                <option>ED448</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataDsDigestType" class="col-sm-4 control-label">Digest Type</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataDsDigestType" class="form-control">
+                                                <option>SHA1</option>
+                                                <option>SHA256</option>
+                                                <option>SHA384</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataDsDigest" class="col-sm-4 control-label">Digest</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="txtAddEditRecordDataDsDigest" placeholder="hash string">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataMxExchange" class="col-sm-4 control-label">Exchange</label>
-                                    <div class="col-sm-7">
-                                        <input id="txtAddEditRecordDataMxExchange" type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
 
 
-                            <div id="divAddEditRecordDataSrv" style="display: none;">
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataSrvPriority" class="col-sm-4 control-label">Priority</label>
-                                    <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="txtAddEditRecordDataSrvPriority" style="width: 100px;">
+                                <div id="divAddEditRecordDataSshfp" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataSshfpAlgorithm" class="col-sm-4 control-label">Algorithm</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataSshfpAlgorithm" class="form-control">
+                                                <option>RSA</option>
+                                                <option>DSA</option>
+                                                <option>ECDSA</option>
+                                                <option>Ed25519</option>
+                                                <option>Ed448</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataSshfpFingerprintType" class="col-sm-4 control-label">Fingerprint Type</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataSshfpFingerprintType" class="form-control">
+                                                <option>SHA1</option>
+                                                <option>SHA256</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataSshfpFingerprint" class="col-sm-4 control-label">Fingerprint</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="txtAddEditRecordDataSshfpFingerprint" placeholder="hash string">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataSrvWeight" class="col-sm-4 control-label">Weight</label>
-                                    <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="txtAddEditRecordDataSrvWeight" style="width: 100px;">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataSrvPort" class="col-sm-4 control-label">Port</label>
-                                    <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="txtAddEditRecordDataSrvPort" style="width: 100px;">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataSrvTarget" class="col-sm-4 control-label">Target</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="txtAddEditRecordDataSrvTarget">
-                                    </div>
-                                </div>
-                            </div>
 
 
-                            <div id="divAddEditRecordDataDs" style="display: none;">
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataDsKeyTag" class="col-sm-4 control-label">Key Tag</label>
-                                    <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="txtAddEditRecordDataDsKeyTag" placeholder="key tag" style="width: 100px;">
+                                <div id="divAddEditRecordDataTlsa" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataTlsaCertificateUsage" class="col-sm-4 control-label">Certificate Usage</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataTlsaCertificateUsage" class="form-control">
+                                                <option>PKIX-TA</option>
+                                                <option>PKIX-EE</option>
+                                                <option>DANE-TA</option>
+                                                <option>DANE-EE</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataDsAlgorithm" class="col-sm-4 control-label">DNSSEC Algorithm</label>
-                                    <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataDsAlgorithm" class="form-control">
-                                            <option>RSAMD5</option>
-                                            <option>RSASHA1</option>
-                                            <option>RSASHA256</option>
-                                            <option>RSASHA512</option>
-                                            <option>ECDSAP256SHA256</option>
-                                            <option>ECDSAP384SHA384</option>
-                                            <option>ED25519</option>
-                                            <option>ED448</option>
-                                        </select>
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataTlsaSelector" class="col-sm-4 control-label">Selector</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataTlsaSelector" class="form-control">
+                                                <option>Cert</option>
+                                                <option>SPKI</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataDsDigestType" class="col-sm-4 control-label">Digest Type</label>
-                                    <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataDsDigestType" class="form-control">
-                                            <option>SHA1</option>
-                                            <option>SHA256</option>
-                                            <option>SHA384</option>
-                                        </select>
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataTlsaMatchingType" class="col-sm-4 control-label">Matching Type</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataTlsaMatchingType" class="form-control">
+                                                <option>Full</option>
+                                                <option>SHA2-256</option>
+                                                <option>SHA2-512</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataDsDigest" class="col-sm-4 control-label">Digest</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="txtAddEditRecordDataDsDigest" placeholder="hash string">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div id="divAddEditRecordDataSshfp" style="display: none;">
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataSshfpAlgorithm" class="col-sm-4 control-label">Algorithm</label>
-                                    <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataSshfpAlgorithm" class="form-control">
-                                            <option>RSA</option>
-                                            <option>DSA</option>
-                                            <option>ECDSA</option>
-                                            <option>Ed25519</option>
-                                            <option>Ed448</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataSshfpFingerprintType" class="col-sm-4 control-label">Fingerprint Type</label>
-                                    <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataSshfpFingerprintType" class="form-control">
-                                            <option>SHA1</option>
-                                            <option>SHA256</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataSshfpFingerprint" class="col-sm-4 control-label">Fingerprint</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="txtAddEditRecordDataSshfpFingerprint" placeholder="hash string">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div id="divAddEditRecordDataTlsa" style="display: none;">
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataTlsaCertificateUsage" class="col-sm-4 control-label">Certificate Usage</label>
-                                    <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataTlsaCertificateUsage" class="form-control">
-                                            <option>PKIX-TA</option>
-                                            <option>PKIX-EE</option>
-                                            <option>DANE-TA</option>
-                                            <option>DANE-EE</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataTlsaSelector" class="col-sm-4 control-label">Selector</label>
-                                    <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataTlsaSelector" class="form-control">
-                                            <option>Cert</option>
-                                            <option>SPKI</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataTlsaMatchingType" class="col-sm-4 control-label">Matching Type</label>
-                                    <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataTlsaMatchingType" class="form-control">
-                                            <option>Full</option>
-                                            <option>SHA2-256</option>
-                                            <option>SHA2-512</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataTlsaCertificateAssociationData" class="col-sm-4 control-label">Certificate Association Data</label>
-                                    <div class="col-sm-7">
-                                        <textarea id="txtAddEditRecordDataTlsaCertificateAssociationData" class="form-control" rows="6" spellcheck="false" placeholder="5F95253A20A0957648DEBAAEB032F7C5720CD4F0DCF928840C55650687921DAE
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataTlsaCertificateAssociationData" class="col-sm-4 control-label">Certificate Association Data</label>
+                                        <div class="col-sm-7">
+                                            <textarea id="txtAddEditRecordDataTlsaCertificateAssociationData" class="form-control" rows="6" spellcheck="false" placeholder="5F95253A20A0957648DEBAAEB032F7C5720CD4F0DCF928840C55650687921DAE
         OR
 -----BEGIN CERTIFICATE-----
 MII...
 -----END CERTIFICATE-----
 "></textarea>
-                                        <div>Note: Enter either a hash value that you have independently generated, OR enter the certificate in PEM format to automatically generate the association data based on the Selector and Matching Type values.</div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div id="divAddEditRecordDataCaa" style="display: none;">
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataCaaFlags" class="col-sm-4 control-label">Flags</label>
-                                    <div class="col-sm-7">
-                                        <input type="number" class="form-control" id="txtAddEditRecordDataCaaFlags" placeholder="0" style="width: 100px;">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataCaaTag" class="col-sm-4 control-label">Tag</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="txtAddEditRecordDataCaaTag" placeholder="issue" style="width: 150px;">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataCaaValue" class="col-sm-4 control-label">Authority</label>
-                                    <div class="col-sm-7">
-                                        <input type="text" class="form-control" id="txtAddEditRecordDataCaaValue">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div id="divAddEditRecordDataForwarder" style="display: none;">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">Protocol</label>
-                                    <div class="col-sm-7">
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolUdp" value="Udp">
-                                                DNS-over-UDP
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolTcp" value="Tcp" checked>
-                                                DNS-over-TCP (default)
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolTls" value="Tls">
-                                                DNS-over-TLS
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolHttps" value="Https">
-                                                DNS-over-HTTPS
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolQuic" value="Quic">
-                                                DNS-over-QUIC
-                                            </label>
+                                            <div>Note: Enter either a hash value that you have independently generated, OR enter the certificate in PEM format to automatically generate the association data based on the Selector and Matching Type values.</div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataForwarder" class="col-sm-4 control-label">Forwarder</label>
-                                    <div class="col-sm-7">
+
+                                <div id="divAddEditRecordDataCaa" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataCaaFlags" class="col-sm-4 control-label">Flags</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" id="txtAddEditRecordDataCaaFlags" placeholder="0" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataCaaTag" class="col-sm-4 control-label">Tag</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="txtAddEditRecordDataCaaTag" placeholder="issue" style="width: 150px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataCaaValue" class="col-sm-4 control-label">Authority</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" id="txtAddEditRecordDataCaaValue">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div id="divAddEditRecordDataForwarder" style="display: none;">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">Protocol</label>
+                                        <div class="col-sm-7">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolUdp" value="Udp">
+                                                    DNS-over-UDP
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolTcp" value="Tcp" checked>
+                                                    DNS-over-TCP (default)
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolTls" value="Tls">
+                                                    DNS-over-TLS
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolHttps" value="Https">
+                                                    DNS-over-HTTPS
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="rdAddEditRecordDataForwarderProtocol" id="rdAddEditRecordDataForwarderProtocolQuic" value="Quic">
+                                                    DNS-over-QUIC
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataForwarder" class="col-sm-4 control-label">Forwarder</label>
+                                        <div class="col-sm-7">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input id="chkAddEditRecordDataForwarderThisServer" type="checkbox" onclick="updateAddEditFormForwarderThisServer();"> Use "This Server"
+                                                </label>
+                                            </div>
+                                            <div style="padding-top: 5px; padding-left: 20px; padding-bottom: 10px;">
+                                                When using "This Server", if a record does not exists in the zone then the request is forwarded to the Web 7.0 DID Registry's resolver internally. This allows you to override any record for the forwarded domain name or control its DNSSEC validation.
+                                            </div>
+
+                                            <input id="txtAddEditRecordDataForwarder" type="text" class="form-control" placeholder="8.8.8.8">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label">DNSSEC</label>
+                                        <div class="col-sm-7">
+                                            <div class="checkbox" style="margin-bottom: 6px;">
+                                                <label>
+                                                    <input id="chkAddEditRecordDataForwarderDnssecValidation" type="checkbox"> Enable DNSSEC Validation
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="divAddEditRecordDataForwarderProxy">
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Network Proxy</label>
+                                            <div class="col-sm-7">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="rdAddEditRecordDataForwarderProxyType" id="rdAddEditRecordDataForwarderProxyTypeNone" value="None" checked>
+                                                        No Proxy (default)
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="rdAddEditRecordDataForwarderProxyType" id="rdAddEditRecordDataForwarderProxyTypeHttp" value="Http">
+                                                        HTTP Proxy
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" name="rdAddEditRecordDataForwarderProxyType" id="rdAddEditRecordDataForwarderProxyTypeSocks5" value="Socks5">
+                                                        SOCKS5 Proxy
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtAddEditRecordDataForwarderProxyAddress" class="col-sm-4 control-label">Proxy Server Address</label>
+                                            <div class="col-sm-7">
+                                                <input id="txtAddEditRecordDataForwarderProxyAddress" type="text" class="form-control" placeholder="domain name or IP address">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtAddEditRecordDataForwarderProxyPort" class="col-sm-4 control-label">Proxy Server Port</label>
+                                            <div class="col-sm-7">
+                                                <input id="txtAddEditRecordDataForwarderProxyPort" type="number" class="form-control" placeholder="port" style="width: 100px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtAddEditRecordDataForwarderProxyUsername" class="col-sm-4 control-label">Proxy Server Username</label>
+                                            <div class="col-sm-7">
+                                                <input id="txtAddEditRecordDataForwarderProxyUsername" type="text" class="form-control" placeholder="username">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="txtAddEditRecordDataForwarderProxyPassword" class="col-sm-4 control-label">Proxy Server Password</label>
+                                            <div class="col-sm-7">
+                                                <input id="txtAddEditRecordDataForwarderProxyPassword" type="password" class="form-control" placeholder="password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div id="divAddEditRecordDataApplication" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataAppName" class="col-sm-4 control-label">App Name</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataAppName" class="form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="optAddEditRecordDataClassPath" class="col-sm-4 control-label">Class Path</label>
+                                        <div class="col-sm-7">
+                                            <select id="optAddEditRecordDataClassPath" class="form-control"></select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="txtAddEditRecordDataData" class="col-sm-4 control-label">Record Data (if any)</label>
+                                        <div class="col-sm-7">
+                                            <textarea id="txtAddEditRecordDataData" class="form-control" rows="6" spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                <div id="divAddEditRecordOverwrite" class="form-group">
+                                    <div class="col-sm-offset-4 col-sm-7">
                                         <div class="checkbox">
                                             <label>
-                                                <input id="chkAddEditRecordDataForwarderThisServer" type="checkbox" onclick="updateAddEditFormForwarderThisServer();"> Use "This Server"
-                                            </label>
-                                        </div>
-                                        <div style="padding-top: 5px; padding-left: 20px; padding-bottom: 10px;">
-                                            When using "This Server", if a record does not exists in the zone then the request is forwarded to the Web 7.0 DID Registry's resolver internally. This allows you to override any record for the forwarded domain name or control its DNSSEC validation.
-                                        </div>
-
-                                        <input id="txtAddEditRecordDataForwarder" type="text" class="form-control" placeholder="8.8.8.8">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">DNSSEC</label>
-                                    <div class="col-sm-7">
-                                        <div class="checkbox" style="margin-bottom: 6px;">
-                                            <label>
-                                                <input id="chkAddEditRecordDataForwarderDnssecValidation" type="checkbox"> Enable DNSSEC Validation
+                                                <input id="chkAddEditRecordOverwrite" type="checkbox"> Overwrite existing records
                                             </label>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div id="divAddEditRecordDataForwarderProxy">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Network Proxy</label>
-                                        <div class="col-sm-7">
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="rdAddEditRecordDataForwarderProxyType" id="rdAddEditRecordDataForwarderProxyTypeNone" value="None" checked>
-                                                    No Proxy (default)
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="rdAddEditRecordDataForwarderProxyType" id="rdAddEditRecordDataForwarderProxyTypeHttp" value="Http">
-                                                    HTTP Proxy
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="rdAddEditRecordDataForwarderProxyType" id="rdAddEditRecordDataForwarderProxyTypeSocks5" value="Socks5">
-                                                    SOCKS5 Proxy
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="txtAddEditRecordDataForwarderProxyAddress" class="col-sm-4 control-label">Proxy Server Address</label>
-                                        <div class="col-sm-7">
-                                            <input id="txtAddEditRecordDataForwarderProxyAddress" type="text" class="form-control" placeholder="domain name or IP address">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="txtAddEditRecordDataForwarderProxyPort" class="col-sm-4 control-label">Proxy Server Port</label>
-                                        <div class="col-sm-7">
-                                            <input id="txtAddEditRecordDataForwarderProxyPort" type="number" class="form-control" placeholder="port" style="width: 100px;">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="txtAddEditRecordDataForwarderProxyUsername" class="col-sm-4 control-label">Proxy Server Username</label>
-                                        <div class="col-sm-7">
-                                            <input id="txtAddEditRecordDataForwarderProxyUsername" type="text" class="form-control" placeholder="username">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="txtAddEditRecordDataForwarderProxyPassword" class="col-sm-4 control-label">Proxy Server Password</label>
-                                        <div class="col-sm-7">
-                                            <input id="txtAddEditRecordDataForwarderProxyPassword" type="password" class="form-control" placeholder="password">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div id="divAddEditRecordDataApplication" style="display: none;">
                                 <div class="form-group">
-                                    <label for="optAddEditRecordDataAppName" class="col-sm-4 control-label">App Name</label>
+                                    <label for="txtAddEditRecordComments" class="col-sm-4 control-label">Comments</label>
                                     <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataAppName" class="form-control"></select>
+                                        <textarea id="txtAddEditRecordComments" class="form-control" rows="3" maxlength="255"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="optAddEditRecordDataClassPath" class="col-sm-4 control-label">Class Path</label>
+                                <div class="form-group" id="divAddEditRecordTtl">
+                                    <label for="txtAddEditRecordTtl" class="col-sm-4 control-label">TTL</label>
                                     <div class="col-sm-7">
-                                        <select id="optAddEditRecordDataClassPath" class="form-control"></select>
+                                        <input id="txtAddEditRecordTtl" type="number" class="form-control" placeholder="3600" style="width: 100px;">
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="txtAddEditRecordDataData" class="col-sm-4 control-label">Record Data (if any)</label>
-                                    <div class="col-sm-7">
-                                        <textarea id="txtAddEditRecordDataData" class="form-control" rows="6" spellcheck="false"></textarea>
-                                    </div>
-                                </div>
                             </div>
-
-                            <hr />
-
-                            <div id="divAddEditRecordOverwrite" class="form-group">
-                                <div class="col-sm-offset-4 col-sm-7">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input id="chkAddEditRecordOverwrite" type="checkbox"> Overwrite existing records
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="txtAddEditRecordComments" class="col-sm-4 control-label">Comments</label>
-                                <div class="col-sm-7">
-                                    <textarea id="txtAddEditRecordComments" class="form-control" rows="3" maxlength="255"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-group" id="divAddEditRecordTtl">
-                                <label for="txtAddEditRecordTtl" class="col-sm-4 control-label">TTL</label>
-                                <div class="col-sm-7">
-                                    <input id="txtAddEditRecordTtl" type="number" class="form-control" placeholder="3600" style="width: 100px;">
-                                </div>
-                            </div>
-
                         </div>
-                    </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" id="btnAddEditRecord" data-loading-text="Saving...">Save</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
