@@ -4296,24 +4296,24 @@ function updateRecord() {
 
             // id
             var new_id = $("#txtAddEditRecordDataVMM_Id").val();
-            if (id === "") {
-                showAlert("warning", "Missing!", "Please enter an ID to add the record.", divAddEditRecordAlert);
+            if (new_id === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable ID to edit the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataVMM_Id").focus();
                 return;
             }
 
             // controller
             var new_controller = $("#txtAddEditRecordDataVMM_Controller").val();
-            if (controller === "") {
-                showAlert("warning", "Missing!", "Please enter suitable value in the Controller field to add the record.", divAddEditRecordAlert);
+            if (new_controller === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Controller field to edit the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataVMM_Controller").focus();
                 return;
             }
 
             // type
             var new_type = $("#txtAddEditRecordDataVMM_Type").val();
-            if (type === "") {
-                showAlert("warning", "Missing!", "Please enter suitable value in the Type field to add the record.", divAddEditRecordAlert);
+            if (new_type === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Type field to edit the record.", divAddEditRecordAlert);
                 $("#txtAddEditRecordDataVMM_Type").focus();
                 return;
             }
