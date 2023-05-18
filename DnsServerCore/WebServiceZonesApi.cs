@@ -721,6 +721,27 @@ namespace DnsServerCore
                     break;
                 #endregion
 
+                #region service map DID RR types
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        if (record.RDATA is DnsDIDSVCRecordData rdata)
+                        {
+                            rdata.ServiceMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        if (record.RDATA is DnsDIDRELRecordData rdata)
+                        {
+                            rdata.ServiceMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+
+                #endregion
+
                 #endregion
 
                 default:
@@ -2010,29 +2031,41 @@ namespace DnsServerCore
             DnsResourceRecord newRecord;
 
             // rk - create verification method map if request contains vmm data
-            VerificationMethodMapDID vmm = null;
+            VerificationMethodMap vmm = null;
             if (request.Query.ContainsKey("vmm_id"))
             {
-                vmm = new VerificationMethodMapDID()
+                vmm = new VerificationMethodMap()
                 {
                     Id = request.GetQueryOrFormAlt("vmm_id", "id"),
-                    Comment = request.GetQueryOrFormAlt("vmm_comment", "comment"),
                     Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
                     Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
-                    PublicKeyMultibase = request.GetQueryOrFormAlt("vmm_publicKeyMultibase", "publicKeyMultibase"),
-                    PublicKeyBase58 = request.GetQueryOrFormAlt("vmm_publicKeyBase58", "publicKeyBase58"),
-                    PrivateKeyBase58 = request.GetQueryOrFormAlt("vmm_privateKeyBase58", "privateKeyBase58"),
+                    Comment = request.GetQueryOrForm("vmm_comment", ""),
+                    PublicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
+                    PublicKeyBase58 = request.GetQueryOrForm("vmm_publicKeyBase58", ""),
+                    PrivateKeyBase58 = request.GetQueryOrForm("vmm_privateKeyBase58", ""),
 
                     PublicKeyJwk = new JSONKeyMap()
                     {
-                        crv = request.GetQueryOrForm("vmm_jwk_crv"),
-                        e = request.GetQueryOrForm("vmm_jwk_e"),
-                        n = request.GetQueryOrForm("vmm_jwk_n"),
-                        x = request.GetQueryOrForm("vmm_jwk_x"),
-                        y = request.GetQueryOrForm("vmm_jwk_y"),
-                        kty = request.GetQueryOrForm("vmm_jwk_kty"),
-                        kid = request.GetQueryOrForm("vmm_jwk_kid"),
+                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
+                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
+                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
+                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
+                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
                     }
+                };
+            }
+
+            ServiceMap sm = null;
+            if (request.Query.ContainsKey("sm_id"))
+            {
+                sm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrFormAlt("sm_id", "id"),
+                    Comment = request.GetQueryOrForm("sm_comment", ""),
+                    Type_ = request.GetQueryOrFormAlt("sm_type", "type"),
+                    ServiceEndpoint = request.GetQueryOrFormAlt("sm_serviceEndpoint", "serviceEndpoint"),
                 };
             }
 
@@ -2466,6 +2499,21 @@ namespace DnsServerCore
                     }
                     break;
 
+                #endregion
+
+                #region service map RRs
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDSVCRecordData(sm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDRELRecordData(sm));
+                    }
+                    break;
+
 
                 #endregion
 
@@ -2591,11 +2639,10 @@ namespace DnsServerCore
             if (!_dnsWebService._authManager.IsPermitted(PermissionSection.Zones, zoneInfo.Name, session.User, PermissionFlag.Delete))
                 throw new DnsWebServiceException("Access was denied.");
 
-            // rk
-            VerificationMethodMapDID vmm = null;
+            VerificationMethodMap vmm = null;
             if (request.Query.ContainsKey("vmm_id"))
             {
-                vmm = new VerificationMethodMapDID()
+                vmm = new VerificationMethodMap()
                 {
                     Id = request.GetQueryOrFormAlt("vmm_id", "id"),
                     Comment = request.GetQueryOrFormAlt("vmm_comment", "comment"),
@@ -2607,14 +2654,26 @@ namespace DnsServerCore
 
                     PublicKeyJwk = new JSONKeyMap()
                     {
-                        crv = request.GetQueryOrForm("vmm_jwk_crv"),
-                        e = request.GetQueryOrForm("vmm_jwk_e"),
-                        n = request.GetQueryOrForm("vmm_jwk_n"),
-                        x = request.GetQueryOrForm("vmm_jwk_x"),
-                        y = request.GetQueryOrForm("vmm_jwk_y"),
-                        kty = request.GetQueryOrForm("vmm_jwk_kty"),
-                        kid = request.GetQueryOrForm("vmm_jwk_kid"),
+                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
+                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
+                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
+                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
+                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
                     }
+                };
+            }
+
+            ServiceMap sm = null;
+            if (request.Query.ContainsKey("sm_id"))
+            {
+                sm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrFormAlt("sm_id", "id"),
+                    Comment = request.GetQueryOrForm("sm_comment", ""),
+                    Type_ = request.GetQueryOrFormAlt("sm_type", "type"),
+                    ServiceEndpoint = request.GetQueryOrFormAlt("sm_serviceEndpoint", "serviceEndpoint"),
                 };
             }
 
@@ -2771,7 +2830,7 @@ namespace DnsServerCore
                     break;
                 #endregion
 
-                #region DID RR types
+                #region single string value RR types
 
                 #region single string value RRs
 
@@ -2856,6 +2915,21 @@ namespace DnsServerCore
 
                 #endregion
 
+                #region service map RRs
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDSVCRecordData(sm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDRELRecordData(sm));
+                    }
+                    break;
+
+                #endregion
+
                 #endregion
 
                 default:
@@ -2907,11 +2981,11 @@ namespace DnsServerCore
             DnsResourceRecord newRecord;
 
             // rk - vmm query for vmm did requests
-            VerificationMethodMapDID vmm = null;
-            VerificationMethodMapDID newvmm = null;
+            VerificationMethodMap vmm = null;
+            VerificationMethodMap newvmm = null;
             if (request.Query.ContainsKey("vmm_id"))
             {
-                vmm = new VerificationMethodMapDID()
+                vmm = new VerificationMethodMap()
                 {
                     Id = request.GetQueryOrFormAlt("vmm_id", "id"),
                     Comment = request.GetQueryOrFormAlt("vmm_comment", "comment"),
@@ -2933,7 +3007,7 @@ namespace DnsServerCore
                     }
                 };
 
-                newvmm = new VerificationMethodMapDID()
+                newvmm = new VerificationMethodMap()
                 {
                     Id = request.GetQueryOrFormAlt("new_vmm_id", ""),
                     Comment = request.GetQueryOrFormAlt("new_vmm_comment", ""),
@@ -2953,6 +3027,27 @@ namespace DnsServerCore
                         kty = request.GetQueryOrForm("new_vmm_jwk_kty"),
                         kid = request.GetQueryOrForm("new_vmm_jwk_kid"),
                     }
+                };
+            }
+
+            ServiceMap sm = null;
+            ServiceMap newsm = null;
+            if (request.Query.ContainsKey("sm_id"))
+            {
+                sm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrFormAlt("sm_id", "id"),
+                    Comment = request.GetQueryOrForm("sm_comment", ""),
+                    Type_ = request.GetQueryOrFormAlt("sm_type", "type"),
+                    ServiceEndpoint = request.GetQueryOrFormAlt("sm_serviceEndpoint", "serviceEndpoint"),
+                };
+
+                newsm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrForm("new_sm_id"),
+                    Comment = request.GetQueryOrForm("new_sm_comment", ""),
+                    Type_ = request.GetQueryOrForm("new_sm_type"),
+                    ServiceEndpoint = request.GetQueryOrForm("new_sm_serviceEndpoint"),
                 };
             }
 
@@ -3554,6 +3649,23 @@ namespace DnsServerCore
                     {
                         oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCDRecordData(vmm));
                         newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCDRecordData(newvmm));
+                    }
+                    break;
+
+                #endregion
+
+                #region service map RRs
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDSVCRecordData(sm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDSVCRecordData(newsm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDRELRecordData(sm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDRELRecordData(newsm));
                     }
                     break;
 

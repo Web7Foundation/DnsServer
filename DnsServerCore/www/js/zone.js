@@ -2197,62 +2197,32 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
 
         // single string value did RR cases
         case "DIDID":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>DID:</b> " + htmlEncode(record.rData.did);
-
-            if ((record.comments != null) && (record.comments.length > 0))
-                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
-
-            tableHtmlRow += "</td>";
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>DID:</b> " + htmlEncode(record.rData.did) + "</td>";
             additionalDataAttributes = "data-record-did=\"" + htmlEncode(record.rData.did) + "\" ";
             break;
 
         case "DIDPURP":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Purpose:</b> " + htmlEncode(record.rData.purpose);
-
-            if ((record.comments != null) && (record.comments.length > 0))
-                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
-
-            tableHtmlRow += "</td>";
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Purpose:</b> " + htmlEncode(record.rData.purpose) + "</td>";
             additionalDataAttributes = "data-record-purpose=\"" + htmlEncode(record.rData.purpose) + "\" ";
             break;
 
         case "DIDCOMM":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Comment:</b> " + htmlEncode(record.rData.comment);
-
-            //if ((record.comments != null) && (record.comments.length > 0))
-            //    tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
-
-            tableHtmlRow += "</td>";
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Comment:</b> " + htmlEncode(record.rData.comment) + "</td>";
             additionalDataAttributes = "data-record-comment=\"" + htmlEncode(record.rData.comment) + "\" ";
             break;
 
         case "DIDCTXT":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Context:</b> " + htmlEncode(record.rData.context);
-
-            if ((record.comments != null) && (record.comments.length > 0))
-                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
-
-            tableHtmlRow += "</td>";
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Context:</b> " + htmlEncode(record.rData.context) + "</td>";
             additionalDataAttributes = "data-record-context=\"" + htmlEncode(record.rData.context) + "\" ";
             break;
 
         case "DIDAKA":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Also Known As:</b> " + htmlEncode(record.rData.alsoKnownAs);
-
-            if ((record.comments != null) && (record.comments.length > 0))
-                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
-
-            tableHtmlRow += "</td>";
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Also Known As:</b> " + htmlEncode(record.rData.alsoKnownAs) + "</td>";
             additionalDataAttributes = "data-record-alsoKnownAs=\"" + htmlEncode(record.rData.alsoKnownAs) + "\" ";
             break;
 
         case "DIDCTLR":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Controller:</b> " + htmlEncode(record.rData.controller);
-
-            if ((record.comments != null) && (record.comments.length > 0))
-                tableHtmlRow += "<br /><b>Comments:</b> <pre style=\"white-space: pre-wrap;\">" + htmlEncode(record.comments) + "</pre>";
-
-            tableHtmlRow += "</td>";
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Controller:</b> " + htmlEncode(record.rData.controller) + "</td>";
             additionalDataAttributes = "data-record-controller=\"" + htmlEncode(record.rData.controller) + "\" ";
             break;
 
@@ -2505,6 +2475,20 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
                 "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.kid) + "\" ";
             break;
 
+        case "DIDSVC":
+        case "DIDREL":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.serviceMap.id);
+            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.serviceMap.comment);
+            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.serviceMap.type_);
+            tableHtmlRow += "<br /><b>Service Endpoint:</b> " + htmlEncode(record.rData.serviceMap.serviceEndpoint);
+
+            additionalDataAttributes +=
+                "data-record-sm_id=\"" + htmlEncode(record.rData.serviceMap.id) + "\" " +
+                "data-record-sm_comment=\"" + htmlEncode(record.rData.serviceMap.comment) + "\" " +
+                "data-record-sm_type=\"" + htmlEncode(record.rData.serviceMap.type_) + "\" " +
+                "data-record-sm_serviceEndpoint=\"" + htmlEncode(record.rData.serviceMap.serviceEndpoint) + "\" ";
+            break;
+
         default:
             tableHtmlRow += "<td style=\"word-break: break-all;\"><b>RDATA:</b> " + htmlEncode(record.rData.value) + "</td>";
             break;
@@ -2607,6 +2591,7 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordDataNsGlue").val("");
 
     $("#divAddEditRecordDataVMM").hide();
+    $("#divAddEditRecordDataSM").hide();
 
     $("#divEditRecordDataSoa").hide();
     $("#txtEditRecordDataSoaPrimaryNameServer").prop("disabled", false);
@@ -2763,6 +2748,7 @@ function modifyAddRecordFormByType(addMode) {
 
     $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
 
+    $("#divAddEditRecordDataSM").hide();
     $("#divAddEditRecordDataVMM").hide();
     $("#divAddEditRecordData").hide();
     $("#divAddEditRecordDataPtr").hide();
@@ -2962,9 +2948,15 @@ function modifyAddRecordFormByType(addMode) {
         case "DIDCI":
         case "DIDCD":
             $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
-
             $("#divAddEditRecordDataVMM").show();
             break;
+
+        case "DIDSVC":
+        case "DIDREL":
+            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+            $("#divAddEditRecordDataSM").show();
+            break;
+
 
     }
 }
@@ -3480,6 +3472,47 @@ function addRecord() {
 
             break;
 
+        case "DIDSVC":
+        case "DIDREL":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            // id
+            var id = $("#txtAddEditRecordDataSM_Id").val();
+            if (id === "") {
+                showAlert("warning", "Missing!", "Please enter an ID to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataSM_Id").focus();
+                return;
+            }
+
+            // service endpoint
+            var serviceEndpoint = $("#txtAddEditRecordDataSM_ServiceEndpoint").val();
+            if (serviceEndpoint === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Service Endpoint field to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataSM_ServiceEndpoint").focus();
+                return;
+            }
+
+            // type
+            var type = $("#txtAddEditRecordDataSM_Type").val();
+            if (type === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Type field to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataSM_Type").focus();
+                return;
+            }
+
+            var comment = $("#txtAddEditRecordDataSM_Comment").val();
+
+            apiUrl += "&sm_id=" + encodeURIComponent(id) +
+                "&sm_serviceEndpoint=" + encodeURIComponent(serviceEndpoint) +
+                "&sm_type=" + encodeURIComponent(type) +
+                "&sm_comment=" + encodeURIComponent(comment);
+
+            break;
+
     }
 
     btn.button("loading");
@@ -3860,8 +3893,14 @@ function showEditRecordModal(objBtn) {
             $("#txtAddEditRecordDataVMM_Jwk_y").val(divData.attr("data-record-vmm_jwk_y"));
             $("#txtAddEditRecordDataVMM_Jwk_kty").val(divData.attr("data-record-vmm_jwk_kty"));
             $("#txtAddEditRecordDataVMM_Jwk_kid").val(divData.attr("data-record-vmm_jwk_kid"));
+            break;
 
-
+        case "DIDSVC":
+        case "DIDREL":
+            $("#txtAddEditRecordDataSM_Id").val(divData.attr("data-record-sm_id"));
+            $("#txtAddEditRecordDataSM_Type").val(divData.attr("data-record-sm_type"));
+            $("#txtAddEditRecordDataSM_ServiceEndpoint").val(divData.attr("data-record-sm_serviceEndpoint"));
+            $("#txtAddEditRecordDataSM_Comment").val(divData.attr("data-record-sm_comment"));
             break;
 
 
@@ -4539,6 +4578,59 @@ function updateRecord() {
                 "&new_vmm_jwk_kid=" + encodeURIComponent(new_jwk_kid);
 
             break;
+
+        case "DIDSVC":
+        case "DIDREL":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            // id
+            var id = $("#txtAddEditRecordDataSM_Id").val();
+            if (id === "") {
+                showAlert("warning", "Missing!", "Please enter an ID to edit the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataSM_Id").focus();
+                return;
+            }
+
+            // service endpoint
+            var serviceEndpoint = $("#txtAddEditRecordDataSM_ServiceEndpoint").val();
+            if (serviceEndpoint === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Service Endpoint field to edit the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataSM_ServiceEndpoint").focus();
+                return;
+            }
+
+            // type
+            var type = $("#txtAddEditRecordDataSM_Type").val();
+            if (type === "") {
+                showAlert("warning", "Missing!", "Please enter suitable value in the Type field to edit the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataSM_Type").focus();
+                return;
+            }
+
+            var comment = $("#txtAddEditRecordDataSM_Comment").val();
+            if (comment === "")
+
+            console.log();
+
+            // old data
+            var oldId = divData.attr("data-record-sm_id");
+            var oldServiceEndpoint = divData.attr("data-record-sm_serviceEndpoint");
+            var oldType = divData.attr("data-record-sm_type");
+            var oldComment = divData.attr("data-record-sm_comment");
+
+            apiUrl += "&sm_id=" + encodeURIComponent(oldId) +
+                "&sm_serviceEndpoint=" + encodeURIComponent(oldServiceEndpoint) +
+                "&sm_type=" + encodeURIComponent(oldType) +
+                "&sm_comment=" + encodeURIComponent(oldComment) +
+                "&new_sm_id=" + encodeURIComponent(id) +
+                "&new_sm_serviceEndpoint=" + encodeURIComponent(serviceEndpoint) +
+                "&new_sm_type=" + encodeURIComponent(type) +
+                "&new_sm_comment=" + encodeURIComponent(comment);
+            break;
     
     }
 
@@ -4812,6 +4904,15 @@ function deleteRecord(objBtn) {
                 "&vmm_jwk_y=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_y")) +
                 "&vmm_jwk_kty=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_kty")) +
                 "&vmm_jwk_kid=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_kid"));
+            break;
+
+        case "DIDSVC":
+        case "DIDREL":
+            apiUrl += "&sm_id=" + encodeURIComponent(divData.attr("data-record-sm_id")) +
+                "&sm_serviceEndpoint=" + encodeURIComponent(divData.attr("data-record-sm_serviceEndpoint")) +
+                "&sm_type=" + encodeURIComponent(divData.attr("data-record-sm_type")) +
+                "&sm_comment=" + encodeURIComponent(divData.attr("data-record-sm_comment"));
+
             break;
     }
 
