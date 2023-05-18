@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
+using DnsServerCore.ApplicationCommon;
 using DnsServerCore.Auth;
 using DnsServerCore.Dns;
 using DnsServerCore.Dns.Dnssec;
@@ -128,6 +129,8 @@ namespace DnsServerCore
 
             switch (record.Type)
             {
+                #region DNS RR types
+
                 case DnsResourceRecordType.A:
                     {
                         if (record.RDATA is DnsARecordData rdata)
@@ -603,6 +606,143 @@ namespace DnsServerCore
                         }
                     }
                     break;
+
+                #endregion
+
+                #region DID RR types
+
+                #region single string value RRs
+
+                case DnsResourceRecordType.DIDID:
+                    {
+                        if (record.RDATA is DnsDIDIDRecordData rdata)
+                        {
+                            jsonWriter.WriteString("did", rdata.DID);
+                        }                      
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDPURP:
+                    {
+                        if (record.RDATA is DnsDIDPURPRecordData rdata)
+                        {
+                            jsonWriter.WriteString("purpose", rdata.Purpose);
+                        }
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        if (record.RDATA is DnsDIDCOMMRecordData rdata)
+                        {
+                            jsonWriter.WriteString("comment", rdata.Comment);
+                        }
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        if (record.RDATA is DnsDIDCTXTRecordData rdata)
+                        {
+                            jsonWriter.WriteString("context", rdata.Context);
+                        }
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        if (record.RDATA is DnsDIDAKARecordData rdata)
+                        {
+                            jsonWriter.WriteString("alsoKnownAs", rdata.AlsoKnownAs);
+                        }
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        if (record.RDATA is DnsDIDCTLRRecordData rdata)
+                        {
+                            jsonWriter.WriteString("controller", rdata.Controller);
+                        }
+                    }
+                    break;
+
+                #endregion
+
+                #region verification method map DID RR types
+
+                case DnsResourceRecordType.DIDVM:
+                    {
+                        if (record.RDATA is DnsDIDVMRecordData rdata)
+                        {
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAUTH:
+                    {
+                        if (record.RDATA is DnsDIDAUTHRecordData rdata)
+                        {
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAM:
+                    {
+                        if (record.RDATA is DnsDIDAMRecordData rdata)
+                        {
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDKA:
+                    {
+                        if (record.RDATA is DnsDIDKARecordData rdata)
+                        {
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCI:
+                    {
+                        if (record.RDATA is DnsDIDCIRecordData rdata)
+                        {
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCD:
+                    {
+                        if (record.RDATA is DnsDIDCDRecordData rdata)
+                        {
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                #endregion
+
+                #region service map DID RR types
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        if (record.RDATA is DnsDIDSVCRecordData rdata)
+                        {
+                            rdata.ServiceMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        if (record.RDATA is DnsDIDRELRecordData rdata)
+                        {
+                            rdata.ServiceMap.SerializeJson(jsonWriter);
+                        }
+                    }
+                    break;
+
+                #endregion
+
+                #endregion
 
                 default:
                     {
@@ -1890,8 +2030,49 @@ namespace DnsServerCore
 
             DnsResourceRecord newRecord;
 
+            // rk - create verification method map if request contains vmm data
+            VerificationMethodMap vmm = null;
+            if (request.Query.ContainsKey("vmm_id"))
+            {
+                vmm = new VerificationMethodMap()
+                {
+                    Id = request.GetQueryOrFormAlt("vmm_id", "id"),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
+                    Comment = request.GetQueryOrForm("vmm_comment", ""),
+                    PublicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
+                    PublicKeyBase58 = request.GetQueryOrForm("vmm_publicKeyBase58", ""),
+                    PrivateKeyBase58 = request.GetQueryOrForm("vmm_privateKeyBase58", ""),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
+                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
+                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
+                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
+                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
+                    }
+                };
+            }
+
+            ServiceMap sm = null;
+            if (request.Query.ContainsKey("sm_id"))
+            {
+                sm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrFormAlt("sm_id", ""),
+                    Type_ = request.GetQueryOrFormAlt("sm_type", ""),
+                    ServiceEndpoint = request.GetQueryOrFormAlt("sm_serviceEndpoint", ""),
+                    Comment = request.GetQueryOrForm("sm_comment", ""),
+                };
+            }
+
             switch (type)
             {
+                #region DNS RR types
+
                 case DnsResourceRecordType.A:
                 case DnsResourceRecordType.AAAA:
                     {
@@ -2228,10 +2409,148 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
                     }
                     break;
+                #endregion
+
+                #region DID RR types
+
+                #region single string value RRs
+
+                case DnsResourceRecordType.DIDID:
+                    {
+                        var didlabels = domain.Split('.');
+                        string diddomain = "";
+                        int i;
+                        for (i = didlabels.Length - 1; i >= 0; i--)
+                        {
+                            diddomain = diddomain + didlabels[i];
+                            if (i > 0) diddomain = diddomain + ":";
+                        }
+
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDIDRecordData(diddomain));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDPURP:
+                    {
+                        string didPurpose = request.GetQueryOrForm("purpose", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDPURPRecordData(didPurpose));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        string didComment = request.GetQueryOrForm("comment", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCOMMRecordData(didComment));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        string ctxValue = request.GetQueryOrForm("context", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTXTRecordData(ctxValue));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        string didAlsoKnownAs = request.GetQueryOrForm("alsoKnownAs", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDAKARecordData(didAlsoKnownAs));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        string didController = request.GetQueryOrForm("controller", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTLRRecordData(didController));
+                    }
+                    break;
+                #endregion
+
+                #region verification method map RRs
+
+                case DnsResourceRecordType.DIDVM:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDVMRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAUTH:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDAUTHRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAM:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDAMRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDKA:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDKARecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCI:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCIRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCD:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCDRecordData(vmm));
+                    }
+                    break;
+
+                #endregion
+
+                #region service map RRs
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDSVCRecordData(sm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDRELRecordData(sm));
+                    }
+                    break;
+
+
+                #endregion
+
+                #endregion
 
                 default:
                     throw new DnsWebServiceException("Type not supported for AddRecords().");
             }
+
+            switch (type)
+            {
+                case DnsResourceRecordType.DIDID:
+                case DnsResourceRecordType.DIDPURP:
+                case DnsResourceRecordType.DIDCOMM:
+                case DnsResourceRecordType.DIDCTXT:
+                case DnsResourceRecordType.DIDAKA:
+                case DnsResourceRecordType.DIDCTLR:
+                case DnsResourceRecordType.DIDVM:
+                case DnsResourceRecordType.DIDAUTH:
+                case DnsResourceRecordType.DIDAM:
+                case DnsResourceRecordType.DIDKA:
+                case DnsResourceRecordType.DIDCI:
+                case DnsResourceRecordType.DIDCD:
+                case DnsResourceRecordType.DIDSVC:
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        if (overwrite)
+                            _dnsWebService.DnsServer.AuthZoneManager.SetRecord(zoneInfo.Name, newRecord);
+                        else
+                            _dnsWebService.DnsServer.AuthZoneManager.AddRecord(zoneInfo.Name, newRecord);
+                    }
+                    break;
+            }
+
 
             _dnsWebService._log.Write(context.GetRemoteEndPoint(), "[" + session.User.Username + "] New record was added to authoritative zone {record: " + newRecord.ToString() + "}");
 
@@ -2320,9 +2639,49 @@ namespace DnsServerCore
             if (!_dnsWebService._authManager.IsPermitted(PermissionSection.Zones, zoneInfo.Name, session.User, PermissionFlag.Delete))
                 throw new DnsWebServiceException("Access was denied.");
 
+            VerificationMethodMap vmm = null;
+            if (request.Query.ContainsKey("vmm_id"))
+            {
+                vmm = new VerificationMethodMap()
+                {
+                    Id = request.GetQueryOrFormAlt("vmm_id", ""),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
+                    Comment = request.GetQueryOrForm("vmm_comment", ""),
+                    PublicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
+                    PublicKeyBase58 = request.GetQueryOrForm("vmm_publicKeyBase58", ""),
+                    PrivateKeyBase58 = request.GetQueryOrForm("vmm_privateKeyBase58", ""),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
+                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
+                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
+                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
+                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
+                    }
+                };
+            }
+
+            ServiceMap sm = null;
+            if (request.Query.ContainsKey("sm_id"))
+            {
+                sm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrFormAlt("sm_id", ""),
+                    Type_ = request.GetQueryOrFormAlt("sm_type", ""),
+                    ServiceEndpoint = request.GetQueryOrFormAlt("sm_serviceEndpoint", ""),
+                    Comment = request.GetQueryOrForm("sm_comment", ""),
+                };
+            }
+
             DnsResourceRecordType type = request.GetQueryOrFormEnum<DnsResourceRecordType>("type");
             switch (type)
             {
+                #region DNS RR types
+
                 case DnsResourceRecordType.A:
                 case DnsResourceRecordType.AAAA:
                     {
@@ -2469,6 +2828,109 @@ namespace DnsServerCore
                 case DnsResourceRecordType.APP:
                     _dnsWebService.DnsServer.AuthZoneManager.DeleteRecords(zoneInfo.Name, domain, type);
                     break;
+                #endregion
+
+                #region single string value RR types
+
+                #region single string value RRs
+
+                case DnsResourceRecordType.DIDID:
+                    {
+                        string didid = request.GetQueryOrFormAlt("did", "value");
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDIDRecordData(didid));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDPURP:
+                    {
+                        string didPurpose = request.GetQueryOrForm("purpose", "value");
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDPURPRecordData(didPurpose));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        string didComment = request.GetQueryOrForm("comment", "value");
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCOMMRecordData(didComment));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        string didContext = request.GetQueryOrForm("context", "value");
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTXTRecordData(didContext));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        string didAKA = request.GetQueryOrForm("alsoKnownAs", "value");
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDAKARecordData(didAKA));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        string didController = request.GetQueryOrForm("controller", "value");
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTLRRecordData(didController));
+                    }
+                    break;
+
+                #endregion
+
+                #endregion
+
+                #region verification method map RRs
+
+                case DnsResourceRecordType.DIDVM:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDVMRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAUTH:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDAUTHRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAM:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDAMRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDKA:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDKARecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCI:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCIRecordData(vmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCD:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCDRecordData(vmm));
+                    }
+                    break;
+
+                #endregion
+
+                #region service map RRs
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDSVCRecordData(sm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDRELRecordData(sm));
+                    }
+                    break;
+
+                #endregion
+
+                #endregion
 
                 default:
                     throw new DnsWebServiceException("Type not supported for DeleteRecord().");
@@ -2518,8 +2980,81 @@ namespace DnsServerCore
             DnsResourceRecord oldRecord = null;
             DnsResourceRecord newRecord;
 
+            // rk - vmm query for vmm did requests
+            VerificationMethodMap vmm = null;
+            VerificationMethodMap newvmm = null;
+            if (request.Query.ContainsKey("vmm_id"))
+            {
+                vmm = new VerificationMethodMap()
+                {
+                    Id = request.GetQueryOrFormAlt("vmm_id", ""),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", ""),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", ""),
+                    Comment = request.GetQueryOrForm("vmm_comment", ""),
+                    PublicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
+                    PublicKeyBase58 = request.GetQueryOrForm("vmm_publicKeyBase58", ""),
+                    PrivateKeyBase58 = request.GetQueryOrForm("vmm_privateKeyBase58", ""),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
+                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
+                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
+                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
+                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
+                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
+                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
+                    }
+                };
+
+                newvmm = new VerificationMethodMap()
+                {
+                    Id = request.GetQueryOrFormAlt("new_vmm_id", ""),
+                    Controller = request.GetQueryOrFormAlt("new_vmm_controller", ""),
+                    Type_ = request.GetQueryOrFormAlt("new_vmm_type", ""),
+                    Comment = request.GetQueryOrForm("new_vmm_comment", ""),
+                    PublicKeyMultibase = request.GetQueryOrForm("new_vmm_publicKeyMultibase", ""),
+                    PublicKeyBase58 = request.GetQueryOrForm("new_vmm_publicKeyBase58", ""),
+                    PrivateKeyBase58 = request.GetQueryOrForm("new_vmm_privateKeyBase58", ""),
+
+                    PublicKeyJwk = new JSONKeyMap()
+                    {
+                        crv = request.GetQueryOrForm("new_vmm_jwk_crv", ""),
+                        e = request.GetQueryOrForm("new_vmm_jwk_e", ""),
+                        n = request.GetQueryOrForm("new_vmm_jwk_n", ""),
+                        x = request.GetQueryOrForm("new_vmm_jwk_x", ""),
+                        y = request.GetQueryOrForm("new_vmm_jwk_y", ""),
+                        kty = request.GetQueryOrForm("new_vmm_jwk_kty", ""),
+                        kid = request.GetQueryOrForm("new_vmm_jwk_kid", ""),
+                    }
+                };
+            }
+
+            ServiceMap sm = null;
+            ServiceMap newsm = null;
+            if (request.Query.ContainsKey("sm_id"))
+            {
+                sm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrFormAlt("sm_id", "id"),
+                    Type_ = request.GetQueryOrFormAlt("sm_type", ""),
+                    ServiceEndpoint = request.GetQueryOrFormAlt("sm_serviceEndpoint", ""),
+                    Comment = request.GetQueryOrForm("sm_comment", ""),
+                };
+
+                newsm = new ServiceMap()
+                {
+                    Id = request.GetQueryOrFormAlt("new_sm_id", ""),
+                    Type_ = request.GetQueryOrFormAlt("new_sm_type", ""),
+                    ServiceEndpoint = request.GetQueryOrFormAlt("new_sm_serviceEndpoint", ""),
+                    Comment = request.GetQueryOrForm("new_sm_comment", ""),
+                };
+            }
+
             switch (type)
             {
+                #region DNS RR types
+
                 case DnsResourceRecordType.A:
                 case DnsResourceRecordType.AAAA:
                     {
@@ -3002,10 +3537,174 @@ namespace DnsServerCore
                         _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
                     }
                     break;
+                #endregion
+
+                #region DID RR types
+
+                #region single string value RRs
+
+                case DnsResourceRecordType.DIDID:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+
+                        var didlabels = newDomain.Split('.');
+                        string newDidDomain = "";
+                        int i;
+                        for (i = didlabels.Length - 1; i >= 0; i--)
+                        {
+                            newDidDomain = newDidDomain + didlabels[i];
+                            if (i > 0) newDidDomain = newDidDomain + ":";
+                        }
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDIDRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDIDRecordData(newDidDomain));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDPURP:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDPURPRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDPURPRecordData(newValue));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCOMM:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCOMMRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCOMMRecordData(newValue));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTXT:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCTXTRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCTXTRecordData(newValue));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDAKA:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDAKARecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDAKARecordData(newValue));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDCTLR:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCTLRRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCTLRRecordData(newValue));
+                    }
+                    break;
+
+                #endregion
+
+                #region verification method map RRs
+
+                case DnsResourceRecordType.DIDVM:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDVMRecordData(vmm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDVMRecordData(newvmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAUTH:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDAUTHRecordData(vmm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDAUTHRecordData(newvmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDAM:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDAMRecordData(vmm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDAMRecordData(newvmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDKA:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDKARecordData(vmm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDKARecordData(newvmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCI:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCIRecordData(vmm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCIRecordData(newvmm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDCD:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDCDRecordData(vmm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDCDRecordData(newvmm));
+                    }
+                    break;
+
+                #endregion
+
+                #region service map RRs
+
+                case DnsResourceRecordType.DIDSVC:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDSVCRecordData(sm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDSVCRecordData(newsm));
+                    }
+                    break;
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDRELRecordData(sm));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDRELRecordData(newsm));
+                    }
+                    break;
+
+                #endregion
+
+                #endregion
 
                 default:
                     throw new DnsWebServiceException("Type not supported for UpdateRecords().");
             }
+
+            switch (type) 
+            {
+                case DnsResourceRecordType.DIDID:
+                case DnsResourceRecordType.DIDPURP:
+                case DnsResourceRecordType.DIDCOMM:
+                case DnsResourceRecordType.DIDCTXT:
+                case DnsResourceRecordType.DIDAKA:
+                case DnsResourceRecordType.DIDCTLR:
+                case DnsResourceRecordType.DIDVM:
+                case DnsResourceRecordType.DIDAUTH:
+                case DnsResourceRecordType.DIDAM:
+                case DnsResourceRecordType.DIDKA:
+                case DnsResourceRecordType.DIDCI:
+                case DnsResourceRecordType.DIDCD:
+                case DnsResourceRecordType.DIDSVC:
+                case DnsResourceRecordType.DIDREL:
+                    {
+                        if (disable)
+                            newRecord.GetAuthRecordInfo().Disabled = true;
+
+                        if (!string.IsNullOrEmpty(comments))
+                            newRecord.GetAuthRecordInfo().Comments = comments;
+
+                        _dnsWebService.DnsServer.AuthZoneManager.UpdateRecord(zoneInfo.Name, oldRecord, newRecord);
+                    }
+                    break;
+            }
+
 
             _dnsWebService._log.Write(context.GetRemoteEndPoint(), "[" + session.User.Username + "] Record was updated for authoritative zone {" + (oldRecord is null ? "" : "oldRecord: " + oldRecord.ToString() + "; ") + "newRecord: " + newRecord.ToString() + "}");
 
@@ -3019,8 +3718,6 @@ namespace DnsServerCore
             jsonWriter.WritePropertyName("updatedRecord");
             WriteRecordAsJson(newRecord, jsonWriter, true, zoneInfo);
         }
-
-        #endregion
 
         #region properties
 

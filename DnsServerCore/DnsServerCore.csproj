@@ -73,6 +73,7 @@
 		<None Remove="www\js\logs.js" />
 		<None Remove="www\js\main.js" />
 		<None Remove="www\js\moment.min.js" />
+		<None Remove="www\js\notationConversion.js" />
 		<None Remove="www\js\other-zones.js" />
 		<None Remove="www\js\zone.js" />
 		<None Remove="www\robots.txt" />
@@ -176,7 +177,7 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="www\index.html">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="www\js\apps.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -205,11 +206,14 @@
 		<Content Include="www\js\moment.min.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Content Include="www\js\notationConversion.js">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="www\js\other-zones.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="www\js\zone.js">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="www\js\dhcp.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

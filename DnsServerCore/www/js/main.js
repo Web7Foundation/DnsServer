@@ -68,7 +68,7 @@ function showPageMain() {
 
     $("#txtDnsClientNameServer").val("This Server {this-server}");
     $("#txtDnsClientDomain").val("");
-    $("#optDnsClientType").val("A");
+    $("#optDnsClientType").val("ANY");
     $("#optDnsClientProtocol").val("TCP");
     $("#divDnsClientLoader").hide();
     $("#divDnsClientOutput").text("");
@@ -2367,7 +2367,11 @@ function resolveQuery(importRecords) {
     }
 
     {
-        /* MWHTODO if domain.indexOf("did:") > -1, convert from DID to domain: split on ':', reverse to create a domain name */
+        /* RK - IMPLEMENTED MAY 4 2023 */
+        // convert DID notation to DNS notation (if applicable)
+        if (domain.substring(0, 4) == "did:") {
+            domain = convertDidNotationToDnsNotation(domain); // function from 'notationConversion.js'
+        }
 
         var i = domain.indexOf("://");
         if (i > -1) {
