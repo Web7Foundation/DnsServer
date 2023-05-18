@@ -2228,251 +2228,50 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
 
         // verification method map DID RRs
         case "DIDVM":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.verificationMethod.id);
-            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.verificationMethod.comment);
-            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.verificationMethod.controller);
-            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.verificationMethod.type_);
-            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyMultibase);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
-            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.crv);
-            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.e);
-            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.n);
-            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.x);
-            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.y);
-            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kty);
-            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kid);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.verificationMethod.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.verificationMethod.privateKeyBase58);
-            tableHtmlRow += "</td>";
-
-            additionalDataAttributes +=
-                "data-record-vmm_id=\"" + htmlEncode(record.rData.verificationMethod.id) + "\" " +
-                "data-record-vmm_comment=\"" + htmlEncode(record.rData.verificationMethod.comment) + "\" " +
-                "data-record-vmm_controller=\"" + htmlEncode(record.rData.verificationMethod.controller) + "\" " +
-                "data-record-vmm_type=\"" + htmlEncode(record.rData.verificationMethod.type_) + "\" " +
-                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.verificationMethod.publicKeyMultibase) + "\" " +
-                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.verificationMethod.publicKeyBase58) + "\" " +
-                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.verificationMethod.privateKeyBase58) + "\" " +
-
-                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.crv) + "\" " +
-                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.e) + "\" " +
-                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.n) + "\" " +
-                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.x) + "\" " +
-                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.y) + "\" " +
-                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kty) + "\" " +
-                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.verificationMethod.publicKeyJwk.kid) + "\" ";
-            break;
-
         case "DIDAUTH":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.authentication.id);
-            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.authentication.comment);
-            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.authentication.controller);
-            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.authentication.type_);
-            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.authentication.publicKeyMultibase);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
-            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.authentication.publicKeyJwk.crv);
-            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.authentication.publicKeyJwk.e);
-            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.authentication.publicKeyJwk.n);
-            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.authentication.publicKeyJwk.x);
-            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.authentication.publicKeyJwk.y);
-            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.authentication.publicKeyJwk.kty);
-            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.authentication.publicKeyJwk.kid);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.authentication.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.authentication.privateKeyBase58);
-            tableHtmlRow += "</td>";
-
-            additionalDataAttributes +=
-                "data-record-vmm_id=\"" + htmlEncode(record.rData.authentication.id) + "\" " +
-                "data-record-vmm_comment=\"" + htmlEncode(record.rData.authentication.comment) + "\" " +
-                "data-record-vmm_controller=\"" + htmlEncode(record.rData.authentication.controller) + "\" " +
-                "data-record-vmm_type=\"" + htmlEncode(record.rData.authentication.type_) + "\" " +
-                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.authentication.publicKeyMultibase) + "\" " +
-                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.authentication.publicKeyBase58) + "\" " +
-                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.authentication.privateKeyBase58) + "\" " +
-
-                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.authentication.publicKeyJwk.crv) + "\" " +
-                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.authentication.publicKeyJwk.e) + "\" " +
-                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.authentication.publicKeyJwk.n) + "\" " +
-                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.authentication.publicKeyJwk.x) + "\" " +
-                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.authentication.publicKeyJwk.y) + "\" " +
-                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.authentication.publicKeyJwk.kty) + "\" " +
-                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.authentication.publicKeyJwk.kid) + "\" ";
-            break;
         case "DIDAM":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.assertionMethod.id);
-            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.assertionMethod.comment);
-            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.assertionMethod.controller);
-            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.assertionMethod.type_);
-            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyMultibase);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
-            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyJwk.crv);
-            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyJwk.e);
-            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyJwk.n);
-            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyJwk.x);
-            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyJwk.y);
-            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyJwk.kty);
-            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyJwk.kid);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.assertionMethod.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.assertionMethod.privateKeyBase58);
-            tableHtmlRow += "</td>";
-
-            additionalDataAttributes +=
-                "data-record-vmm_id=\"" + htmlEncode(record.rData.assertionMethod.id) + "\" " +
-                "data-record-vmm_comment=\"" + htmlEncode(record.rData.assertionMethod.comment) + "\" " +
-                "data-record-vmm_controller=\"" + htmlEncode(record.rData.assertionMethod.controller) + "\" " +
-                "data-record-vmm_type=\"" + htmlEncode(record.rData.assertionMethod.type_) + "\" " +
-                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.assertionMethod.publicKeyMultibase) + "\" " +
-                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.assertionMethod.publicKeyBase58) + "\" " +
-                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.assertionMethod.privateKeyBase58) + "\" " +
-
-                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.assertionMethod.publicKeyJwk.crv) + "\" " +
-                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.assertionMethod.publicKeyJwk.e) + "\" " +
-                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.assertionMethod.publicKeyJwk.n) + "\" " +
-                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.assertionMethod.publicKeyJwk.x) + "\" " +
-                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.assertionMethod.publicKeyJwk.y) + "\" " +
-                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.assertionMethod.publicKeyJwk.kty) + "\" " +
-                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.assertionMethod.publicKeyJwk.kid) + "\" ";
-            break;
         case "DIDKA":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.keyAgreement.id);
-            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.keyAgreement.comment);
-            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.keyAgreement.controller);
-            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.keyAgreement.type_);
-            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyMultibase);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
-            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyJwk.crv);
-            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyJwk.e);
-            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyJwk.n);
-            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyJwk.x);
-            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyJwk.y);
-            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyJwk.kty);
-            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyJwk.kid);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.keyAgreement.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.keyAgreement.privateKeyBase58);
-            tableHtmlRow += "</td>";
-
-            additionalDataAttributes +=
-                "data-record-vmm_id=\"" + htmlEncode(record.rData.keyAgreement.id) + "\" " +
-                "data-record-vmm_comment=\"" + htmlEncode(record.rData.keyAgreement.comment) + "\" " +
-                "data-record-vmm_controller=\"" + htmlEncode(record.rData.keyAgreement.controller) + "\" " +
-                "data-record-vmm_type=\"" + htmlEncode(record.rData.keyAgreement.type_) + "\" " +
-                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.keyAgreement.publicKeyMultibase) + "\" " +
-                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.keyAgreement.publicKeyBase58) + "\" " +
-                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.keyAgreement.privateKeyBase58) + "\" " +
-
-                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.keyAgreement.publicKeyJwk.crv) + "\" " +
-                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.keyAgreement.publicKeyJwk.e) + "\" " +
-                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.keyAgreement.publicKeyJwk.n) + "\" " +
-                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.keyAgreement.publicKeyJwk.x) + "\" " +
-                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.keyAgreement.publicKeyJwk.y) + "\" " +
-                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.keyAgreement.publicKeyJwk.kty) + "\" " +
-                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.keyAgreement.publicKeyJwk.kid) + "\" ";
-            break;
         case "DIDCI":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.capabilityInvocation.id);
-            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.capabilityInvocation.comment);
-            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.capabilityInvocation.controller);
-            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.capabilityInvocation.type_);
-            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyMultibase);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
-            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.crv);
-            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.e);
-            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.n);
-            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.x);
-            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.y);
-            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.kty);
-            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.kid);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.capabilityInvocation.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.capabilityInvocation.privateKeyBase58);
-            tableHtmlRow += "</td>";
-
-            additionalDataAttributes +=
-                "data-record-vmm_id=\"" + htmlEncode(record.rData.capabilityInvocation.id) + "\" " +
-                "data-record-vmm_comment=\"" + htmlEncode(record.rData.capabilityInvocation.comment) + "\" " +
-                "data-record-vmm_controller=\"" + htmlEncode(record.rData.capabilityInvocation.controller) + "\" " +
-                "data-record-vmm_type=\"" + htmlEncode(record.rData.capabilityInvocation.type_) + "\" " +
-                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyMultibase) + "\" " +
-                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyBase58) + "\" " +
-                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.capabilityInvocation.privateKeyBase58) + "\" " +
-
-                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.crv) + "\" " +
-                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.e) + "\" " +
-                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.n) + "\" " +
-                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.x) + "\" " +
-                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.y) + "\" " +
-                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.kty) + "\" " +
-                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.capabilityInvocation.publicKeyJwk.kid) + "\" ";
-            break;
         case "DIDCD":
-            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.capabilityDelegation.id);
-            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.capabilityDelegation.comment);
-            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.capabilityDelegation.controller);
-            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.capabilityDelegation.type_);
-            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyMultibase);
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>ID:</b> " + htmlEncode(record.rData.verificationMethodMap.id);
+            tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.verificationMethodMap.comment);
+            tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.verificationMethodMap.controller);
+            tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.verificationMethodMap.type_);
+            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase);
 
             tableHtmlRow += "<br />";
 
             tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
-            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.crv);
-            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.e);
-            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.n);
-            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.x);
-            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.y);
-            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.kty);
-            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.kid);
+            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.crv);
+            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.e);
+            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.n);
+            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.x);
+            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.y);
+            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kty);
+            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kid);
 
             tableHtmlRow += "<br />";
 
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.capabilityDelegation.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.capabilityDelegation.privateKeyBase58);
+            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyBase58);
+            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.privateKeyBase58);
             tableHtmlRow += "</td>";
 
             additionalDataAttributes +=
-                "data-record-vmm_id=\"" + htmlEncode(record.rData.capabilityDelegation.id) + "\" " +
-                "data-record-vmm_comment=\"" + htmlEncode(record.rData.capabilityDelegation.comment) + "\" " +
-                "data-record-vmm_controller=\"" + htmlEncode(record.rData.capabilityDelegation.controller) + "\" " +
-                "data-record-vmm_type=\"" + htmlEncode(record.rData.capabilityDelegation.type_) + "\" " +
-                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyMultibase) + "\" " +
-                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyBase58) + "\" " +
-                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.capabilityDelegation.privateKeyBase58) + "\" " +
+                "data-record-vmm_id=\"" + htmlEncode(record.rData.verificationMethodMap.id) + "\" " +
+                "data-record-vmm_comment=\"" + htmlEncode(record.rData.verificationMethodMap.comment) + "\" " +
+                "data-record-vmm_controller=\"" + htmlEncode(record.rData.verificationMethodMap.controller) + "\" " +
+                "data-record-vmm_type=\"" + htmlEncode(record.rData.verificationMethodMap.type_) + "\" " +
+                "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase) + "\" " +
+                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyBase58) + "\" " +
+                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.verificationMethodMap.privateKeyBase58) + "\" " +
 
-                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.crv) + "\" " +
-                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.e) + "\" " +
-                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.n) + "\" " +
-                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.x) + "\" " +
-                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.y) + "\" " +
-                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.kty) + "\" " +
-                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.capabilityDelegation.publicKeyJwk.kid) + "\" ";
+                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.crv) + "\" " +
+                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.e) + "\" " +
+                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.n) + "\" " +
+                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.x) + "\" " +
+                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.y) + "\" " +
+                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kty) + "\" " +
+                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kid) + "\" ";
             break;
 
         case "DIDSVC":

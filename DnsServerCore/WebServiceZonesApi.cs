@@ -675,7 +675,7 @@ namespace DnsServerCore
                     {
                         if (record.RDATA is DnsDIDVMRecordData rdata)
                         {
-                            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "verificationMethod");
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
                         }
                     }
                     break;
@@ -683,7 +683,7 @@ namespace DnsServerCore
                     {
                         if (record.RDATA is DnsDIDAUTHRecordData rdata)
                         {
-                            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "authentication");
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
                         }
                     }
                     break;
@@ -691,7 +691,7 @@ namespace DnsServerCore
                     {
                         if (record.RDATA is DnsDIDAMRecordData rdata)
                         {
-                            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "assertionMethod");
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
                         }
                     }
                     break;
@@ -699,7 +699,7 @@ namespace DnsServerCore
                     {
                         if (record.RDATA is DnsDIDKARecordData rdata)
                         {
-                            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "keyAgreement");
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
                         }
                     }
                     break;
@@ -707,7 +707,7 @@ namespace DnsServerCore
                     {
                         if (record.RDATA is DnsDIDCIRecordData rdata)
                         {
-                            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "capabilityInvocation");
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
                         }
                     }
                     break;
@@ -715,7 +715,7 @@ namespace DnsServerCore
                     {
                         if (record.RDATA is DnsDIDCDRecordData rdata)
                         {
-                            rdata.VerificationMethodMap.SerializeJson(jsonWriter, "capabilityDelegation");
+                            rdata.VerificationMethodMap.SerializeJson(jsonWriter);
                         }
                     }
                     break;
