@@ -2238,6 +2238,8 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.verificationMethodMap.controller);
             tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.verificationMethodMap.type_);
             tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase);
+            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyBase58);
+            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.privateKeyBase58);
 
             tableHtmlRow += "<br />";
 
@@ -2250,10 +2252,6 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kty);
             tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kid);
 
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.privateKeyBase58);
             tableHtmlRow += "</td>";
 
             additionalDataAttributes +=
@@ -2376,9 +2374,11 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordTtl").val("");
 
     $("#divAddEditRecordData").show();
-    $("#lblAddEditRecordDataValue").text("IPv4 Address");
+    //$("#lblAddEditRecordDataValue").text("IPv4 Address");
+    $("#lblAddEditRecordDataValue").text("Subject DID Value");
+    $("#txtAddEditRecordDataValue").attr("disabled", true);
     $("#txtAddEditRecordDataValue").val("");
-    $("#divAddEditRecordDataPtr").show();
+    $("#divAddEditRecordDataPtr").hide();
     $("#chkAddEditRecordDataPtr").prop("checked", false);
     $("#chkAddEditRecordDataCreatePtrZone").prop('disabled', true);
     $("#chkAddEditRecordDataCreatePtrZone").prop("checked", false);
@@ -2704,7 +2704,6 @@ function modifyAddRecordFormByType(addMode) {
         case "DIDID":
             $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Subject DID Value");
-            $("#txtAddEditRecordDataValue").val("*AddRecord() will override this with the domain label value");
             $("#txtAddEditRecordDataValue").attr("disabled", true);
             $("#divAddEditRecordData").show();
             break;
