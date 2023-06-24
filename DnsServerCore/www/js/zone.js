@@ -2373,9 +2373,9 @@ function clearAddEditRecordForm() {
     $("#optAddEditRecordType").val("DIDID");
     $("#txtAddEditRecordTtl").val("");
 
-    $("#divAddEditRecordData").show();
+    $("#divAddEditRecordData").hide();
+    $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
     $("#lblAddEditRecordDataValue").text("Subject DID Value");
-    $("#txtAddEditRecordDataValue").attr("disabled", true);
     $("#txtAddEditRecordDataValue").val("");
     $("#divAddEditRecordDataPtr").hide();
     $("#chkAddEditRecordDataPtr").prop("checked", false);
@@ -2405,7 +2405,7 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordDataVMM_Jwk_kty").val("");
     $("#txtAddEditRecordDataVMM_Jwk_kid").val("");
 
-
+    // SM form
     $("#divAddEditRecordDataSM").hide();
     $("#txtAddEditRecordDataSM_Id").val("");
     $("#txtAddEditRecordDataSM_Type").val("");
@@ -2485,8 +2485,11 @@ function clearAddEditRecordForm() {
     $("#optAddEditRecordDataClassPath").attr('disabled', false);
     $("#txtAddEditRecordDataData").val("");
 
-    $("#divAddEditRecordOverwrite").show();
+    $("#divAddEditRecordOverwrite").hide();
     $("#chkAddEditRecordOverwrite").prop("checked", false);
+
+    $("#divAddEditRecordComments").hide();
+    $("#divAddEditRecordTtl").show();
 
     $("#txtAddEditRecordComments").val("");
 
@@ -2565,7 +2568,6 @@ function modifyAddRecordFormByType(addMode) {
 
     var type = $("#optAddEditRecordType").val();
 
-    $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
 
     $("#divAddEditRecordDataSM").hide();
     $("#divAddEditRecordDataVMM").hide();
@@ -2581,8 +2583,17 @@ function modifyAddRecordFormByType(addMode) {
     $("#divAddEditRecordDataCaa").hide();
     $("#divAddEditRecordDataForwarder").hide();
     $("#divAddEditRecordDataApplication").hide();
-    $("#txtAddEditRecordDataValue").attr("disabled", false);
+    $("#txtAddEditRecordDataValue").val("");
 
+    if (type.substring(0, 3) === "DID") {
+        $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
+        $("#divAddEditRecordOverwrite").hide();
+        $("#divAddEditRecordComments").hide();
+    } else {
+        $("#lblAddEditRecordNameOrSubjectDID").text("ID/Name");
+        $("#divAddEditRecordOverwrite").show();
+        $("#divAddEditRecordComments").show();
+    }
 
     switch (type) {
         case "A":
@@ -2722,38 +2733,33 @@ function modifyAddRecordFormByType(addMode) {
 
         // single string value did RR cases
         case "DIDID":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Subject DID Value");
-            $("#txtAddEditRecordDataValue").attr("disabled", true);
-            $("#divAddEditRecordData").show();
+            $("#txtAddEditRecordDataValue").val("");
+            $("#divAddEditRecordData").hide();
+
             break;
 
         case "DIDPURP":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Purpose");
             $("#divAddEditRecordData").show();
             break;
 
         case "DIDCOMM":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Comment");
             $("#divAddEditRecordData").show();
             break;
 
         case "DIDCTXT":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Context");
             $("#divAddEditRecordData").show();
             break;
 
         case "DIDAKA":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Also Known As");
             $("#divAddEditRecordData").show();
             break;
 
         case "DIDCTLR":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#lblAddEditRecordDataValue").text("Controller");
             $("#divAddEditRecordData").show();
             break;     
@@ -2765,18 +2771,18 @@ function modifyAddRecordFormByType(addMode) {
         case "DIDKA":
         case "DIDCI":
         case "DIDCD":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#divAddEditRecordDataVMM").show();
             break;
 
         case "DIDSVC":
         case "DIDREL":
-            $("#lblAddEditRecordNameOrSubjectDID").text("Subject DID*");
             $("#divAddEditRecordDataSM").show();
             break;
 
-
     }
+
+    
+
 }
 
 function addRecord() {
