@@ -2374,7 +2374,6 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordTtl").val("");
 
     $("#divAddEditRecordData").show();
-    //$("#lblAddEditRecordDataValue").text("IPv4 Address");
     $("#lblAddEditRecordDataValue").text("Subject DID Value");
     $("#txtAddEditRecordDataValue").attr("disabled", true);
     $("#txtAddEditRecordDataValue").val("");
@@ -2389,8 +2388,29 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordDataNsNameServer").val("");
     $("#txtAddEditRecordDataNsGlue").val("");
 
+    // VMM form
     $("#divAddEditRecordDataVMM").hide();
+    $("#txtAddEditRecordDataVMM_Id").val("");
+    $("#txtAddEditRecordDataVMM_Controller").val("");
+    $("#txtAddEditRecordDataVMM_Type").val("");
+    $("#txtAddEditRecordDataVMM_Comment").val("");
+    $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val("");
+    $("#txtAddEditRecordDataVMM_PublicKeyBase58").val("");
+    $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val("");
+    $("#txtAddEditRecordDataVMM_Jwk_crv").val("");
+    $("#txtAddEditRecordDataVMM_Jwk_e").val("");
+    $("#txtAddEditRecordDataVMM_Jwk_n").val("");
+    $("#txtAddEditRecordDataVMM_Jwk_x").val("");
+    $("#txtAddEditRecordDataVMM_Jwk_y").val("");
+    $("#txtAddEditRecordDataVMM_Jwk_kty").val("");
+    $("#txtAddEditRecordDataVMM_Jwk_kid").val("");
+
+
     $("#divAddEditRecordDataSM").hide();
+    $("#txtAddEditRecordDataSM_Id").val("");
+    $("#txtAddEditRecordDataSM_Type").val("");
+    $("#txtAddEditRecordDataSM_ServiceEndpoint").val("");
+    $("#txtAddEditRecordDataSM_Comment").val("");
 
     $("#divEditRecordDataSoa").hide();
     $("#txtEditRecordDataSoaPrimaryNameServer").prop("disabled", false);
