@@ -24,11 +24,11 @@
 
 	<ItemGroup>
 		<Reference Include="TechnitiumLibrary">
-		  <HintPath>..\..\..\TechnitiumLibrary\bin\TechnitiumLibrary.dll</HintPath>
+			<HintPath>..\..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="TechnitiumLibrary.Net">
-			<HintPath>..\..\..\TechnitiumLibrary\bin\TechnitiumLibrary.Net.dll</HintPath>
+			<HintPath>..\..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.Net.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 	</ItemGroup>
