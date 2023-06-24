@@ -24,19 +24,19 @@
 
 	<ItemGroup>
 		<Reference Include="TechnitiumLibrary">
-			<HintPath>..\..\..\TechnitiumLibrary\bin\TechnitiumLibrary.dll</HintPath>
+			<HintPath>..\..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="TechnitiumLibrary.IO">
-			<HintPath>..\..\..\TechnitiumLibrary\bin\TechnitiumLibrary.IO.dll</HintPath>
+			<HintPath>..\..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.IO.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="TechnitiumLibrary.Net">
-			<HintPath>..\..\..\TechnitiumLibrary\bin\TechnitiumLibrary.Net.dll</HintPath>
+			<HintPath>..\..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.Net.dll</HintPath>
 			<Private>false</Private>
 		</Reference>
 		<Reference Include="TechnitiumLibrary.Net.Mail">
-			<HintPath>..\..\..\TechnitiumLibrary\bin\TechnitiumLibrary.Net.Mail.dll</HintPath>
+			<HintPath>..\..\..\TechnitiumLibrary\releaselibs\TechnitiumLibrary.Net.Mail.dll</HintPath>
 			<Private>true</Private>
 		</Reference>
 	</ItemGroup>
