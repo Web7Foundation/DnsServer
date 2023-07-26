@@ -794,15 +794,16 @@
                                             <label for="optDnsClientType">Type</label>
                                             <select class="form-control" id="optDnsClientType" style="padding-left: 6px; padding-right: 0px;">
 
-                                                <optgroup label="DID - string value">
+                                                <optgroup label="DID - Single Value">
                                                     <option>DIDID</option>
                                                     <option>DIDPURP</option>
                                                     <option>DIDCOMM</option>
+                                                    <option>DIDSIG</option>
                                                     <option>DIDCTXT</option>
                                                     <option>DIDAKA</option>
                                                     <option>DIDCTLR</option>
                                                 </optgroup>
-                                                <optgroup label="DID - vmm">
+                                                <optgroup label="DID - Verification Method Map">
                                                     <option>DIDVM</option>
                                                     <option>DIDAUTH</option>
                                                     <option>DIDAM</option>
@@ -810,7 +811,7 @@
                                                     <option>DIDCI</option>
                                                     <option>DIDCD</option>
                                                 </optgroup>
-                                                <optgroup label="DID - sm">
+                                                <optgroup label="DID - Service Map">
                                                     <option>DIDSVC</option>
                                                     <option>DIDREL</option>
                                                 </optgroup>
@@ -3333,15 +3334,16 @@ ns1.example.com ([2001:db8::])
                                 <div class="col-sm-7">
                                     <select id="optAddEditRecordType" class="form-control" onchange="modifyAddRecordFormByType(true);" style="width: auto;">
 
-                                        <optgroup label="DID - string value">
+                                        <optgroup label="DID - Single Value">
                                             <option>DIDID</option>
                                             <option>DIDPURP</option>
                                             <option>DIDCOMM</option>
+                                            <option>DIDSIG</option>
                                             <option>DIDCTXT</option>
                                             <option>DIDAKA</option>
                                             <option>DIDCTLR</option>
                                         </optgroup>
-                                        <optgroup label="DID - vmm">
+                                        <optgroup label="DID - Verification Method Map">
                                             <option>DIDVM</option>
                                             <option>DIDAUTH</option>
                                             <option>DIDAM</option>
@@ -3349,7 +3351,7 @@ ns1.example.com ([2001:db8::])
                                             <option>DIDCI</option>
                                             <option>DIDCD</option>
                                         </optgroup>
-                                        <optgroup label="DID - sm">
+                                        <optgroup label="DID - Service Map">
                                             <option>DIDSVC</option>
                                             <option>DIDREL</option>
                                         </optgroup>
