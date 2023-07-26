@@ -667,6 +667,15 @@ namespace DnsServerCore
                     }
                     break;
 
+                case DnsResourceRecordType.DIDSIG:
+                    {
+                        if (record.RDATA is DnsDIDSIGRecordData rdata)
+                        {
+                            jsonWriter.WriteString("signature", rdata.Signature);
+                        }
+                    }
+                    break;
+
                 #endregion
 
                 #region verification method map DID RR types
@@ -2464,8 +2473,15 @@ namespace DnsServerCore
                         newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDCTLRRecordData(didController));
                     }
                     break;
-                #endregion
 
+                case DnsResourceRecordType.DIDSIG:
+                    {
+                        string didSigValue = request.GetQueryOrForm("signature", "value");
+                        newRecord = new DnsResourceRecord(domain, type, DnsClass.IN, ttl, new DnsDIDSIGRecordData(didSigValue));
+                    }
+                    break;
+                #endregion
+                     
                 #region verification method map RRs
 
                 case DnsResourceRecordType.DIDVM:
@@ -2531,6 +2547,7 @@ namespace DnsServerCore
                 case DnsResourceRecordType.DIDCTXT:
                 case DnsResourceRecordType.DIDAKA:
                 case DnsResourceRecordType.DIDCTLR:
+                case DnsResourceRecordType.DIDSIG:
                 case DnsResourceRecordType.DIDVM:
                 case DnsResourceRecordType.DIDAUTH:
                 case DnsResourceRecordType.DIDAM:
@@ -2873,6 +2890,13 @@ namespace DnsServerCore
                     {
                         string didController = request.GetQueryOrForm("controller", "value");
                         _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDCTLRRecordData(didController));
+                    }
+                    break;
+
+                case DnsResourceRecordType.DIDSIG:
+                    {
+                        string didSigValue = request.GetQueryOrForm("signature", "value");
+                        _dnsWebService.DnsServer.AuthZoneManager.DeleteRecord(zoneInfo.Name, domain, type, new DnsDIDSIGRecordData(didSigValue));
                     }
                     break;
 
@@ -3611,6 +3635,16 @@ namespace DnsServerCore
                     }
                     break;
 
+                case DnsResourceRecordType.DIDSIG:
+                    {
+                        string oldValue = request.GetQueryOrFormAlt("oldValue", "");
+                        string newValue = request.GetQueryOrFormAlt("newValue", "");
+
+                        oldRecord = new DnsResourceRecord(domain, type, DnsClass.IN, 0, new DnsDIDSIGRecordData(oldValue));
+                        newRecord = new DnsResourceRecord(newDomain, type, DnsClass.IN, ttl, new DnsDIDSIGRecordData(newValue));
+                    }
+                    break;
+
                 #endregion
 
                 #region verification method map RRs
@@ -3685,6 +3719,7 @@ namespace DnsServerCore
                 case DnsResourceRecordType.DIDCTXT:
                 case DnsResourceRecordType.DIDAKA:
                 case DnsResourceRecordType.DIDCTLR:
+                case DnsResourceRecordType.DIDSIG:
                 case DnsResourceRecordType.DIDVM:
                 case DnsResourceRecordType.DIDAUTH:
                 case DnsResourceRecordType.DIDAM:
