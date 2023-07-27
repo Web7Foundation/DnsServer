@@ -2226,6 +2226,11 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             additionalDataAttributes = "data-record-controller=\"" + htmlEncode(record.rData.controller) + "\" ";
             break;
 
+        case "DIDSIG":
+            tableHtmlRow += "<td style=\"word-break: break-all;\">" + "<b>Signature:</b> " + htmlEncode(record.rData.signature) + "</td>";
+            additionalDataAttributes = "data-record-signature=\"" + htmlEncode(record.rData.signature) + "\" ";
+            break;
+
         // verification method map DID RRs
         case "DIDVM":
         case "DIDAUTH":
@@ -2762,7 +2767,12 @@ function modifyAddRecordFormByType(addMode) {
         case "DIDCTLR":
             $("#lblAddEditRecordDataValue").text("Controller");
             $("#divAddEditRecordData").show();
-            break;     
+            break;
+
+        case "DIDSIG":
+            $("#lblAddEditRecordDataValue").text("Signature");
+            $("#divAddEditRecordData").show();
+            break;
 
         // verification method map DID RR cases
         case "DIDVM":
@@ -3230,6 +3240,23 @@ function addRecord() {
             apiUrl += "&controller=" + encodeURIComponent(value);
             break;
 
+        case "DIDSIG":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a Subject DID.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var value = $("#txtAddEditRecordDataValue").val();
+            if (value === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to add the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&signature=" + encodeURIComponent(value);
+            break;
+
         // verification method map DID RR cases - 3 required fields (id, controller, type)
         case "DIDVM":
         case "DIDAUTH":
@@ -3694,6 +3721,10 @@ function showEditRecordModal(objBtn) {
 
         case "DIDCTLR":
             $("#txtAddEditRecordDataValue").val(divData.attr("data-record-controller"));
+            break;
+
+        case "DIDSIG":
+            $("#txtAddEditRecordDataValue").val(divData.attr("data-record-signature"));
             break;
 
         // verification method map did RR cases
@@ -4306,6 +4337,25 @@ function updateRecord() {
                 + "&oldValue=" + encodeURIComponent(value);
             break;
 
+        case "DIDSIG":
+            if ($("#txtAddEditRecordNameOrSubjectDID").val() === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable Subject DID to update the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordNameOrSubjectDID").focus();
+                return;
+            }
+
+            var value = divData.attr("data-record-signature");
+            var newValue = $("#txtAddEditRecordDataValue").val();
+            if (newValue === "") {
+                showAlert("warning", "Missing!", "Please enter a suitable value to update the record.", divAddEditRecordAlert);
+                $("#txtAddEditRecordDataValue").focus();
+                return;
+            }
+
+            apiUrl += "&newValue=" + encodeURIComponent(newValue)
+                + "&oldValue=" + encodeURIComponent(value);
+            break;
+
         // verification method map DID RR cases - 3 required fields (id, controller, type)
         case "DIDVM":
         case "DIDAUTH":
@@ -4705,6 +4755,10 @@ function deleteRecord(objBtn) {
 
         case "DIDCTLR":
             apiUrl += "&controller=" + encodeURIComponent(divData.attr("data-record-controller"));
+            break;
+
+        case "DIDSIG":
+            apiUrl += "&signature=" + encodeURIComponent(divData.attr("data-record-signature"));
             break;
 
         // verification method map DID RR types
