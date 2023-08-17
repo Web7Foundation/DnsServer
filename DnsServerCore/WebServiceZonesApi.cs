@@ -36,6 +36,7 @@ using TechnitiumLibrary.Net;
 using TechnitiumLibrary.Net.Dns;
 using TechnitiumLibrary.Net.Dns.ResourceRecords;
 using TechnitiumLibrary.Net.Proxy;
+using static TechnitiumLibrary.Net.Dns.ResourceRecords.DIDCommComponents;
 
 namespace DnsServerCore
 {
@@ -2039,30 +2040,19 @@ namespace DnsServerCore
 
             DnsResourceRecord newRecord;
 
-            // rk - create verification method map if request contains vmm data
             VerificationMethodMap vmm = null;
             if (request.Query.ContainsKey("vmm_id"))
             {
                 vmm = new VerificationMethodMap()
                 {
-                    Id = request.GetQueryOrFormAlt("vmm_id", "id"),
-                    Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
-                    Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
+                    Id = request.GetQueryOrFormAlt("vmm_id", ""),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", ""),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", ""),
                     Comment = request.GetQueryOrForm("vmm_comment", ""),
-                    PublicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
-                    PublicKeyBase58 = request.GetQueryOrForm("vmm_publicKeyBase58", ""),
-                    PrivateKeyBase58 = request.GetQueryOrForm("vmm_privateKeyBase58", ""),
-
-                    PublicKeyJwk = new JSONKeyMap()
-                    {
-                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
-                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
-                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
-                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
-                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
-                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
-                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
-                    }
+                    keyPublicJsonWebKey = request.GetQueryOrForm("vmm_keyPublicJsonWebKey", ""),
+                    keyPublicJsonWebKeyString = request.GetQueryOrForm("vmm_keyPublicJsonWebKeyString", ""),
+                    publicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
+                    publicKeyJwk = request.GetQueryOrForm("vmm_publicKeyJwk", ""),
                 };
             }
 
@@ -2662,23 +2652,13 @@ namespace DnsServerCore
                 vmm = new VerificationMethodMap()
                 {
                     Id = request.GetQueryOrFormAlt("vmm_id", ""),
-                    Controller = request.GetQueryOrFormAlt("vmm_controller", "controller"),
-                    Type_ = request.GetQueryOrFormAlt("vmm_type", "type"),
+                    Controller = request.GetQueryOrFormAlt("vmm_controller", ""),
+                    Type_ = request.GetQueryOrFormAlt("vmm_type", ""),
                     Comment = request.GetQueryOrForm("vmm_comment", ""),
-                    PublicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
-                    PublicKeyBase58 = request.GetQueryOrForm("vmm_publicKeyBase58", ""),
-                    PrivateKeyBase58 = request.GetQueryOrForm("vmm_privateKeyBase58", ""),
-
-                    PublicKeyJwk = new JSONKeyMap()
-                    {
-                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
-                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
-                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
-                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
-                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
-                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
-                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
-                    }
+                    keyPublicJsonWebKey = request.GetQueryOrForm("vmm_keyPublicJsonWebKey", ""),
+                    keyPublicJsonWebKeyString = request.GetQueryOrForm("vmm_keyPublicJsonWebKeyString", ""),
+                    publicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
+                    publicKeyJwk = request.GetQueryOrForm("vmm_publicKeyJwk", ""),
                 };
             }
 
@@ -3004,7 +2984,6 @@ namespace DnsServerCore
             DnsResourceRecord oldRecord = null;
             DnsResourceRecord newRecord;
 
-            // rk - vmm query for vmm did requests
             VerificationMethodMap vmm = null;
             VerificationMethodMap newvmm = null;
             if (request.Query.ContainsKey("vmm_id"))
@@ -3015,20 +2994,10 @@ namespace DnsServerCore
                     Controller = request.GetQueryOrFormAlt("vmm_controller", ""),
                     Type_ = request.GetQueryOrFormAlt("vmm_type", ""),
                     Comment = request.GetQueryOrForm("vmm_comment", ""),
-                    PublicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
-                    PublicKeyBase58 = request.GetQueryOrForm("vmm_publicKeyBase58", ""),
-                    PrivateKeyBase58 = request.GetQueryOrForm("vmm_privateKeyBase58", ""),
-
-                    PublicKeyJwk = new JSONKeyMap()
-                    {
-                        crv = request.GetQueryOrForm("vmm_jwk_crv", ""),
-                        e = request.GetQueryOrForm("vmm_jwk_e", ""),
-                        n = request.GetQueryOrForm("vmm_jwk_n", ""),
-                        x = request.GetQueryOrForm("vmm_jwk_x", ""),
-                        y = request.GetQueryOrForm("vmm_jwk_y", ""),
-                        kty = request.GetQueryOrForm("vmm_jwk_kty", ""),
-                        kid = request.GetQueryOrForm("vmm_jwk_kid", ""),
-                    }
+                    keyPublicJsonWebKey = request.GetQueryOrForm("vmm_keyPublicJsonWebKey", ""),
+                    keyPublicJsonWebKeyString = request.GetQueryOrForm("vmm_keyPublicJsonWebKeyString", ""),
+                    publicKeyMultibase = request.GetQueryOrForm("vmm_publicKeyMultibase", ""),
+                    publicKeyJwk = request.GetQueryOrForm("vmm_publicKeyJwk", ""),
                 };
 
                 newvmm = new VerificationMethodMap()
@@ -3037,20 +3006,10 @@ namespace DnsServerCore
                     Controller = request.GetQueryOrFormAlt("new_vmm_controller", ""),
                     Type_ = request.GetQueryOrFormAlt("new_vmm_type", ""),
                     Comment = request.GetQueryOrForm("new_vmm_comment", ""),
-                    PublicKeyMultibase = request.GetQueryOrForm("new_vmm_publicKeyMultibase", ""),
-                    PublicKeyBase58 = request.GetQueryOrForm("new_vmm_publicKeyBase58", ""),
-                    PrivateKeyBase58 = request.GetQueryOrForm("new_vmm_privateKeyBase58", ""),
-
-                    PublicKeyJwk = new JSONKeyMap()
-                    {
-                        crv = request.GetQueryOrForm("new_vmm_jwk_crv", ""),
-                        e = request.GetQueryOrForm("new_vmm_jwk_e", ""),
-                        n = request.GetQueryOrForm("new_vmm_jwk_n", ""),
-                        x = request.GetQueryOrForm("new_vmm_jwk_x", ""),
-                        y = request.GetQueryOrForm("new_vmm_jwk_y", ""),
-                        kty = request.GetQueryOrForm("new_vmm_jwk_kty", ""),
-                        kid = request.GetQueryOrForm("new_vmm_jwk_kid", ""),
-                    }
+                    keyPublicJsonWebKey = request.GetQueryOrForm("new_vmm_keyPublicJsonWebKey", ""),
+                    keyPublicJsonWebKeyString = request.GetQueryOrForm("new_vmm_keyPublicJsonWebKeyString", ""),
+                    publicKeyMultibase = request.GetQueryOrForm("new_vmm_publicKeyMultibase", ""),
+                    publicKeyJwk = request.GetQueryOrForm("new_vmm_publicKeyJwk", ""),
                 };
             }
 

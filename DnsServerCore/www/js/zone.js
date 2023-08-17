@@ -2243,19 +2243,10 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.verificationMethodMap.controller);
             tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.verificationMethodMap.type_);
             tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase);
-            tableHtmlRow += "<br /><b>PublicKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyBase58);
-            tableHtmlRow += "<br /><b>PrivateKeyBase58:</b> " + htmlEncode(record.rData.verificationMethodMap.privateKeyBase58);
-
-            tableHtmlRow += "<br />";
-
-            tableHtmlRow += "<br /><b style=\"text-decoration: underline;\" >JSON Key Map</b>";
-            tableHtmlRow += "<br /><b>crv:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.crv);
-            tableHtmlRow += "<br /><b>e:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.e);
-            tableHtmlRow += "<br /><b>n:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.n);
-            tableHtmlRow += "<br /><b>x:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.x);
-            tableHtmlRow += "<br /><b>y:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.y);
-            tableHtmlRow += "<br /><b>kty:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kty);
-            tableHtmlRow += "<br /><b>kid:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kid);
+            tableHtmlRow += "<br /><b>keyPublicJsonWebKey:</b> " + htmlEncode(record.rData.verificationMethodMap.keyPublicJsonWebKey);
+            tableHtmlRow += "<br /><b>keyPublicJsonWebKeyString:</b> " + htmlEncode(record.rData.verificationMethodMap.keyPublicJsonWebKeyString);
+            tableHtmlRow += "<br /><b>publicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase);
+            tableHtmlRow += "<br /><b>publicKeyJwk:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk);
 
             tableHtmlRow += "</td>";
 
@@ -2264,17 +2255,11 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
                 "data-record-vmm_comment=\"" + htmlEncode(record.rData.verificationMethodMap.comment) + "\" " +
                 "data-record-vmm_controller=\"" + htmlEncode(record.rData.verificationMethodMap.controller) + "\" " +
                 "data-record-vmm_type=\"" + htmlEncode(record.rData.verificationMethodMap.type_) + "\" " +
+                "data-record-vmm_keyPublicJsonWebKey=\"" + htmlEncode(record.rData.verificationMethodMap.keyPublicJsonWebKey) + "\" " +
+                "data-record-vmm_keyPublicJsonWebKeyString=\"" + htmlEncode(record.rData.verificationMethodMap.keyPublicJsonWebKeyString) + "\" " +
                 "data-record-vmm_publicKeyMultibase=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase) + "\" " +
-                "data-record-vmm_publicKeyBase58=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyBase58) + "\" " +
-                "data-record-vmm_privateKeyBase58=\"" + htmlEncode(record.rData.verificationMethodMap.privateKeyBase58) + "\" " +
+                "data-record-vmm_publicKeyJwk=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk) + "\" ";
 
-                "data-record-vmm_jwk_crv=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.crv) + "\" " +
-                "data-record-vmm_jwk_e=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.e) + "\" " +
-                "data-record-vmm_jwk_n=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.n) + "\" " +
-                "data-record-vmm_jwk_x=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.x) + "\" " +
-                "data-record-vmm_jwk_y=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.y) + "\" " +
-                "data-record-vmm_jwk_kty=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kty) + "\" " +
-                "data-record-vmm_jwk_kid=\"" + htmlEncode(record.rData.verificationMethodMap.publicKeyJwk.kid) + "\" ";
             break;
 
         case "DIDSVC":
@@ -2399,16 +2384,10 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordDataVMM_Controller").val("");
     $("#txtAddEditRecordDataVMM_Type").val("");
     $("#txtAddEditRecordDataVMM_Comment").val("");
-    $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val("");
-    $("#txtAddEditRecordDataVMM_PublicKeyBase58").val("");
-    $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val("");
-    $("#txtAddEditRecordDataVMM_Jwk_crv").val("");
-    $("#txtAddEditRecordDataVMM_Jwk_e").val("");
-    $("#txtAddEditRecordDataVMM_Jwk_n").val("");
-    $("#txtAddEditRecordDataVMM_Jwk_x").val("");
-    $("#txtAddEditRecordDataVMM_Jwk_y").val("");
-    $("#txtAddEditRecordDataVMM_Jwk_kty").val("");
-    $("#txtAddEditRecordDataVMM_Jwk_kid").val("");
+    $("#txtAddEditRecordDataVMM_keyPublicJsonWebKey").val("");
+    $("#txtAddEditRecordDataVMM_keyPublicJsonWebKeyString").val("");
+    $("#txtAddEditRecordDataVMM_publicKeyMultibase").val("");
+    $("#txtAddEditRecordDataVMM_publicKeyJwk").val("");
 
     // SM form
     $("#divAddEditRecordDataSM").hide();
@@ -3295,31 +3274,20 @@ function addRecord() {
             }
 
             var comment = $("#txtAddEditRecordDataVMM_Comment").val();
-            var publicKeyMultibase = $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val();
-            var publicKeyBase58 = $("#txtAddEditRecordDataVMM_PublicKeyBase58").val();
-            var privateKeyBase58 = $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val();
-            var jwk_crv = $("#txtAddEditRecordDataVMM_Jwk_crv").val();
-            var jwk_e = $("#txtAddEditRecordDataVMM_Jwk_e").val();
-            var jwk_n = $("#txtAddEditRecordDataVMM_Jwk_n").val();
-            var jwk_x = $("#txtAddEditRecordDataVMM_Jwk_x").val();
-            var jwk_y = $("#txtAddEditRecordDataVMM_Jwk_y").val();
-            var jwk_kty = $("#txtAddEditRecordDataVMM_Jwk_kty").val();
-            var jwk_kid = $("#txtAddEditRecordDataVMM_Jwk_kid").val();
+            var keyPublicJsonWebKey = $("#txtAddEditRecordDataVMM_keyPublicJsonWebKey").val();
+            var keyPublicJsonWebKeyString = $("#txtAddEditRecordDataVMM_keyPublicJsonWebKeyString").val();
+            var publicKeyMultibase= $("#txtAddEditRecordDataVMM_publicKeyMultibase").val();
+            var publicKeyJwk= $("#txtAddEditRecordDataVMM_publicKeyJwk").val();
+           
 
             apiUrl += "&vmm_id=" + encodeURIComponent(id) +
             "&vmm_controller=" + encodeURIComponent(controller) +
             "&vmm_type=" + encodeURIComponent(type) +
             "&vmm_comment=" + encodeURIComponent(comment) +
+            "&vmm_keyPublicJsonWebKey=" + encodeURIComponent(keyPublicJsonWebKey) +
+            "&vmm_keyPublicJsonWebKeyString=" + encodeURIComponent(keyPublicJsonWebKeyString) +
             "&vmm_publicKeyMultibase=" + encodeURIComponent(publicKeyMultibase) +
-            "&vmm_publicKeyBase58=" + encodeURIComponent(publicKeyBase58) +
-            "&vmm_privateKeyBase58=" + encodeURIComponent(privateKeyBase58) +
-            "&vmm_jwk_crv=" + encodeURIComponent(jwk_crv) +
-            "&vmm_jwk_e=" + encodeURIComponent(jwk_e) +
-            "&vmm_jwk_n=" + encodeURIComponent(jwk_n) +
-            "&vmm_jwk_x=" + encodeURIComponent(jwk_x) +
-            "&vmm_jwk_y=" + encodeURIComponent(jwk_y) +
-            "&vmm_jwk_kty=" + encodeURIComponent(jwk_kty) +
-            "&vmm_jwk_kid=" + encodeURIComponent(jwk_kid);
+            "&vmm_publicKeyJwk=" + encodeURIComponent(publicKeyJwk);
 
             break;
 
@@ -3738,16 +3706,10 @@ function showEditRecordModal(objBtn) {
             $("#txtAddEditRecordDataVMM_Comment").val(divData.attr("data-record-vmm_comment"));
             $("#txtAddEditRecordDataVMM_Controller").val(divData.attr("data-record-vmm_controller"));
             $("#txtAddEditRecordDataVMM_Type").val(divData.attr("data-record-vmm_type"));
-            $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val(divData.attr("data-record-vmm_publicKeyMultibase"));
-            $("#txtAddEditRecordDataVMM_PublicKeyBase58").val(divData.attr("data-record-vmm_publicKeyBase58"));
-            $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val(divData.attr("data-record-vmm_privateKeyBase58"));
-            $("#txtAddEditRecordDataVMM_Jwk_crv").val(divData.attr("data-record-vmm_jwk_crv"));
-            $("#txtAddEditRecordDataVMM_Jwk_e").val(divData.attr("data-record-vmm_jwk_e"));
-            $("#txtAddEditRecordDataVMM_Jwk_n").val(divData.attr("data-record-vmm_jwk_n"));
-            $("#txtAddEditRecordDataVMM_Jwk_x").val(divData.attr("data-record-vmm_jwk_x"));
-            $("#txtAddEditRecordDataVMM_Jwk_y").val(divData.attr("data-record-vmm_jwk_y"));
-            $("#txtAddEditRecordDataVMM_Jwk_kty").val(divData.attr("data-record-vmm_jwk_kty"));
-            $("#txtAddEditRecordDataVMM_Jwk_kid").val(divData.attr("data-record-vmm_jwk_kid"));
+            $("#txtAddEditRecordDataVMM_keyPublicJsonWebKey").val(divData.attr("data-record-vmm_keyPublicJsonWebKey"));
+            $("#txtAddEditRecordDataVMM_keyPublicJsonWebKeyString").val(divData.attr("data-record-vmm_keyPublicJsonWebKeyString"));
+            $("#txtAddEditRecordDataVMM_publicKeyMultibase").val(divData.attr("data-record-vmm_publicKeyMultibase"));
+            $("#txtAddEditRecordDataVMM_publicKeyJwk").val(divData.attr("data-record-vmm_publicKeyJwk"));
             break;
 
         case "DIDSVC":
@@ -4394,62 +4356,39 @@ function updateRecord() {
             }
 
             var new_comment = $("#txtAddEditRecordDataVMM_Comment").val();
-            var new_publicKeyMultibase = $("#txtAddEditRecordDataVMM_PublicKeyMultibase").val();
-            var new_publicKeyBase58 = $("#txtAddEditRecordDataVMM_PublicKeyBase58").val();
-            var new_privateKeyBase58 = $("#txtAddEditRecordDataVMM_PrivateKeyBase58").val();
-            var new_jwk_crv = $("#txtAddEditRecordDataVMM_Jwk_crv").val();
-            var new_jwk_e = $("#txtAddEditRecordDataVMM_Jwk_e").val();
-            var new_jwk_n = $("#txtAddEditRecordDataVMM_Jwk_n").val();
-            var new_jwk_x = $("#txtAddEditRecordDataVMM_Jwk_x").val();
-            var new_jwk_y = $("#txtAddEditRecordDataVMM_Jwk_y").val();
-            var new_jwk_kty = $("#txtAddEditRecordDataVMM_Jwk_kty").val();
-            var new_jwk_kid = $("#txtAddEditRecordDataVMM_Jwk_kid").val();
+            var new_keyPublicJsonWebKey = $("#txtAddEditRecordDataVMM_keyPublicJsonWebKey").val();
+            var new_keyPublicJsonWebKeyString = $("#txtAddEditRecordDataVMM_keyPublicJsonWebKeyString").val();
+            var new_publicKeyMultibase = $("#txtAddEditRecordDataVMM_publicKeyMultibase").val();
+            var new_publicKeyJwk = $("#txtAddEditRecordDataVMM_publicKeyJwk").val();
+
 
             // old data
             var id = divData.attr("data-record-vmm_id");
             var controller = divData.attr("data-record-vmm_controller");
             var type = divData.attr("data-record-vmm_type");
             var comment = divData.attr("data-record-vmm_comment");
+            var keyPublicJsonWebKey = divData.attr("data-record-vmm_keyPublicJsonWebKey");
+            var keyPublicJsonWebKeyString = divData.attr("data-record-vmm_keyPublicJsonWebKeyString");
             var publicKeyMultibase = divData.attr("data-record-vmm_publicKeyMultibase");
-            var publicKeyBase58 = divData.attr("data-record-vmm_publicKeyBase58");
-            var privateKeyBase58 = divData.attr("data-record-vmm_privateKeyBase58");
-            var jwk_crv = divData.attr("data-record-vmm_jwk_crv");
-            var jwk_e = divData.attr("data-record-vmm_jwk_e");
-            var jwk_n = divData.attr("data-record-vmm_jwk_n");
-            var jwk_x = divData.attr("data-record-vmm_jwk_x");
-            var jwk_y = divData.attr("data-record-vmm_jwk_y");
-            var jwk_kty = divData.attr("data-record-vmm_jwk_kty");
-            var jwk_kid = divData.attr("data-record-vmm_jwk_kid");
+            var publicKeyJwk = divData.attr("data-record-vmm_publicKeyJwk");
 
             apiUrl += "&vmm_id=" + encodeURIComponent(id) +
                 "&vmm_controller=" + encodeURIComponent(controller) +
                 "&vmm_type=" + encodeURIComponent(type) +
                 "&vmm_comment=" + encodeURIComponent(comment) +
+                "&vmm_keyPublicJsonWebKey=" + encodeURIComponent(keyPublicJsonWebKey) +
+                "&vmm_keyPublicJsonWebKeyString=" + encodeURIComponent(keyPublicJsonWebKeyString) +
                 "&vmm_publicKeyMultibase=" + encodeURIComponent(publicKeyMultibase) +
-                "&vmm_publicKeyBase58=" + encodeURIComponent(publicKeyBase58) +
-                "&vmm_privateKeyBase58=" + encodeURIComponent(privateKeyBase58) +
-                "&vmm_jwk_crv=" + encodeURIComponent(jwk_crv) +
-                "&vmm_jwk_e=" + encodeURIComponent(jwk_e) +
-                "&vmm_jwk_n=" + encodeURIComponent(jwk_n) +
-                "&vmm_jwk_x=" + encodeURIComponent(jwk_x) +
-                "&vmm_jwk_y=" + encodeURIComponent(jwk_y) +
-                "&vmm_jwk_kty=" + encodeURIComponent(jwk_kty) +
-                "&vmm_jwk_kid=" + encodeURIComponent(jwk_kid) +
+                "&vmm_publicKeyJwk=" + encodeURIComponent(publicKeyJwk) +
 
                 "&new_vmm_id=" + encodeURIComponent(new_id) +
                 "&new_vmm_controller=" + encodeURIComponent(new_controller) +
                 "&new_vmm_type=" + encodeURIComponent(new_type) +
                 "&new_vmm_comment=" + encodeURIComponent(new_comment) +
-                "&new_vmm_publicKeyMultibase=" + encodeURIComponent(new_publicKeyMultibase) +
-                "&new_vmm_publicKeyBase58=" + encodeURIComponent(new_publicKeyBase58) +
-                "&new_vmm_privateKeyBase58=" + encodeURIComponent(new_privateKeyBase58) +
-                "&new_vmm_jwk_crv=" + encodeURIComponent(new_jwk_crv) +
-                "&new_vmm_jwk_e=" + encodeURIComponent(new_jwk_e) +
-                "&new_vmm_jwk_n=" + encodeURIComponent(new_jwk_n) +
-                "&new_vmm_jwk_x=" + encodeURIComponent(new_jwk_x) +
-                "&new_vmm_jwk_y=" + encodeURIComponent(new_jwk_y) +
-                "&new_vmm_jwk_kty=" + encodeURIComponent(new_jwk_kty) +
-                "&new_vmm_jwk_kid=" + encodeURIComponent(new_jwk_kid);
+                "&new_vmm_keyPublicJsonWebKey=" + encodeURIComponent(new_keyPublicJsonWebKey) +
+                "&new_vmm_keyPublicJsonWebKeyString=" + encodeURIComponent(new_keyPublicJsonWebKeyString);
+                "&new_vmm_publicKeyMultibase=" + encodeURIComponent(new_publicKeyMultibase);
+                "&new_vmm_publicKeyJwk=" + encodeURIComponent(new_publicKeyJwk);
 
             break;
 
@@ -4772,16 +4711,10 @@ function deleteRecord(objBtn) {
                 "&vmm_controller=" + encodeURIComponent(divData.attr("data-record-vmm_controller")) +
                 "&vmm_type=" + encodeURIComponent(divData.attr("data-record-vmm_type")) +
                 "&vmm_comment=" + encodeURIComponent(divData.attr("data-record-vmm_comment")) +
+                "&vmm_keyPublicJsonWebKey=" + encodeURIComponent(divData.attr("data-record-vmm_keyPublicJsonWebKey")) +
+                "&vmm_keyPublicJsonWebKeyString=" + encodeURIComponent(divData.attr("data-record-vmm_keyPublicJsonWebKeyString")) +
                 "&vmm_publicKeyMultibase=" + encodeURIComponent(divData.attr("data-record-vmm_publicKeyMultibase")) +
-                "&vmm_publicKeyBase58=" + encodeURIComponent(divData.attr("data-record-vmm_publicKeyBase58")) +
-                "&vmm_privateKeyBase58=" + encodeURIComponent(divData.attr("data-record-vmm_privateKeyBase58")) +
-                "&vmm_jwk_crv=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_crv")) +
-                "&vmm_jwk_e=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_e")) +
-                "&vmm_jwk_n=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_n")) +
-                "&vmm_jwk_x=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_x")) +
-                "&vmm_jwk_y=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_y")) +
-                "&vmm_jwk_kty=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_kty")) +
-                "&vmm_jwk_kid=" + encodeURIComponent(divData.attr("data-record-vmm_jwk_kid"));
+                "&vmm_publicKeyJwk=" + encodeURIComponent(divData.attr("data-record-vmm_publicKeyJwk"));
             break;
 
         case "DIDSVC":
