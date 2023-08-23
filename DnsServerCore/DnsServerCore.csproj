@@ -73,7 +73,8 @@
 		<None Remove="www\js\logs.js" />
 		<None Remove="www\js\main.js" />
 		<None Remove="www\js\moment.min.js" />
-		<None Remove="www\js\notationConversion.js" />
+		<None Remove="www\js\didcomm-json-helper.js" />
+		<None Remove="www\js\notation-conversion.js" />
 		<None Remove="www\js\other-zones.js" />
 		<None Remove="www\js\zone.js" />
 		<None Remove="www\robots.txt" />
@@ -206,7 +207,10 @@
 		<Content Include="www\js\moment.min.js">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="www\js\notationConversion.js">
+		<Content Include="www\js\didcomm-json-helper.js">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="www\js\notation-conversion.js">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="www\js\other-zones.js">
