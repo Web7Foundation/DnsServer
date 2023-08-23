@@ -2242,7 +2242,6 @@ function getZoneRecordRowHtml(index, zone, zoneType, record) {
             tableHtmlRow += "<br /><b>Comment:</b> " + htmlEncode(record.rData.verificationMethodMap.comment);
             tableHtmlRow += "<br /><b>Controller:</b> " + htmlEncode(record.rData.verificationMethodMap.controller);
             tableHtmlRow += "<br /><b>Type:</b> " + htmlEncode(record.rData.verificationMethodMap.type_);
-            tableHtmlRow += "<br /><b>PublicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase);
             tableHtmlRow += "<br /><b>keyPublicJsonWebKey:</b> " + htmlEncode(record.rData.verificationMethodMap.keyPublicJsonWebKey);
             tableHtmlRow += "<br /><b>keyPublicJsonWebKeyString:</b> " + htmlEncode(record.rData.verificationMethodMap.keyPublicJsonWebKeyString);
             tableHtmlRow += "<br /><b>publicKeyMultibase:</b> " + htmlEncode(record.rData.verificationMethodMap.publicKeyMultibase);
@@ -2388,6 +2387,7 @@ function clearAddEditRecordForm() {
     $("#txtAddEditRecordDataVMM_keyPublicJsonWebKeyString").val("");
     $("#txtAddEditRecordDataVMM_publicKeyMultibase").val("");
     $("#txtAddEditRecordDataVMM_publicKeyJwk").val("");
+    $("#VMM_formattedDataText").html("{}");
 
     // SM form
     $("#divAddEditRecordDataSM").hide();
@@ -3710,6 +3710,7 @@ function showEditRecordModal(objBtn) {
             $("#txtAddEditRecordDataVMM_keyPublicJsonWebKeyString").val(divData.attr("data-record-vmm_keyPublicJsonWebKeyString"));
             $("#txtAddEditRecordDataVMM_publicKeyMultibase").val(divData.attr("data-record-vmm_publicKeyMultibase"));
             $("#txtAddEditRecordDataVMM_publicKeyJwk").val(divData.attr("data-record-vmm_publicKeyJwk"));
+            parseVmmKeys();
             break;
 
         case "DIDSVC":
@@ -3733,9 +3734,9 @@ function showEditRecordModal(objBtn) {
 
     $("#modalAddEditRecord").modal("show");
 
-    setTimeout(function () {
-        $("#txtAddEditRecordNameOrSubjectDID").focus();
-    }, 1000);
+    // setTimeout(function () {
+    //     $("#txtAddEditRecordNameOrSubjectDID").focus();
+    // }, 1000);
 }
 
 function updateRecord() {
@@ -4386,8 +4387,8 @@ function updateRecord() {
                 "&new_vmm_type=" + encodeURIComponent(new_type) +
                 "&new_vmm_comment=" + encodeURIComponent(new_comment) +
                 "&new_vmm_keyPublicJsonWebKey=" + encodeURIComponent(new_keyPublicJsonWebKey) +
-                "&new_vmm_keyPublicJsonWebKeyString=" + encodeURIComponent(new_keyPublicJsonWebKeyString);
-                "&new_vmm_publicKeyMultibase=" + encodeURIComponent(new_publicKeyMultibase);
+                "&new_vmm_keyPublicJsonWebKeyString=" + encodeURIComponent(new_keyPublicJsonWebKeyString) +
+                "&new_vmm_publicKeyMultibase=" + encodeURIComponent(new_publicKeyMultibase) +
                 "&new_vmm_publicKeyJwk=" + encodeURIComponent(new_publicKeyJwk);
 
             break;
